@@ -1,0 +1,85 @@
+<mxfile host="Electron" agent="Copilot CLI" version="24.0.0">
+  <diagram id="c1-context-copilot" name="C1 - Contexto">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1700" pageHeight="1100" math="0" shadow="0" adaptiveColors="auto">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="title" value="GitHub Copilot &#8212; C4 Modelo &#183; Nivel 1: Contexto del Sistema" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;" vertex="1" parent="1">
+          <mxGeometry x="40" y="10" width="1620" height="36" as="geometry"/>
+        </mxCell>
+        <mxCell id="p_admin_cop" value="&lt;b&gt;Administrador de Copilot&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Persona]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Gestiona licencias, pol&#237;ticas y consulta m&#233;tricas en la consola de admin." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#08427B;strokeColor=#073B6F;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="80" width="220" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="p_dev" value="&lt;b&gt;Desarrollador&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Persona]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Escribe c&#243;digo asistido por Copilot (autocompletado, Chat, modo agente, modo plan) en VS&#160;Code y Copilot CLI." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#08427B;strokeColor=#073B6F;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="740" y="80" width="220" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="p_admin_sonar" value="&lt;b&gt;Administrador de SonarCloud&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Persona]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Genera el token administrador y opera el despliegue del MCP en AKS." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#08427B;strokeColor=#073B6F;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="1420" y="80" width="220" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="sys_copilot" value="&lt;b&gt;GitHub Copilot &#8212; uso corporativo&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Sistema en foco &#183; Copilot Business]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Asistencia de c&#243;digo basada en LLM consumida desde VS&#160;Code y Copilot CLI: autocompletado, Chat, modo agente y modo plan. Incluye consola de administraci&#243;n del Enterprise &lt;b&gt;tuyacol&lt;/b&gt; y el proxy de Copilot." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#1168BD;strokeColor=#0B4884;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=10;fontStyle=0;" vertex="1" parent="1">
+          <mxGeometry x="660" y="430" width="380" height="200" as="geometry"/>
+        </mxCell>
+        <mxCell id="sys_entra" value="&lt;b&gt;Microsoft Entra ID&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Sistema externo &#183; IdP corporativo]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Mantiene el grupo de seguridad sincronizado con Copilot para licenciamiento. Provee SAML SSO (configurado, no obligatorio)." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#6B6B6B;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="450" width="240" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="sys_ado" value="&lt;b&gt;Azure DevOps Repos&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Sistema externo &#183; Repositorios]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Hospeda el c&#243;digo fuente que los desarrolladores editan localmente con Copilot." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#6B6B6B;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="1400" y="450" width="240" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="sys_netskope" value="&lt;b&gt;Netskope&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Sistema externo &#183; SWG corporativo]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Aplica pol&#237;ticas de navegaci&#243;n y permite el grupo de URLs requeridas por Copilot y MCPs corporativos." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#6B6B6B;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="60" y="780" width="240" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="sys_llm" value="&lt;b&gt;Servicio de modelos LLM de Copilot&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Sistema externo &#183; Backend opaco]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Recibe prompts y devuelve completions a trav&#233;s del proxy oficial de GitHub Copilot." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#6B6B6B;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="720" y="780" width="260" height="160" as="geometry"/>
+        </mxCell>
+        <mxCell id="sys_mcp_platform" value="&lt;b&gt;Plataforma corporativa de MCPs&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Sistema externo interno &#183; APIM + AKS dev + ACR]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Expone MCP servers corporativos. Hoy aloja el SonarCloud MCP (imagen oficial &#183; ambiente de desarrollo) detr&#225;s de Azure API Management. Token admin de SonarCloud cargado como variable de entorno del deployment." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#6B6B6B;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="1140" y="780" width="280" height="180" as="geometry"/>
+        </mxCell>
+        <mxCell id="sys_sonar" value="&lt;b&gt;SonarCloud&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Sistema externo &#183; SaaS de calidad de c&#243;digo]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Provee m&#233;tricas e issues de los proyectos. Emite tokens de usuario y de administrador." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;strokeColor=#6B6B6B;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="1440" y="990" width="240" height="140" as="geometry"/>
+        </mxCell>
+        <mxCell id="note_local_mcp" value="&lt;b&gt;Nota:&lt;/b&gt; los MCPs &lt;u&gt;locales&lt;/u&gt; (p.&#160;ej. draw.io, futuros) corren en la m&#225;quina del desarrollador como procesos hijos del cliente Copilot (stdio). No salen a la red salvo que el propio MCP lo haga." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF4C2;strokeColor=#D6B656;fontColor=#333333;align=left;verticalAlign=middle;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="340" y="240" width="380" height="80" as="geometry"/>
+        </mxCell>
+        <mxCell id="note_governance" value="&lt;b&gt;Notas de gobierno:&lt;/b&gt;&lt;br&gt;&#8226; SSO con Entra ID configurado pero &lt;b&gt;no obligatorio&lt;/b&gt;.&lt;br&gt;&#8226; Sin Content Exclusions configuradas.&lt;br&gt;&#8226; Audit logs no exportados a SIEM.&lt;br&gt;&#8226; Gobierno de IA en definici&#243;n." style="rounded=0;whiteSpace=wrap;html=1;fillColor=#FFF4C2;strokeColor=#D6B656;fontColor=#333333;align=left;verticalAlign=top;spacingLeft=10;spacingRight=10;spacingTop=8;" vertex="1" parent="1">
+          <mxGeometry x="40" y="240" width="280" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend" value="&lt;b&gt;Leyenda&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#08427B&quot;&gt;&#9632;&lt;/font&gt; Persona&#160;&#160;&lt;font color=&quot;#1168BD&quot;&gt;&#9632;&lt;/font&gt; Sistema en foco&#160;&#160;&lt;font color=&quot;#999999&quot;&gt;&#9632;&lt;/font&gt; Sistema externo" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;" vertex="1" parent="1">
+          <mxGeometry x="1080" y="260" width="560" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_admin_cop" edge="1" parent="1" source="p_admin_cop" target="sys_copilot" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;" value="Gestiona licencias y consulta m&#233;tricas&#10;[HTTPS &#183; consola admin]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_entra_cop" edge="1" parent="1" source="sys_entra" target="sys_copilot" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;" value="Sincroniza grupo de seguridad para licenciamiento&#10;[SCIM] &#183; SAML SSO disponible (no enforced)">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_dev_cop" edge="1" parent="1" source="p_dev" target="sys_copilot" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeWidth=2;" value="Programa con asistencia&#10;(VS Code + extensi&#243;n &#183; Copilot CLI &#183; Chat &#183; Agente &#183; Plan)">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_dev_ado" edge="1" parent="1" source="p_dev" target="sys_ado" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;" value="Edita y commitea c&#243;digo&#10;[HTTPS / Git]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_cop_netskope" edge="1" parent="1" source="sys_copilot" target="sys_netskope" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;" value="Egress HTTPS &#10;(allowlist de URLs Copilot)">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_netskope_llm" edge="1" parent="1" source="sys_netskope" target="sys_llm" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;" value="Tr&#225;fico permitido hacia el proxy de Copilot&#10;[HTTPS]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_cop_mcp" edge="1" parent="1" source="sys_copilot" target="sys_mcp_platform" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;dashed=0;" value="Consume MCP corporativo (SonarCloud)&#10;[HTTPS &#183; APIM &#183; token de usuario]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_mcp_sonar" edge="1" parent="1" source="sys_mcp_platform" target="sys_sonar" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;" value="Consulta m&#233;tricas e issues&#10;[REST API + token admin]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_admin_sonar_sonar" edge="1" parent="1" source="p_admin_sonar" target="sys_sonar" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;" value="Genera tokens (admin / usuario)&#10;[HTTPS]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_admin_sonar_mcp" edge="1" parent="1" source="p_admin_sonar" target="sys_mcp_platform" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;dashed=1;" value="Despliega y configura el MCP en AKS&#10;[kubectl / pipeline]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_dev_entra" edge="1" parent="1" source="p_dev" target="sys_entra" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;dashed=1;" value="Autentica (opcional, SSO no enforced)&#10;[SAML]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
