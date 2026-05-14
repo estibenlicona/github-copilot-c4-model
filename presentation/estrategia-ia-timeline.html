@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Estrategia IA Tuya - Evolución por Sprints</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        :root {
+            --achieved: #10b981;
+            --achieved-glow: rgba(16, 185, 129, 0.3);
+            --expected: #3b82f6;
+            --expected-glow: rgba(59, 130, 246, 0.3);
+            --progress: #f59e0b;
+            --bg-dark: #0d1117;
+            --bg-card: #161b22;
+            --bg-hover: #21262d;
+            --text-primary: #f0f6fc;
+            --text-secondary: #8b949e;
+            --border: #30363d;
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text-primary);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Header */
+        .header {
+            padding: 40px 60px 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border);
+            background: linear-gradient(180deg, var(--bg-card) 0%, var(--bg-dark) 100%);
+        }
+
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            background: linear-gradient(135deg, var(--achieved), var(--expected));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        .header p {
+            color: var(--text-secondary);
+            font-size: 1.1rem;
+        }
+
+        /* Legend */
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 0.9rem;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .legend-dot.achieved { background: var(--achieved); box-shadow: 0 0 10px var(--achieved-glow); }
+        .legend-dot.progress { background: var(--progress); }
+        .legend-dot.expected { background: var(--expected); }
+
+        /* Timeline Container */
+        .timeline-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 60px 100px;
+            position: relative;
+        }
+
+        /* Timeline Line */
+        .timeline-line {
+            position: absolute;
+            top: 120px;
+            left: 60px;
+            right: 60px;
+            height: 6px;
+            background: linear-gradient(90deg, 
+                var(--achieved) 0%, 
+                var(--achieved) 25%, 
+                var(--progress) 25%, 
+                var(--progress) 35%,
+                var(--expected) 35%, 
+                var(--expected) 100%
+            );
+            border-radius: 3px;
+            z-index: 1;
+        }
+
+        .timeline-line::before {
+            content: '';
+            position: absolute;
+            left: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 35%;
+            height: 100%;
+            background: var(--achieved);
+            border-radius: 3px;
+            box-shadow: 0 0 20px var(--achieved-glow);
+        }
+
+        /* Now Marker */
+        .now-marker {
+            position: absolute;
+            top: 95px;
+            left: 33%;
+            transform: translateX(-50%);
+            z-index: 10;
+            text-align: center;
+        }
+
+        .now-marker .marker-line {
+            width: 3px;
+            height: 60px;
+            background: var(--text-primary);
+            margin: 0 auto;
+        }
+
+        .now-marker .marker-label {
+            background: var(--text-primary);
+            color: var(--bg-dark);
+            padding: 6px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.85rem;
+            margin-top: 5px;
+        }
+
+        /* Sprints Grid */
+        .sprints-grid {
+            display: grid;
+            grid-template-columns: repeat(6, 1fr);
+            gap: 20px;
+            position: relative;
+            z-index: 5;
+            margin-top: 80px;
+        }
+
+        /* Sprint Card */
+        .sprint-card {
+            background: var(--bg-card);
+            border-radius: 16px;
+            padding: 25px 20px;
+            border: 1px solid var(--border);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .sprint-card:hover {
+            transform: translateY(-5px);
+            border-color: var(--text-secondary);
+        }
+
+        .sprint-card.achieved {
+            border-top: 4px solid var(--achieved);
+        }
+
+        .sprint-card.progress {
+            border-top: 4px solid var(--progress);
+        }
+
+        .sprint-card.expected {
+            border-top: 4px solid var(--expected);
+        }
+
+        /* Sprint Node */
+        .sprint-node {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: -50px auto 20px;
+            font-weight: 800;
+            font-size: 1.1rem;
+            border: 4px solid var(--bg-dark);
+            position: relative;
+            z-index: 10;
+        }
+
+        .achieved .sprint-node {
+            background: var(--achieved);
+            box-shadow: 0 0 20px var(--achieved-glow);
+        }
+
+        .progress .sprint-node {
+            background: var(--progress);
+            animation: pulse 2s infinite;
+        }
+
+        .expected .sprint-node {
+            background: var(--expected);
+        }
+
+        @keyframes pulse {
+            0%, 100% { box-shadow: 0 0 0 0 rgba(245, 158, 11, 0.4); }
+            50% { box-shadow: 0 0 0 15px rgba(245, 158, 11, 0); }
+        }
+
+        /* Sprint Content */
+        .sprint-status {
+            text-align: center;
+            margin-bottom: 15px;
+        }
+
+        .status-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .achieved .status-badge {
+            background: rgba(16, 185, 129, 0.15);
+            color: var(--achieved);
+        }
+
+        .progress .status-badge {
+            background: rgba(245, 158, 11, 0.15);
+            color: var(--progress);
+        }
+
+        .expected .status-badge {
+            background: rgba(59, 130, 246, 0.15);
+            color: var(--expected);
+        }
+
+        .sprint-items {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .sprint-item {
+            background: var(--bg-hover);
+            padding: 15px;
+            border-radius: 10px;
+            border-left: 3px solid transparent;
+        }
+
+        .achieved .sprint-item { border-left-color: var(--achieved); }
+        .progress .sprint-item { border-left-color: var(--progress); }
+        .expected .sprint-item { border-left-color: var(--expected); }
+
+        .item-icon {
+            font-size: 1.5rem;
+            margin-bottom: 8px;
+        }
+
+        .achieved .item-icon { color: var(--achieved); }
+        .progress .item-icon { color: var(--progress); }
+        .expected .item-icon { color: var(--expected); }
+
+        .item-title {
+            font-weight: 600;
+            font-size: 0.9rem;
+            margin-bottom: 5px;
+        }
+
+        .item-metric {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .item-metric strong {
+            color: var(--achieved);
+            font-size: 1.1rem;
+        }
+
+        .expected .item-metric strong {
+            color: var(--expected);
+        }
+
+        /* Summary Footer */
+        .summary-footer {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 60px;
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 30px;
+            border-top: 1px solid var(--border);
+        }
+
+        .summary-box {
+            background: var(--bg-card);
+            padding: 25px;
+            border-radius: 12px;
+            text-align: center;
+            border: 1px solid var(--border);
+        }
+
+        .summary-box.achieved-box { border-top: 3px solid var(--achieved); }
+        .summary-box.expected-box { border-top: 3px solid var(--expected); }
+        .summary-box.investment-box { border-top: 3px solid #8b5cf6; }
+
+        .summary-box h3 {
+            font-size: 0.85rem;
+            color: var(--text-secondary);
+            margin-bottom: 15px;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .summary-stats {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+
+        .summary-stat {
+            text-align: center;
+        }
+
+        .summary-stat .value {
+            font-size: 2rem;
+            font-weight: 800;
+        }
+
+        .achieved-box .value { color: var(--achieved); }
+        .expected-box .value { color: var(--expected); }
+        .investment-box .value { color: #8b5cf6; }
+
+        .summary-stat .label {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 5px;
+        }
+
+        /* Responsive */
+        @media (max-width: 1200px) {
+            .sprints-grid {
+                grid-template-columns: repeat(3, 1fr);
+            }
+            .timeline-line { display: none; }
+            .now-marker { display: none; }
+            .sprint-node { margin-top: 0; }
+        }
+
+        @media (max-width: 768px) {
+            .sprints-grid {
+                grid-template-columns: 1fr;
+            }
+            .summary-footer {
+                grid-template-columns: 1fr;
+            }
+            .header { padding: 30px 20px 15px; }
+            .header h1 { font-size: 1.8rem; }
+            .timeline-container { padding: 20px; }
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1><i class="fas fa-bolt"></i> Estrategia de Innovación con IA</h1>
+        <p>Tecnología · Arquitectura de Soluciones · 2025</p>
+    </header>
+
+    <div class="legend">
+        <div class="legend-item">
+            <div class="legend-dot achieved"></div>
+            <span>Logrado</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-dot progress"></div>
+            <span>En Progreso</span>
+        </div>
+        <div class="legend-item">
+            <div class="legend-dot expected"></div>
+            <span>Esperado</span>
+        </div>
+    </div>
+
+    <div class="timeline-container">
+        <div class="timeline-line"></div>
+        <div class="now-marker">
+            <div class="marker-line"></div>
+            <div class="marker-label">HOY</div>
+        </div>
+
+        <div class="sprints-grid">
+            <!-- Sprint 1 -->
+            <div class="sprint-card achieved">
+                <div class="sprint-node">S1</div>
+                <div class="sprint-status">
+                    <span class="status-badge"><i class="fas fa-check-circle"></i> Completado</span>
+                </div>
+                <div class="sprint-items">
+                    <div class="sprint-item">
+                        <div class="item-icon"><i class="fab fa-github"></i></div>
+                        <div class="item-title">Migración APIs .NET</div>
+                        <div class="item-metric">Reducción: <strong>50%</strong></div>
+                    </div>
+                    <div class="sprint-item">
+                        <div class="item-icon"><i class="fas fa-users-cog"></i></div>
+                        <div class="item-title">Super Experts - Atención</div>
+                        <div class="item-metric">Equipo <strong>operativo</strong></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sprint 2 -->
+            <div class="sprint-card progress">
+                <div class="sprint-node">S2</div>
+                <div class="sprint-status">
+                    <span class="status-badge"><i class="fas fa-spinner fa-spin"></i> En Progreso</span>
+                </div>
+                <div class="sprint-items">
+                    <div class="sprint-item">
+                        <div class="item-icon"><i class="fas fa-lightbulb"></i></div>
+                        <div class="item-title">Super Experts - Innovación</div>
+                        <div class="item-metric">Impulsores de <strong>nuevas prácticas</strong></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sprint 3 -->
+            <div class="sprint-card expected">
+                <div class="sprint-node">S3</div>
+                <div class="sprint-status">
+                    <span class="status-badge"><i class="fas fa-bullseye"></i> Planeado</span>
+                </div>
+                <div class="sprint-items">
+                    <div class="sprint-item">
+                        <div class="item-icon"><i class="fas fa-sitemap"></i></div>
+                        <div class="item-title">Documentación Arquitecturas</div>
+                        <div class="item-metric">Diagramas <strong>C4 Model</strong></div>
+                    </div>
+                    <div class="sprint-item">
+                        <div class="item-icon"><i class="fas fa-book"></i></div>
+                        <div class="item-title">Documentación Apps</div>
+                        <div class="item-metric">Wiki <strong>estandarizada</strong></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sprint 4 -->
+            <div class="sprint-card expected">
+                <div class="sprint-node">S4</div>
+                <div class="sprint-status">
+                    <span class="status-badge"><i class="fas fa-bullseye"></i> Planeado</span>
+                </div>
+                <div class="sprint-items">
+                    <div class="sprint-item">
+                        <div class="item-icon"><i class="fas fa-code"></i></div>
+                        <div class="item-title">Generación Código Nuevo</div>
+                        <div class="item-metric">Meta: <strong>50%</strong> reducción</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sprint 5 -->
+            <div class="sprint-card expected">
+                <div class="sprint-node">S5</div>
+                <div class="sprint-status">
+                    <span class="status-badge"><i class="fas fa-bullseye"></i> Planeado</span>
+                </div>
+                <div class="sprint-items">
+                    <div class="sprint-item">
+                        <div class="item-icon"><i class="fas fa-comments"></i></div>
+                        <div class="item-title">Chat IA + Wiki</div>
+                        <div class="item-metric">Asistente <strong>24/7</strong></div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sprint 6 -->
+            <div class="sprint-card expected">
+                <div class="sprint-node">S6</div>
+                <div class="sprint-status">
+                    <span class="status-badge"><i class="fas fa-bullseye"></i> Planeado</span>
+                </div>
+                <div class="sprint-items">
+                    <div class="sprint-item">
+                        <div class="item-icon"><i class="fas fa-recycle"></i></div>
+                        <div class="item-title">Reducción Deuda Técnica</div>
+                        <div class="item-metric">Meta: <strong>50%</strong> reducción</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <footer class="summary-footer">
+        <div class="summary-box achieved-box">
+            <h3><i class="fas fa-trophy"></i> Lo que hemos logrado</h3>
+            <div class="summary-stats">
+                <div class="summary-stat">
+                    <div class="value">50%</div>
+                    <div class="label">Reducción tiempos APIs</div>
+                </div>
+                <div class="summary-stat">
+                    <div class="value">11</div>
+                    <div class="label">Devs capacitados</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="summary-box expected-box">
+            <h3><i class="fas fa-rocket"></i> Lo que esperamos lograr</h3>
+            <div class="summary-stats">
+                <div class="summary-stat">
+                    <div class="value">50%</div>
+                    <div class="label">Código nuevo (S4)</div>
+                </div>
+                <div class="summary-stat">
+                    <div class="value">50%</div>
+                    <div class="label">Deuda técnica (S6)</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="summary-box investment-box">
+            <h3><i class="fas fa-chart-pie"></i> Inversión GitHub Copilot</h3>
+            <div class="summary-stats">
+                <div class="summary-stat">
+                    <div class="value">40</div>
+                    <div class="label">Licencias</div>
+                </div>
+                <div class="summary-stat">
+                    <div class="value">$760</div>
+                    <div class="label">USD/mes</div>
+                </div>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

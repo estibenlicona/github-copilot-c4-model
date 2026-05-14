@@ -1,0 +1,620 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Copilot — Diagrama de Contexto (C1)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Helvetica Neue', Arial, sans-serif;
+            background: #F5F5F5;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: flex-start;
+            padding: 20px;
+        }
+
+        .diagram-container {
+            position: relative;
+            width: 1200px;
+            height: 750px;
+            background: #F5F5F5;
+        }
+
+        .diagram-title {
+            text-align: center;
+            padding: 15px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #333333;
+        }
+
+        .canvas {
+            position: relative;
+            width: 100%;
+            height: calc(100% - 50px);
+        }
+
+        /* SVG para conexiones */
+        .connections-layer {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 1;
+        }
+
+        /* Elementos del diagrama */
+        .element {
+            position: absolute;
+            z-index: 10;
+            text-align: center;
+        }
+
+        /* Personas - Rectángulo con círculo entrelazado (mismo color) */
+        .person {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .person-shape {
+            background: #6B6B6B;
+            border: 1px solid #555555;
+            border-radius: 12px;
+            min-width: 180px;
+            padding: 45px 15px 18px 15px;
+            position: relative;
+            margin-top: 30px;
+        }
+
+        .person-head {
+            width: 55px;
+            height: 55px;
+            background: #6B6B6B;
+            border: 1px solid #555555;
+            border-radius: 50%;
+            position: absolute;
+            top: -28px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .person-label {
+            text-align: center;
+        }
+
+        .person-label .name {
+            font-weight: 700;
+            color: #FFFFFF;
+            font-size: 14px;
+        }
+
+        .person-label .type {
+            font-size: 11px;
+            color: #DDDDDD;
+            margin: 4px 0;
+        }
+
+        .person-label .desc {
+            font-size: 11px;
+            color: #FFFFFF;
+            margin-top: 8px;
+            line-height: 1.4;
+        }
+
+        /* Sistema Principal - Azul oscuro Tuya exacto */
+        .system-main {
+            background: #1E4D8C;
+            border: 1px solid #163A6B;
+            color: #FFFFFF;
+            padding: 14px 20px;
+            border-radius: 8px;
+            min-width: 240px;
+        }
+
+        .system-main .name {
+            font-weight: 700;
+            font-size: 14px;
+            margin-bottom: 3px;
+        }
+
+        .system-main .type {
+            font-size: 10px;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+
+        .system-main .desc {
+            font-size: 11px;
+            opacity: 0.95;
+            line-height: 1.4;
+        }
+
+        /* Sistemas Externos - Gris Tuya con bordes muy redondeados */
+        .system-external {
+            background: #6B6B6B;
+            border: 1px solid #555555;
+            color: #FFFFFF;
+            padding: 10px 14px;
+            border-radius: 18px;
+            min-width: 140px;
+        }
+
+        .system-external .name {
+            font-weight: 700;
+            font-size: 12px;
+            margin-bottom: 2px;
+        }
+
+        .system-external .type {
+            font-size: 9px;
+            opacity: 0.85;
+            margin-bottom: 6px;
+        }
+
+        .system-external .desc {
+            font-size: 10px;
+            opacity: 0.9;
+        }
+
+        /* Etiquetas de conexión - Estilo draw.io */
+        .connection-label {
+            position: absolute;
+            background: #F5F5F5;
+            padding: 2px 6px;
+            font-size: 10px;
+            color: #333333;
+            white-space: nowrap;
+            z-index: 5;
+        }
+
+        /* Leyenda - Estilo draw.io */
+        .legend {
+            position: absolute;
+            bottom: 15px;
+            left: 15px;
+            background: transparent;
+            padding: 8px;
+            z-index: 20;
+            font-size: 11px;
+            color: #333333;
+        }
+
+        .legend-title {
+            font-weight: 700;
+            font-size: 11px;
+            color: #333333;
+            margin-bottom: 6px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin: 4px 0;
+            font-size: 10px;
+            color: #333333;
+        }
+
+        .legend-person {
+            width: 18px;
+            height: 18px;
+            margin-right: 6px;
+            position: relative;
+        }
+
+        .legend-person .head {
+            width: 8px;
+            height: 8px;
+            background: #6B6B6B;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .legend-person .body {
+            width: 14px;
+            height: 9px;
+            background: #6B6B6B;
+            border-radius: 7px 7px 3px 3px;
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+
+        .legend-box {
+            width: 18px;
+            height: 12px;
+            margin-right: 6px;
+        }
+
+        /* Líneas de conexión - DISCONTINUAS como en draw.io */
+        .connection-line {
+            stroke: #707070;
+            stroke-width: 1.5;
+            fill: none;
+            stroke-dasharray: 8, 4;
+        }
+
+        .connection-arrow {
+            fill: #707070;
+        }
+    </style>
+</head>
+<body>
+    <div class="diagram-container">
+        <div class="diagram-title">GitHub Copilot — Diagrama de Contexto (C1)</div>
+        
+        <div class="canvas">
+            <!-- SVG para conexiones -->
+            <svg class="connections-layer" id="connections">
+                <defs>
+                    <marker id="arrowhead" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                        <polygon points="0 0, 8 3, 0 6" class="connection-arrow"/>
+                    </marker>
+                </defs>
+            </svg>
+
+            <!-- Personas - Rectángulo con círculo entrelazado -->
+            <div class="element person" id="admin" style="left: 80px; top: 70px;">
+                <div class="person-shape">
+                    <div class="person-head"></div>
+                    <div class="person-label">
+                        <div class="name">Administrador</div>
+                        <div class="type">[Person]</div>
+                        <div class="desc">Gestiona licencias y<br>políticas de uso</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="element person" id="dev" style="left: 480px; top: 70px;">
+                <div class="person-shape">
+                    <div class="person-head"></div>
+                    <div class="person-label">
+                        <div class="name">Desarrollador</div>
+                        <div class="type">[Person]</div>
+                        <div class="desc">Usa Copilot para<br>codificar y consultas</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Sistema Principal -->
+            <div class="element system-main" id="copilot" style="left: 420px; top: 290px;">
+                <div class="name">GitHub Copilot</div>
+                <div class="type">[Software System]</div>
+                <div class="desc">Asistencia de código con IA<br>generativa para equipos de desarrollo</div>
+            </div>
+
+            <!-- Sistemas Externos -->
+            <div class="element system-external" id="entra" style="left: 60px; top: 310px;">
+                <div class="name">Microsoft Entra ID</div>
+                <div class="type">[External System]</div>
+                <div class="desc">Gestión de identidad</div>
+            </div>
+
+            <div class="element system-external" id="repos" style="left: 920px; top: 80px;">
+                <div class="name">Repositorios</div>
+                <div class="type">[External System]</div>
+                <div class="desc">GitHub / Azure DevOps</div>
+            </div>
+
+            <div class="element system-external" id="ide" style="left: 920px; top: 310px;">
+                <div class="name">IDEs</div>
+                <div class="type">[External System]</div>
+                <div class="desc">VS Code, JetBrains, CLI</div>
+            </div>
+
+            <div class="element system-external" id="llm" style="left: 320px; top: 500px;">
+                <div class="name">Modelos LLM</div>
+                <div class="type">[External System]</div>
+                <div class="desc">OpenAI / Anthropic</div>
+            </div>
+
+            <div class="element system-external" id="mcp" style="left: 560px; top: 500px;">
+                <div class="name">Herramientas MCP</div>
+                <div class="type">[External System]</div>
+                <div class="desc">Extensiones locales</div>
+            </div>
+
+            <!-- Etiquetas de conexión -->
+            <div class="connection-label" id="lbl-admin" style="left: 260px; top: 225px;">Gestión de licencias</div>
+            <div class="connection-label" id="lbl-dev" style="left: 530px; top: 225px;">Asistencia de código</div>
+            <div class="connection-label" id="lbl-repos-dev" style="left: 730px; top: 98px;">Código fuente</div>
+            <div class="connection-label" id="lbl-entra" style="left: 280px; top: 338px;">Identidad [OAuth]</div>
+            <div class="connection-label" id="lbl-ide" style="left: 780px; top: 338px;">Extensiones</div>
+            <div class="connection-label" id="lbl-repos" style="left: 780px; top: 225px;">Contexto [API]</div>
+            <div class="connection-label" id="lbl-llm" style="left: 395px; top: 448px;">Prompts [API]</div>
+            <div class="connection-label" id="lbl-mcp" style="left: 600px; top: 448px;">Herramientas [MCP]</div>
+
+            <!-- Leyenda -->
+            <div class="legend">
+                <div class="legend-title">Leyenda</div>
+                <div class="legend-item">
+                    <div class="legend-person">
+                        <div class="head"></div>
+                        <div class="body"></div>
+                    </div>
+                    Persona (silueta)
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background: #1E4D8C; border-radius: 3px;"></div>
+                    Sistema principal
+                </div>
+                <div class="legend-item">
+                    <div class="legend-box" style="background: #6B6B6B; border-radius: 8px;"></div>
+                    Sistema externo
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <button style="position:fixed;top:20px;right:20px;z-index:1000;padding:8px 18px;font-size:15px;cursor:pointer;" onclick="findConnectionLabelOverlaps({minLabelOverlap:0.1,samplePoints:5})">Test Overlaps</button>
+    <script>
+// findConnectionLabelOverlaps.js
+(function () {
+  // --- Config / exposición ---
+  const DEFAULTS = {
+    labelSelector: '.connection-label',
+    targetSelector: '.element.person',
+    minLabelOverlap: 0.05,    // fracción del área del label que debe estar solapada para reportar (0..1)
+    confirmVisual: true,      // usar elementsFromPoint para ver quién está arriba en la intersección
+    samplePoints: 5,          // grid NxN de muestreo en la intersección
+    highlight: true,          // resaltar elementos detectados
+    highlightLabelClass: '__overlap_highlight_label',
+    highlightPersonClass: '__overlap_highlight_person'
+  };
+
+  function getVisibleElements(selector, root = document) {
+    return Array.from(root.querySelectorAll(selector)).filter(el => {
+      const s = getComputedStyle(el);
+      if (s.display === 'none' || s.visibility === 'hidden' || parseFloat(s.opacity) === 0) return false;
+      const r = el.getBoundingClientRect();
+      return r.width > 0 && r.height > 0;
+    });
+  }
+
+  function rectIntersection(r1, r2) {
+    const left = Math.max(r1.left, r2.left);
+    const right = Math.min(r1.right, r2.right);
+    const top = Math.max(r1.top, r2.top);
+    const bottom = Math.min(r1.bottom, r2.bottom);
+    if (right <= left || bottom <= top) return null;
+    const w = right - left, h = bottom - top;
+    return { left, top, right, bottom, width: w, height: h, area: w * h };
+  }
+
+  function areaOfRect(r) {
+    return Math.max(0, r.width) * Math.max(0, r.height);
+  }
+
+  function visualCoverCheck(labelEl, personEl, intersection, samplePoints) {
+    const sx = intersection.width / samplePoints;
+    const sy = intersection.height / samplePoints;
+    let labelWins = 0, personWins = 0, otherWins = 0, total = 0;
+    const points = [];
+
+    for (let i = 0; i < samplePoints; i++) {
+      for (let j = 0; j < samplePoints; j++) {
+        const x = intersection.left + (i + 0.5) * sx;
+        const y = intersection.top + (j + 0.5) * sy;
+        // ignorar puntos fuera del viewport
+        if (x < 0 || y < 0 || x > window.innerWidth || y > window.innerHeight) continue;
+        total++;
+        const top = document.elementsFromPoint(x, y)[0];
+        if (top === labelEl || labelEl.contains(top)) labelWins++;
+        else if (top === personEl || personEl.contains(top)) personWins++;
+        else otherWins++;
+        points.push({ x, y, top });
+      }
+    }
+
+    // decidir resultado dominante
+    let dominant = 'other';
+    if (total === 0) dominant = 'none';
+    else if (labelWins > personWins && labelWins > otherWins) dominant = 'label';
+    else if (personWins > labelWins && personWins > otherWins) dominant = 'person';
+    else if (labelWins === personWins && labelWins > otherWins) dominant = 'mixed-label-person';
+    else dominant = 'mixed-or-other';
+
+    return { labelWins, personWins, otherWins, total, dominant, points };
+  }
+
+  function ensureStyles() {
+    if (document.getElementById('__overlap_highlight_styles')) return;
+    const style = document.createElement('style');
+    style.id = '__overlap_highlight_styles';
+    style.textContent = `
+      .${DEFAULTS.highlightLabelClass} { outline: 3px dashed rgba(255,0,0,0.95) !important; }
+      .${DEFAULTS.highlightPersonClass} { outline: 3px dashed rgba(255,165,0,0.95) !important; }
+    `;
+    document.head.appendChild(style);
+  }
+
+  function clearHighlights() {
+    document.querySelectorAll('.' + DEFAULTS.highlightLabelClass).forEach(el => el.classList.remove(DEFAULTS.highlightLabelClass));
+    document.querySelectorAll('.' + DEFAULTS.highlightPersonClass).forEach(el => el.classList.remove(DEFAULTS.highlightPersonClass));
+  }
+
+  // Función principal
+  function findConnectionLabelOverlaps(options = {}) {
+    const opt = Object.assign({}, DEFAULTS, options);
+
+    if (opt.highlight) ensureStyles();
+    if (opt.highlight) clearHighlights();
+
+    const labels = getVisibleElements(opt.labelSelector);
+    const persons = getVisibleElements(opt.targetSelector);
+    const results = [];
+
+    // Para cada label, comprobar contra cada person (O(n*m) en vez de O(n^2))
+    for (const label of labels) {
+      const rLabel = label.getBoundingClientRect();
+      const labelArea = areaOfRect(rLabel) || 1; // evitar división por 0
+      for (const person of persons) {
+        // saltarse si mismo (por si hay coincidencia de selectores)
+        if (person === label) continue;
+        const rPerson = person.getBoundingClientRect();
+        const intersection = rectIntersection(rLabel, rPerson);
+        if (!intersection) continue;
+        const overlapArea = intersection.area;
+        const fractionLabel = overlapArea / labelArea;
+        const personArea = areaOfRect(rPerson) || 1;
+        const fractionPerson = overlapArea / personArea;
+
+        // solo nos interesa si solapa al menos minLabelOverlap del label (configurable)
+        if (fractionLabel < opt.minLabelOverlap) continue;
+
+        // confirmación visual opcional
+        let visual = null;
+        if (opt.confirmVisual) {
+          visual = visualCoverCheck(label, person, intersection, opt.samplePoints);
+        }
+
+        const entry = {
+          label,
+          person,
+          intersection,
+          overlapArea,
+          fractionLabel,
+          fractionPerson,
+          visual
+        };
+
+        // decidir resaltado: si visual demuestra que person está por encima => resaltar label en rojo y person en naranja
+        if (opt.highlight) {
+          if (!opt.confirmVisual || !visual) {
+            // sin confirmación visual, resaltar ambos
+            label.classList.add(opt.highlightLabelClass);
+            person.classList.add(opt.highlightPersonClass);
+          } else {
+            if (visual.dominant === 'person' || visual.personWins > visual.labelWins) {
+              label.classList.add(opt.highlightLabelClass);
+              person.classList.add(opt.highlightPersonClass);
+            } else if (visual.dominant === 'label' || visual.labelWins > visual.personWins) {
+              // label está por encima — resaltamos label y (opcional) person
+              label.classList.add(opt.highlightLabelClass);
+              // si quieres distinguir cuando label está arriba, podrías usar otra clase; por simplicidad, coloreamos person también
+              person.classList.add(opt.highlightPersonClass);
+            } else {
+              // mixto u otro — resaltar ambos
+              label.classList.add(opt.highlightLabelClass);
+              person.classList.add(opt.highlightPersonClass);
+            }
+          }
+        }
+
+        results.push(entry);
+      }
+    }
+
+    // Mostrar resumen en consola
+    if (results.length === 0) {
+      console.info('findConnectionLabelOverlaps: No se detectaron solapamientos que superen el umbral.');
+    } else {
+      console.info(`findConnectionLabelOverlaps: encontrados ${results.length} solapamientos (umbral label ${opt.minLabelOverlap})`);
+      // tabla resumida
+      const table = results.map(r => ({
+        label: r.label,
+        person: r.person,
+        overlapPx2: Math.round(r.overlapArea),
+        pctOfLabel: (r.fractionLabel * 100).toFixed(1) + '%',
+        pctOfPerson: (r.fractionPerson * 100).toFixed(1) + '%',
+        visualDominant: r.visual ? r.visual.dominant : 'n/a',
+        visualLabelWins: r.visual ? r.visual.labelWins : 'n/a',
+        visualPersonWins: r.visual ? r.visual.personWins : 'n/a'
+      }));
+      console.table(table);
+    }
+
+    // devolver resultados crudos para manipulación por script
+    return results;
+  }
+
+  // Exponer utilidades en window
+  window.findConnectionLabelOverlaps = findConnectionLabelOverlaps;
+  window.clearConnectionOverlapHighlights = clearHighlights;
+
+  console.info('findConnectionLabelOverlaps lista para usar. Ejemplo: findConnectionLabelOverlaps({ minLabelOverlap: 0.1, samplePoints: 5 })');
+})();
+    <button style="position:fixed;top:20px;right:20px;z-index:1000;padding:8px 18px;font-size:15px;cursor:pointer;" onclick="findConnectionLabelOverlaps({minLabelOverlap:0.1,samplePoints:5})">Test Overlaps</button>
+    <script>
+        function getEdgePoint(id, direction) {
+            const el = document.getElementById(id);
+            const rect = el.getBoundingClientRect();
+            const canvas = document.querySelector('.canvas').getBoundingClientRect();
+            const x = rect.left - canvas.left;
+            const y = rect.top - canvas.top;
+            const w = rect.width;
+            const h = rect.height;
+
+            switch(direction) {
+                case 'top': return { x: x + w/2, y: y };
+                case 'bottom': return { x: x + w/2, y: y + h };
+                case 'left': return { x: x, y: y + h/2 };
+                case 'right': return { x: x + w, y: y + h/2 };
+                case 'bottom-left': return { x: x + w * 0.3, y: y + h };
+                case 'bottom-right': return { x: x + w * 0.7, y: y + h };
+                default: return { x: x + w/2, y: y + h/2 };
+            }
+        }
+
+        function createConnection(from, fromDir, to, toDir, label) {
+            const svg = document.getElementById('connections');
+            const start = getEdgePoint(from, fromDir);
+            const end = getEdgePoint(to, toDir);
+            
+            let path;
+            const midY = (start.y + end.y) / 2;
+            
+            if (fromDir === 'bottom' && toDir === 'top') {
+                path = `M ${start.x} ${start.y} L ${start.x} ${midY} L ${end.x} ${midY} L ${end.x} ${end.y}`;
+            } else if (fromDir === 'right' && toDir === 'left') {
+                // Línea directa horizontal si están alineados, o con un quiebre limpio
+                if (Math.abs(start.y - end.y) < 20) {
+                    path = `M ${start.x} ${start.y} L ${end.x} ${end.y}`;
+                } else {
+                    const turnX = start.x + 40;
+                    path = `M ${start.x} ${start.y} L ${turnX} ${start.y} L ${turnX} ${end.y} L ${end.x} ${end.y}`;
+                }
+            } else if (fromDir === 'bottom-left' && toDir === 'top') {
+                path = `M ${start.x} ${start.y} L ${start.x} ${start.y + 30} L ${end.x} ${start.y + 30} L ${end.x} ${end.y}`;
+            } else if (fromDir === 'bottom-right' && toDir === 'top') {
+                path = `M ${start.x} ${start.y} L ${start.x} ${start.y + 30} L ${end.x} ${start.y + 30} L ${end.x} ${end.y}`;
+            } else if (fromDir === 'right' && toDir === 'bottom') {
+                path = `M ${start.x} ${start.y} L ${end.x} ${start.y} L ${end.x} ${end.y}`;
+            } else {
+                path = `M ${start.x} ${start.y} L ${end.x} ${end.y}`;
+            }
+            
+            const pathEl = document.createElementNS('http://www.w3.org/2000/svg', 'path');
+            pathEl.setAttribute('d', path);
+            pathEl.setAttribute('class', 'connection-line');
+            pathEl.setAttribute('marker-end', 'url(#arrowhead)');
+            svg.appendChild(pathEl);
+        }
+
+        window.addEventListener('load', () => {
+            createConnection('admin', 'bottom', 'copilot', 'top');
+            createConnection('dev', 'bottom', 'copilot', 'top');
+            createConnection('dev', 'right', 'repos', 'left');
+            createConnection('entra', 'right', 'copilot', 'left');
+            createConnection('copilot', 'right', 'ide', 'left');
+            createConnection('copilot', 'right', 'repos', 'bottom');
+            createConnection('copilot', 'bottom-left', 'llm', 'top');
+            createConnection('copilot', 'bottom-right', 'mcp', 'top');
+        });
+    </script>
+</body>
+</html>

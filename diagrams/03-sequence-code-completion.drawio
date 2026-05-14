@@ -1,0 +1,130 @@
+<mxfile host="Electron" agent="Copilot CLI">
+  <diagram id="seq-code-completion" name="Secuencia - Code Completion">
+    <mxGraphModel dx="1400" dy="900" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="900" math="0" shadow="0" adaptiveColors="auto">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="bg" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="0" y="0" width="1400" height="900" as="geometry"/>
+        </mxCell>
+        <mxCell id="title" value="GitHub Copilot — Diagrama de Secuencia: Code Completion" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="400" y="20" width="600" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="actor_dev" value="&lt;b&gt;Desarrollador&lt;/b&gt;" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;participant=umlActor;size=40;strokeColor=#6B6B6B;fillColor=#FFFFFF;fontColor=#000000;" vertex="1" parent="1">
+          <mxGeometry x="80" y="80" width="60" height="760" as="geometry"/>
+        </mxCell>
+        <mxCell id="part_ide" value="&lt;b&gt;IDE&lt;/b&gt;&lt;br&gt;[VS Code/JetBrains]" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;size=40;strokeColor=#2E6295;fillColor=#438DD5;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="220" y="80" width="120" height="760" as="geometry"/>
+        </mxCell>
+        <mxCell id="part_ext" value="&lt;b&gt;Extensión Copilot&lt;/b&gt;&lt;br&gt;[TypeScript/Kotlin]" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;size=40;strokeColor=#2E6295;fillColor=#438DD5;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="400" y="80" width="140" height="760" as="geometry"/>
+        </mxCell>
+        <mxCell id="part_lsp" value="&lt;b&gt;Language Server&lt;/b&gt;&lt;br&gt;[LSP]" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;size=40;strokeColor=#2E6295;fillColor=#438DD5;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="600" y="80" width="120" height="760" as="geometry"/>
+        </mxCell>
+        <mxCell id="part_backend" value="&lt;b&gt;Copilot Backend&lt;/b&gt;&lt;br&gt;[GitHub Cloud]" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;size=40;strokeColor=#163A6B;fillColor=#1E4D8C;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="800" y="80" width="140" height="760" as="geometry"/>
+        </mxCell>
+        <mxCell id="part_llm" value="&lt;b&gt;Modelo LLM&lt;/b&gt;&lt;br&gt;[GPT-4/Claude]" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;size=40;strokeColor=#555555;fillColor=#6B6B6B;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="1020" y="80" width="120" height="760" as="geometry"/>
+        </mxCell>
+        <mxCell id="part_entra" value="&lt;b&gt;Entra ID&lt;/b&gt;&lt;br&gt;[SSO/OAuth]" style="shape=umlLifeline;perimeter=lifelinePerimeter;whiteSpace=wrap;html=1;container=0;size=40;strokeColor=#555555;fillColor=#6B6B6B;fontColor=#FFFFFF;" vertex="1" parent="1">
+          <mxGeometry x="1200" y="80" width="100" height="760" as="geometry"/>
+        </mxCell>
+        <mxCell id="msg1" value="1. Escribe código" style="html=1;verticalAlign=bottom;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="110" y="180" as="sourcePoint"/>
+            <mxPoint x="280" y="180" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg2" value="2. Detecta pausa/trigger" style="html=1;verticalAlign=bottom;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="280" y="220" as="sourcePoint"/>
+            <mxPoint x="470" y="220" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg3" value="3. Solicita contexto (archivos abiertos)" style="html=1;verticalAlign=bottom;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="470" y="260" as="sourcePoint"/>
+            <mxPoint x="660" y="260" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg4" value="4. Devuelve AST/símbolos" style="html=1;verticalAlign=bottom;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="660" y="300" as="sourcePoint"/>
+            <mxPoint x="470" y="300" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg5" value="5. Construye prompt con contexto" style="html=1;verticalAlign=bottom;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="470" y="340" as="sourcePoint"/>
+            <mxPoint x="870" y="340" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg6" value="6. Valida token OAuth" style="html=1;verticalAlign=bottom;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="870" y="380" as="sourcePoint"/>
+            <mxPoint x="1250" y="380" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg7" value="7. Token válido" style="html=1;verticalAlign=bottom;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1250" y="420" as="sourcePoint"/>
+            <mxPoint x="870" y="420" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg8" value="8. Envía prompt a modelo" style="html=1;verticalAlign=bottom;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="870" y="460" as="sourcePoint"/>
+            <mxPoint x="1080" y="460" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg9" value="9. Genera completado (streaming)" style="html=1;verticalAlign=bottom;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="1080" y="500" as="sourcePoint"/>
+            <mxPoint x="870" y="500" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg10" value="10. Devuelve sugerencias" style="html=1;verticalAlign=bottom;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="870" y="540" as="sourcePoint"/>
+            <mxPoint x="470" y="540" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg11" value="11. Muestra ghost text inline" style="html=1;verticalAlign=bottom;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="470" y="580" as="sourcePoint"/>
+            <mxPoint x="280" y="580" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg12" value="12. Ve sugerencia" style="html=1;verticalAlign=bottom;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="280" y="620" as="sourcePoint"/>
+            <mxPoint x="110" y="620" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg13" value="13. Presiona Tab (acepta)" style="html=1;verticalAlign=bottom;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="110" y="680" as="sourcePoint"/>
+            <mxPoint x="280" y="680" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg14" value="14. Inserta código aceptado" style="html=1;verticalAlign=bottom;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="280" y="720" as="sourcePoint"/>
+            <mxPoint x="470" y="720" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="msg15" value="15. Envía telemetría (aceptación)" style="html=1;verticalAlign=bottom;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1">
+          <mxGeometry relative="1" as="geometry">
+            <mxPoint x="470" y="760" as="sourcePoint"/>
+            <mxPoint x="870" y="760" as="targetPoint"/>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="legend" value="&lt;b&gt;Leyenda&lt;/b&gt;&lt;br&gt;🧑 Actor&lt;br&gt;■ Contenedor (#438DD5)&lt;br&gt;■ Sistema principal (#1E4D8C)&lt;br&gt;■ Sistema externo (#6B6B6B)" style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="40" y="800" width="180" height="90" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

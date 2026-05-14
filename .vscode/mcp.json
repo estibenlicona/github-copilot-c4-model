@@ -1,0 +1,11 @@
+{
+  "servers": {
+    "drawio": {
+      "type": "stdio",
+      "command": "node",
+      "args": [
+        "C:\\Users\\etc1eli\\AppData\\Roaming\\npm\\node_modules\\@drawio\\mcp\\src\\index.js"
+      ]
+    }
+  }
+}

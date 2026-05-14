@@ -1,0 +1,109 @@
+<mxfile host="app.diagrams.net">
+  <diagram name="Página-1" id="0ktir-zWjWWy_JbZ4bEe">
+    <mxGraphModel dx="766" dy="1669" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="827" pageHeight="1169" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="guxhVcUu80TurLgibV10-3" connectable="0" parent="1" style="group" value="" vertex="1">
+          <mxGeometry height="150" width="220" x="800" y="-10" as="geometry" />
+        </mxCell>
+        <mxCell id="guxhVcUu80TurLgibV10-1" parent="guxhVcUu80TurLgibV10-3" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;fontColor=#ffffff;strokeColor=none;" value="&lt;div&gt;&lt;b&gt;Analista Protección De Identidad&lt;/b&gt;&lt;/div&gt;&lt;div&gt;[Person]&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;Asigna licencias Github Copilot" vertex="1">
+          <mxGeometry height="100.96153846153847" width="220.00000000000003" y="49.03846153846154" as="geometry" />
+        </mxCell>
+        <mxCell id="guxhVcUu80TurLgibV10-2" parent="guxhVcUu80TurLgibV10-3" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#999999;strokeColor=none;fontColor=#ffffff;" value="" vertex="1">
+          <mxGeometry height="57.6923076923077" width="57.6923076923077" x="76.15384615384616" as="geometry" />
+        </mxCell>
+        <mxCell id="guxhVcUu80TurLgibV10-4" connectable="0" parent="1" style="group" value="" vertex="1">
+          <mxGeometry height="150" width="220" x="520" y="-10" as="geometry" />
+        </mxCell>
+        <mxCell id="guxhVcUu80TurLgibV10-5" parent="guxhVcUu80TurLgibV10-4" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;fontColor=#ffffff;strokeColor=none;" value="&lt;b&gt;Desarrollador De Software&lt;/b&gt;&lt;div&gt;[Person]&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Utiliza Github Copilot&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100.96153846153845" width="220.00000000000003" y="49.03846153846153" as="geometry" />
+        </mxCell>
+        <mxCell id="guxhVcUu80TurLgibV10-6" parent="guxhVcUu80TurLgibV10-4" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#999999;strokeColor=none;fontColor=#ffffff;" value="" vertex="1">
+          <mxGeometry height="55.00000000000001" width="55.00000000000001" x="76.15384615384616" as="geometry" />
+        </mxCell>
+        <mxCell id="guxhVcUu80TurLgibV10-7" connectable="0" parent="1" style="group" value="" vertex="1">
+          <mxGeometry height="150" width="220" x="230" y="-10" as="geometry" />
+        </mxCell>
+        <mxCell id="guxhVcUu80TurLgibV10-8" parent="guxhVcUu80TurLgibV10-7" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;fontColor=#ffffff;strokeColor=none;" value="&lt;b&gt;Analista De Gobierno IA&lt;/b&gt;&lt;br&gt;&lt;div&gt;[Person]&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Define politicas, modelos, metricas...&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100.96153846153845" width="220.00000000000003" y="49.03846153846153" as="geometry" />
+        </mxCell>
+        <mxCell id="guxhVcUu80TurLgibV10-9" parent="guxhVcUu80TurLgibV10-7" style="ellipse;whiteSpace=wrap;html=1;aspect=fixed;fillColor=#999999;strokeColor=none;fontColor=#ffffff;" value="" vertex="1">
+          <mxGeometry height="55.00000000000001" width="55.00000000000001" x="76.15384615384616" as="geometry" />
+        </mxCell>
+        <mxCell id="guxhVcUu80TurLgibV10-11" parent="1" style="rounded=1;whiteSpace=wrap;html=1;strokeColor=none;fillColor=light-dark(#1E4D8C,#DFDFFF);fontColor=#FFFFFF;" value="&lt;font style=&quot;font-size: 16px;&quot;&gt;&lt;b&gt;&lt;font style=&quot;&quot;&gt;Github &lt;/font&gt;Copilot&lt;/b&gt;&lt;/font&gt;&lt;div&gt;[Software System]&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;&lt;span style=&quot;font-family: &amp;quot;Helvetica Neue&amp;quot;, Arial, sans-serif; font-size: 11px; background-color: rgb(30, 77, 140);&quot;&gt;Asistencia de código con IA&lt;/span&gt;&lt;br style=&quot;margin: 0px; padding: 0px; box-sizing: border-box; font-family: &amp;quot;Helvetica Neue&amp;quot;, Arial, sans-serif; font-size: 11px; background-color: rgb(30, 77, 140);&quot;&gt;&lt;span style=&quot;font-family: &amp;quot;Helvetica Neue&amp;quot;, Arial, sans-serif; font-size: 11px; background-color: rgb(30, 77, 140);&quot;&gt;generativa para equipos de desarrollo&lt;/span&gt;&lt;/div&gt;" vertex="1">
+          <mxGeometry height="140" width="270" x="480" y="285" as="geometry" />
+        </mxCell>
+        <mxCell id="guxhVcUu80TurLgibV10-13" edge="1" parent="1" source="guxhVcUu80TurLgibV10-5" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.5;entryY=0;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;" target="guxhVcUu80TurLgibV10-11" value="Usar Github Copilot">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="615" y="170" />
+              <mxPoint x="615" y="170" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="guxhVcUu80TurLgibV10-17" edge="1" parent="1" source="guxhVcUu80TurLgibV10-1" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.75;entryY=0;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;" target="guxhVcUu80TurLgibV10-11" value="Asignar licencias">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="910" y="180" />
+              <mxPoint x="683" y="180" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="guxhVcUu80TurLgibV10-18" edge="1" parent="1" source="guxhVcUu80TurLgibV10-8" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.25;entryY=0;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;" target="guxhVcUu80TurLgibV10-11" value="Definir lineamientos&amp;nbsp;">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="340" y="180" />
+              <mxPoint x="548" y="180" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="guxhVcUu80TurLgibV10-20" edge="1" parent="1" source="guxhVcUu80TurLgibV10-19" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.5;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;" target="guxhVcUu80TurLgibV10-11" value="Gestiono de identidad">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="guxhVcUu80TurLgibV10-19" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;fontColor=#ffffff;strokeColor=none;" value="&lt;b&gt;Microsoft Entra ID&lt;/b&gt;&lt;br&gt;&lt;div&gt;[External System]&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Gestion de identidad&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100.96153846153845" width="220.00000000000003" x="70" y="304.52" as="geometry" />
+        </mxCell>
+        <mxCell id="guxhVcUu80TurLgibV10-21" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;fontColor=#ffffff;strokeColor=none;" value="&lt;b&gt;Azure Repository&lt;/b&gt;&lt;br&gt;&lt;div&gt;[External System]&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Proveedor de identidad&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100.96153846153845" width="220.00000000000003" x="980" y="210" as="geometry" />
+        </mxCell>
+        <mxCell id="guxhVcUu80TurLgibV10-26" edge="1" parent="1" source="guxhVcUu80TurLgibV10-23" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=1;entryY=0.75;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;" target="guxhVcUu80TurLgibV10-11" value="Interactuar con Github Copilot">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="guxhVcUu80TurLgibV10-23" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;fontColor=#ffffff;strokeColor=none;" value="&lt;b&gt;IDs&lt;/b&gt;&lt;br&gt;&lt;div&gt;[External System]&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;VS Code, Visual Studio&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100.96153846153845" width="220.00000000000003" x="920" y="480" as="geometry" />
+        </mxCell>
+        <mxCell id="guxhVcUu80TurLgibV10-28" edge="1" parent="1" source="guxhVcUu80TurLgibV10-25" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.585;entryY=0.986;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;entryPerimeter=0;" target="guxhVcUu80TurLgibV10-11" value="Interactuar con Github Copilot">
+          <mxGeometry relative="1" x="0.2332" y="-2" as="geometry">
+            <mxPoint as="offset" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="guxhVcUu80TurLgibV10-25" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;fontColor=#ffffff;strokeColor=none;" value="&lt;b&gt;Copilot CLI&lt;/b&gt;&lt;br&gt;&lt;div&gt;[External System]&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Interfaz en consola de comandos&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100.96153846153845" width="220.00000000000003" x="530" y="700" as="geometry" />
+        </mxCell>
+        <mxCell id="guxhVcUu80TurLgibV10-27" edge="1" parent="1" source="guxhVcUu80TurLgibV10-21" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0.995;entryY=0.39;entryDx=0;entryDy=0;entryPerimeter=0;dashed=1;dashPattern=8 8;" target="guxhVcUu80TurLgibV10-11" value="Alamcenar codigo fuente">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="guxhVcUu80TurLgibV10-30" edge="1" parent="1" source="guxhVcUu80TurLgibV10-29" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;dashed=1;dashPattern=8 8;entryX=0.25;entryY=1;entryDx=0;entryDy=0;" target="guxhVcUu80TurLgibV10-11" value="Genercion de codigo">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="500" y="711" />
+              <mxPoint x="500" y="530" />
+              <mxPoint x="548" y="530" />
+            </Array>
+            <mxPoint x="540" y="430" as="targetPoint" />
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="guxhVcUu80TurLgibV10-29" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;fontColor=#ffffff;strokeColor=none;" value="&lt;b&gt;Modelos LLM&lt;/b&gt;&lt;br&gt;&lt;div&gt;[External System]&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Open IA, Anthropic, Gemini&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100.96153846153845" width="220.00000000000003" x="210" y="660" as="geometry" />
+        </mxCell>
+        <mxCell id="guxhVcUu80TurLgibV10-32" edge="1" parent="1" source="guxhVcUu80TurLgibV10-31" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;entryX=0;entryY=0.75;entryDx=0;entryDy=0;dashed=1;dashPattern=8 8;" target="guxhVcUu80TurLgibV10-11" value="Proporcionar contexto">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="guxhVcUu80TurLgibV10-31" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#999999;fontColor=#ffffff;strokeColor=none;" value="&lt;b&gt;MCPs&lt;/b&gt;&lt;br&gt;&lt;div&gt;[External System]&lt;/div&gt;&lt;div&gt;&lt;br&gt;&lt;/div&gt;&lt;div&gt;Sonar, Veracode&lt;/div&gt;" vertex="1">
+          <mxGeometry height="100.96153846153845" width="220.00000000000003" x="60" y="520" as="geometry" />
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

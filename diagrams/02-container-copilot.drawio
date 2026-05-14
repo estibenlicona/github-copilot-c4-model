@@ -1,0 +1,96 @@
+<mxfile host="Electron" agent="Copilot CLI">
+  <diagram id="c2-container-copilot" name="C2 - Contenedores">
+    <mxGraphModel dx="1600" dy="1000" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1600" pageHeight="1000" math="0" shadow="0" adaptiveColors="auto">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+        <mxCell id="bg" value="" style="rounded=0;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=none;" vertex="1" parent="1">
+          <mxGeometry x="0" y="0" width="1600" height="1000" as="geometry"/>
+        </mxCell>
+        <mxCell id="title" value="GitHub Copilot — Diagrama de Contenedores (C2)" style="text;html=1;align=center;verticalAlign=middle;fontSize=18;fontStyle=1;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="500" y="20" width="500" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="p_dev" value="&lt;b&gt;Desarrollador&lt;/b&gt;&lt;br&gt;[Person]&lt;br&gt;&lt;br&gt;Usa Copilot para codificar" style="shape=mxgraph.c4.person2;whiteSpace=wrap;html=1;metaEdit=1;points=[[0.5,0,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0]];strokeColor=#6B6B6B;fillColor=#FFFFFF;fontColor=#000000;align=center;" vertex="1" parent="1">
+          <mxGeometry x="720" y="80" width="140" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="boundary_copilot" value="GitHub Copilot [Software System]" style="swimlane;startSize=30;fillColor=#1E4D8C;strokeColor=#163A6B;fontColor=#FFFFFF;html=1;rounded=1;arcSize=5;" vertex="1" parent="1">
+          <mxGeometry x="200" y="260" width="1180" height="400" as="geometry"/>
+        </mxCell>
+        <mxCell id="c_vscode" value="&lt;b&gt;Extensión VS Code&lt;/b&gt;&lt;br&gt;[Container: TypeScript]&lt;br&gt;&lt;br&gt;Plugin que integra Copilot en VS Code" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;" vertex="1" parent="boundary_copilot">
+          <mxGeometry x="40" y="60" width="160" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="c_jetbrains" value="&lt;b&gt;Extensión JetBrains&lt;/b&gt;&lt;br&gt;[Container: Kotlin]&lt;br&gt;&lt;br&gt;Plugin para IntelliJ, Rider" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;" vertex="1" parent="boundary_copilot">
+          <mxGeometry x="220" y="60" width="160" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="c_cli" value="&lt;b&gt;Copilot CLI&lt;/b&gt;&lt;br&gt;[Container: Go]&lt;br&gt;&lt;br&gt;Herramienta de línea de comandos" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;" vertex="1" parent="boundary_copilot">
+          <mxGeometry x="400" y="60" width="160" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="c_lsp" value="&lt;b&gt;Language Server&lt;/b&gt;&lt;br&gt;[Container: TypeScript]&lt;br&gt;&lt;br&gt;LSP para análisis de código" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;" vertex="1" parent="boundary_copilot">
+          <mxGeometry x="40" y="200" width="160" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="c_backend" value="&lt;b&gt;Copilot Backend&lt;/b&gt;&lt;br&gt;[Container: Cloud]&lt;br&gt;&lt;br&gt;Servicio central que procesa prompts y orquesta modelos" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;" vertex="1" parent="boundary_copilot">
+          <mxGeometry x="460" y="200" width="240" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="c_mcp_drawio" value="&lt;b&gt;MCP Server draw.io&lt;/b&gt;&lt;br&gt;[Container: Node.js]&lt;br&gt;&lt;br&gt;Genera diagramas draw.io" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;" vertex="1" parent="boundary_copilot">
+          <mxGeometry x="820" y="60" width="160" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="c_mcp_github" value="&lt;b&gt;MCP Server GitHub&lt;/b&gt;&lt;br&gt;[Container: Node.js]&lt;br&gt;&lt;br&gt;Integración con GitHub API" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;" vertex="1" parent="boundary_copilot">
+          <mxGeometry x="1000" y="60" width="160" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="c_mcp_generic" value="&lt;b&gt;MCP Servers&lt;/b&gt;&lt;br&gt;[Container: Node.js/Python]&lt;br&gt;&lt;br&gt;Extensibilidad vía MCP" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;" vertex="1" parent="boundary_copilot">
+          <mxGeometry x="910" y="200" width="160" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="sys_entra" value="&lt;b&gt;Microsoft Entra ID&lt;/b&gt;&lt;br&gt;[Software System]&lt;br&gt;&lt;br&gt;Autenticación SSO/OAuth" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6B6B6B;strokeColor=#555555;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;arcSize=25;" vertex="1" parent="1">
+          <mxGeometry x="40" y="380" width="140" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="sys_llm" value="&lt;b&gt;Modelos LLM&lt;/b&gt;&lt;br&gt;[Software System]&lt;br&gt;&lt;br&gt;OpenAI GPT-4 / Claude" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6B6B6B;strokeColor=#555555;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;arcSize=25;" vertex="1" parent="1">
+          <mxGeometry x="620" y="740" width="160" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="sys_repos" value="&lt;b&gt;Repositorios&lt;/b&gt;&lt;br&gt;[Software System]&lt;br&gt;&lt;br&gt;GitHub / Azure DevOps" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#6B6B6B;strokeColor=#555555;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;arcSize=25;" vertex="1" parent="1">
+          <mxGeometry x="1420" y="380" width="160" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_dev_vscode" value="Escribe código" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1" source="p_dev" target="c_vscode">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="360" y="140"/>
+              <mxPoint x="360" y="370"/>
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e_dev_jetbrains" value="Escribe código" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1" source="p_dev" target="c_jetbrains">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_dev_cli" value="Comandos" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1" source="p_dev" target="c_cli">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_vscode_lsp" value="Análisis" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1" source="c_vscode" target="c_lsp">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_vscode_backend" value="Prompts [HTTPS]" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1" source="c_vscode" target="c_backend">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_jetbrains_backend" value="Prompts [HTTPS]" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1" source="c_jetbrains" target="c_backend">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_cli_backend" value="Prompts [HTTPS]" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1" source="c_cli" target="c_backend">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_cli_mcp" value="MCP [stdio/SSE]" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1" source="c_cli" target="c_mcp_generic">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_backend_llm" value="Inferencia [API]" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1" source="c_backend" target="sys_llm">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_entra_backend" value="Auth [OAuth]" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1" source="sys_entra" target="c_backend">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_mcp_repos" value="API [HTTPS]" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;fontColor=#333333;" edge="1" parent="1" source="c_mcp_github" target="sys_repos">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend" value="&lt;b&gt;Leyenda&lt;/b&gt;&lt;br&gt;🧑 Persona (silueta blanca)&lt;br&gt;■ Contenedor (#438DD5)&lt;br&gt;■ Sistema externo (#6B6B6B)&lt;br&gt;▭ Boundary sistema (#1E4D8C)" style="text;html=1;align=left;verticalAlign=top;fontSize=11;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="40" y="860" width="250" height="100" as="geometry"/>
+        </mxCell>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
