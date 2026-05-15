@@ -1,0 +1,79 @@
+:root {
+  --c-bg: #f4f6fa;
+  --c-text: #1f2933;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: "Segoe UI", Arial, sans-serif;
+  background: var(--c-bg);
+  color: var(--c-text);
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 12px 20px;
+  background: #fff;
+  border-bottom: 1px solid #e0e3e8;
+  flex-shrink: 0;
+}
+.header h1 { margin: 0; font-size: 18px; }
+.subtitle { margin: 4px 0 0; font-size: 13px; color: #555; }
+.actions button {
+  margin-left: 8px;
+  padding: 8px 14px;
+  background: #1168bd;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 13px;
+}
+.actions button:hover { background: #0b4884; }
+
+main { flex: 1; display: flex; overflow: hidden; }
+#svg { flex: 1; background: var(--c-bg); }
+
+.legend {
+  width: 260px; padding: 16px; background: #fff;
+  border-left: 1px solid #e0e3e8;
+  font-size: 12px; flex-shrink: 0;
+}
+.legend h3 { margin-top: 0; }
+.legend ul { list-style: none; padding: 0; margin: 0 0 12px; }
+.legend li { padding: 4px 0; display: flex; align-items: center; }
+.swatch { width: 14px; height: 14px; margin-right: 8px; border-radius: 3px; display: inline-block; }
+.swatch.env { background: transparent; border: 2px dashed #444; }
+.swatch.node { background: #fff; border: 1.5px solid #6b6b6b; }
+.swatch.unit { background: #438DD5; }
+.swatch.unit-new { background: #2E7D32; }
+.swatch.unit-mod { background: #E65100; }
+.swatch.system { background: #8C8496; }
+.swatch.system-future { background: #B59CC9; }
+.swatch.core { background: #5E4E6E; }
+.hint { font-size: 11px; color: #666; line-height: 1.5; }
+
+/* dagre-d3 estilos */
+.node rect, .cluster rect {
+  stroke-width: 1.5px;
+  rx: 6;
+  ry: 6;
+}
+.node .label-container {
+  font-size: 11px;
+  font-weight: 600;
+}
+.node .name { font-weight: 700; }
+.node .kind { font-size: 10px; opacity: 0.85; }
+.cluster > rect { fill-opacity: 0.4; }
+.cluster.env > rect { fill: transparent; stroke: #444; stroke-dasharray: 6 4; }
+
+.edgePath path { stroke: #828282; stroke-width: 1.5px; fill: none; }
+.edgePath.future path { stroke: #FF8A65; stroke-dasharray: 6 4; }
+.edgePath marker path { fill: #828282; }
+.edgeLabel rect { fill: #fff; }
+.edgeLabel text { font-size: 10px; fill: #444; }

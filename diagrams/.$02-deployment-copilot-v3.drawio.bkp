@@ -1,0 +1,169 @@
+<mxfile host="app.diagrams.net" type="device">
+  <diagram id="copilot-deploy-v3" name="C2 - Despliegue Copilot v3">
+    <mxGraphModel dx="1600" dy="1200" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="1400" pageHeight="2100" math="0" shadow="0" adaptiveColors="auto">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="GitHub Copilot — C2 Despliegue (v3)" style="text;html=1;align=center;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#1F2933;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="900" height="40" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="env-onprem" value="Tuya — Endpoints corporativos&#10;[Environment: on premise]" style="swimlane;startSize=40;fillColor=none;strokeColor=#444444;fontColor=#444444;fontStyle=1;dashed=1;html=1;rounded=0;align=center;" vertex="1" parent="1">
+          <mxGeometry x="40" y="80" width="900" height="400" as="geometry"/>
+        </mxCell>
+        <mxCell id="node-ws" value="&lt;b&gt;Equipo del desarrollador&lt;/b&gt;&lt;br&gt;[Workstation]" style="swimlane;startSize=30;fillColor=#FFFFFF;strokeColor=#6B6B6B;fontColor=#1F2933;fontStyle=1;html=1;rounded=0;align=center;" vertex="1" parent="env-onprem">
+          <mxGeometry x="20" y="50" width="860" height="340" as="geometry"/>
+        </mxCell>
+        <mxCell id="u-vscode" value="&lt;b&gt;VS Code + Copilot&lt;/b&gt;&lt;br&gt;[IDE Extension]&lt;br&gt;&lt;br&gt;Chat, agente, plan." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;" vertex="1" parent="node-ws">
+          <mxGeometry x="20" y="40" width="260" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="u-cli" value="&lt;b&gt;Copilot CLI&lt;/b&gt;&lt;br&gt;[CLI]&lt;br&gt;&lt;br&gt;Cliente en terminal." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;" vertex="1" parent="node-ws">
+          <mxGeometry x="300" y="40" width="260" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="u-mcps-local" value="&lt;b&gt;MCPs locales&lt;/b&gt;&lt;br&gt;[Local MCP]&lt;br&gt;&lt;br&gt;stdio/JSON-RPC." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;" vertex="1" parent="node-ws">
+          <mxGeometry x="580" y="40" width="260" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="u-shell" value="&lt;b&gt;Shell&lt;/b&gt;&lt;br&gt;[Shell]&lt;br&gt;&lt;br&gt;Comandos del agente." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;" vertex="1" parent="node-ws">
+          <mxGeometry x="20" y="150" width="260" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="u-git" value="&lt;b&gt;Cliente Git&lt;/b&gt;&lt;br&gt;[Git]&lt;br&gt;&lt;br&gt;Push/pull a AzDO." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;" vertex="1" parent="node-ws">
+          <mxGeometry x="300" y="150" width="260" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="u-workspace" value="&lt;b&gt;Workspace local&lt;/b&gt;&lt;br&gt;[File System]&lt;br&gt;&lt;br&gt;Codigo abierto. (D1)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;" vertex="1" parent="node-ws">
+          <mxGeometry x="580" y="150" width="260" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="u-browser" value="&lt;b&gt;Navegador&lt;/b&gt;&lt;br&gt;[Browser]&lt;br&gt;&lt;br&gt;Consola admin." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;" vertex="1" parent="node-ws">
+          <mxGeometry x="20" y="260" width="260" height="70" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="env-github" value="GitHub Cloud — Enterprise tuyacol&#10;[Environment: cloud]" style="swimlane;startSize=40;fillColor=none;strokeColor=#444444;fontColor=#444444;fontStyle=1;dashed=1;html=1;rounded=0;align=center;" vertex="1" parent="1">
+          <mxGeometry x="40" y="510" width="900" height="540" as="geometry"/>
+        </mxCell>
+        <mxCell id="node-github-saas" value="&lt;b&gt;GitHub.com / Copilot SaaS&lt;/b&gt;&lt;br&gt;[SaaS · 99.9%]" style="swimlane;startSize=30;fillColor=#FFFFFF;strokeColor=#6B6B6B;fontColor=#1F2933;fontStyle=1;html=1;rounded=0;align=center;" vertex="1" parent="env-github">
+          <mxGeometry x="20" y="50" width="860" height="480" as="geometry"/>
+        </mxCell>
+        <mxCell id="u-proxy" value="&lt;b&gt;Proxy Copilot&lt;/b&gt;&lt;br&gt;[API]&lt;br&gt;&lt;br&gt;Enruta prompts." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;" vertex="1" parent="node-github-saas">
+          <mxGeometry x="20" y="40" width="260" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="u-llm" value="&lt;b&gt;Servicio LLM&lt;/b&gt;&lt;br&gt;[LLM]&lt;br&gt;&lt;br&gt;Inferencia." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;" vertex="1" parent="node-github-saas">
+          <mxGeometry x="300" y="40" width="260" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="u-console" value="&lt;b&gt;Consola admin&lt;/b&gt;&lt;br&gt;[Web App]&lt;br&gt;&lt;br&gt;Licencias. (D1)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;" vertex="1" parent="node-github-saas">
+          <mxGeometry x="580" y="40" width="260" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="u-audit-api" value="&lt;b&gt;Audit Log API&lt;/b&gt;&lt;br&gt;[API]&lt;br&gt;&lt;br&gt;Eventos. (D3)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;" vertex="1" parent="node-github-saas">
+          <mxGeometry x="20" y="150" width="260" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="u-metrics-api" value="&lt;b&gt;Metrics API&lt;/b&gt;&lt;br&gt;[API]&lt;br&gt;&lt;br&gt;Adopcion. (D4)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;" vertex="1" parent="node-github-saas">
+          <mxGeometry x="300" y="150" width="260" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="u-license" value="&lt;b&gt;Licenciamiento&lt;/b&gt;&lt;br&gt;[API]&lt;br&gt;&lt;br&gt;Entitlement." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;" vertex="1" parent="node-github-saas">
+          <mxGeometry x="580" y="150" width="260" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="u-azdo-repos" value="&lt;b&gt;Azure DevOps Repos&lt;/b&gt;&lt;br&gt;[Git Hosting]&lt;br&gt;&lt;br&gt;Repos." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;" vertex="1" parent="node-github-saas">
+          <mxGeometry x="20" y="260" width="260" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="u-audit-store" value="&lt;b&gt;Audit Storage&lt;/b&gt;&lt;br&gt;[Log Store]&lt;br&gt;&lt;br&gt;Retencion." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;" vertex="1" parent="node-github-saas">
+          <mxGeometry x="300" y="260" width="260" height="90" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="env-azure" value="Azure — Plataforma MCPs dev&#10;[Environment: cloud]" style="swimlane;startSize=40;fillColor=none;strokeColor=#444444;fontColor=#444444;fontStyle=1;dashed=1;html=1;rounded=0;align=center;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1080" width="900" height="980" as="geometry"/>
+        </mxCell>
+        <mxCell id="node-apim" value="&lt;b&gt;Azure API Management&lt;/b&gt;&lt;br&gt;[API Gateway]" style="swimlane;startSize=30;fillColor=#FFFFFF;strokeColor=#6B6B6B;fontColor=#1F2933;fontStyle=1;html=1;rounded=0;align=center;" vertex="1" parent="env-azure">
+          <mxGeometry x="20" y="50" width="860" height="140" as="geometry"/>
+        </mxCell>
+        <mxCell id="u-api-sonar" value="&lt;b&gt;API SonarCloud MCP&lt;/b&gt;&lt;br&gt;[APIM Route]&lt;br&gt;&lt;br&gt;Enruta al cluster." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;" vertex="1" parent="node-apim">
+          <mxGeometry x="20" y="40" width="820" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="node-acr" value="&lt;b&gt;Azure Container Registry&lt;/b&gt;&lt;br&gt;[Container Registry]" style="swimlane;startSize=30;fillColor=#FFFFFF;strokeColor=#6B6B6B;fontColor=#1F2933;fontStyle=1;html=1;rounded=0;align=center;" vertex="1" parent="env-azure">
+          <mxGeometry x="20" y="210" width="860" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="u-image-sonar" value="&lt;b&gt;Imagen MCP&lt;/b&gt;&lt;br&gt;[OCI Image]&lt;br&gt;&lt;br&gt;Mirror." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;" vertex="1" parent="node-acr">
+          <mxGeometry x="20" y="40" width="400" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="u-acr-replica" value="&lt;b&gt;Replica geo ACR&lt;/b&gt;&lt;br&gt;[Reg pasivo]&lt;br&gt;&lt;br&gt;Failover." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E8E8E8;strokeColor=#999999;fontColor=#333333;align=center;verticalAlign=top;spacingTop=6;dashed=1;" vertex="1" parent="node-acr">
+          <mxGeometry x="440" y="40" width="400" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="node-aks" value="&lt;b&gt;AKS desarrollo&lt;/b&gt;&lt;br&gt;[K8s Cluster]" style="swimlane;startSize=30;fillColor=#FFF2CC;strokeColor=#D6B656;fontColor=#7F6000;fontStyle=1;html=1;rounded=0;align=center;" vertex="1" parent="env-azure">
+          <mxGeometry x="20" y="380" width="860" height="580" as="geometry"/>
+        </mxCell>
+        <mxCell id="ns-mcp" value="&lt;b&gt;Namespace MCP dev&lt;/b&gt;&lt;br&gt;[K8s Namespace]" style="swimlane;startSize=30;fillColor=#FFFFFF;strokeColor=#6B6B6B;fontColor=#1F2933;fontStyle=1;html=1;rounded=0;align=center;" vertex="1" parent="node-aks">
+          <mxGeometry x="20" y="50" width="820" height="510" as="geometry"/>
+        </mxCell>
+        <mxCell id="u-ingress" value="&lt;b&gt;Ingress&lt;/b&gt;&lt;br&gt;[K8s Service]&lt;br&gt;&lt;br&gt;Publica el pod." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;" vertex="1" parent="ns-mcp">
+          <mxGeometry x="20" y="40" width="380" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="u-mcp-server" value="&lt;b&gt;SonarCloud MCP Server&lt;/b&gt;&lt;br&gt;[MCP Server]&lt;br&gt;&lt;br&gt;Pod JSON-RPC." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;" vertex="1" parent="ns-mcp">
+          <mxGeometry x="420" y="40" width="380" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="u-token" value="&lt;b&gt;Token admin **&lt;/b&gt;&lt;br&gt;[Env Var]&lt;br&gt;&lt;br&gt;Secreto. (F2)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#E65100;strokeColor=#BF360C;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;" vertex="1" parent="ns-mcp">
+          <mxGeometry x="20" y="150" width="380" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="u-csi" value="&lt;b&gt;CSI Secrets Driver ++&lt;/b&gt;&lt;br&gt;[K8s CSI]&lt;br&gt;&lt;br&gt;Recomendado." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2E7D32;strokeColor=#1B5E20;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;dashed=1;" vertex="1" parent="ns-mcp">
+          <mxGeometry x="420" y="150" width="380" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="u-logs" value="&lt;b&gt;Logs MCP&lt;/b&gt;&lt;br&gt;[Container Logs]&lt;br&gt;&lt;br&gt;stdout/stderr." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#438DD5;strokeColor=#2E6295;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;" vertex="1" parent="ns-mcp">
+          <mxGeometry x="20" y="260" width="380" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="u-template" value="&lt;b&gt;Template MCPs ++&lt;/b&gt;&lt;br&gt;[Helm]&lt;br&gt;&lt;br&gt;Base reutilizable. (F3)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2E7D32;strokeColor=#1B5E20;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;dashed=1;" vertex="1" parent="ns-mcp">
+          <mxGeometry x="420" y="260" width="380" height="90" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sys-netskope" value="&lt;b&gt;Netskope SWG&lt;/b&gt;&lt;br&gt;[Software System]&lt;br&gt;&lt;br&gt;Gateway corporativo. (E1)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#8C8496;strokeColor=#6F6878;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;arcSize=25;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="120" width="260" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="sys-entra" value="&lt;b&gt;Microsoft Entra ID&lt;/b&gt;&lt;br&gt;[Core System]&lt;br&gt;&lt;br&gt;IdP. (A4)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#5E4E6E;strokeColor=#3A2F47;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;arcSize=15;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="540" width="260" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="sys-sonar" value="&lt;b&gt;SonarCloud&lt;/b&gt;&lt;br&gt;[Software System]&lt;br&gt;&lt;br&gt;Consultado por MCP." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#8C8496;strokeColor=#6F6878;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;arcSize=25;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="1400" width="260" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="sys-kv" value="&lt;b&gt;Azure Key Vault ++&lt;/b&gt;&lt;br&gt;[Software System]&lt;br&gt;&lt;br&gt;Boveda recomendada. (F2)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B59CC9;strokeColor=#8E6FA6;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;arcSize=25;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="1540" width="260" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="sys-siem" value="&lt;b&gt;SIEM corporativo&lt;/b&gt;&lt;br&gt;[SW · futuro]&lt;br&gt;&lt;br&gt;Audit destino. (D3)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B59CC9;strokeColor=#8E6FA6;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;arcSize=25;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="700" width="260" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="sys-bi" value="&lt;b&gt;BI / Adopcion&lt;/b&gt;&lt;br&gt;[SW · futuro]&lt;br&gt;&lt;br&gt;Metrics consumer. (D4)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#B59CC9;strokeColor=#8E6FA6;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=6;arcSize=25;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1000" y="820" width="260" height="100" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e1" edge="1" parent="1" source="u-vscode" target="u-workspace" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;" value="Lee contexto&#10;[FS local]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="u-cli" target="u-workspace" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;" value="Lee contexto&#10;[FS local]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="u-vscode" target="u-mcps-local" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;" value="Invoca&#10;[JSON-RPC]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="u-cli" target="u-mcps-local" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;" value="Invoca&#10;[JSON-RPC]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="u-vscode" target="u-shell" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;" value="Ejecuta&#10;[Proceso]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="u-cli" target="u-shell" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;" value="Ejecuta&#10;[Proceso]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="u-git" target="u-azdo-repos" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;" value="Push/pull&#10;[Git/HTTPS]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="u-vscode" target="sys-netskope" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;" value="Envia prompts&#10;[JSON/HTTPS]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="u-cli" target="sys-netskope" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;" value="Envia prompts&#10;[JSON/HTTPS]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="u-browser" target="u-console" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;" value="Administra&#10;[HTML/HTTPS]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="sys-netskope" target="u-proxy" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;" value="Egress Copilot&#10;[JSON/HTTPS]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="u-proxy" target="u-llm" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;" value="Inferencia&#10;[API/HTTPS]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="u-proxy" target="u-license" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;" value="Entitlement&#10;[JSON/HTTPS]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="u-license" target="sys-entra" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;" value="SSO&#10;[SAML/OIDC]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e15" edge="1" parent="1" source="u-console" target="sys-entra" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;" value="Auth admin&#10;[SAML/SCIM]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e16" edge="1" parent="1" source="u-audit-api" target="u-audit-store" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;" value="Persiste&#10;[interno]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e17" edge="1" parent="1" source="u-audit-api" target="sys-siem" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#FF8A65;dashed=1;strokeWidth=2;" value="Debe exportar&#10;[JSON/HTTPS]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e18" edge="1" parent="1" source="u-metrics-api" target="sys-bi" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#FF8A65;dashed=1;strokeWidth=2;" value="Debe consumir&#10;[JSON/HTTPS]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e19" edge="1" parent="1" source="sys-netskope" target="u-api-sonar" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;" value="Egress MCP&#10;[JSON/HTTPS]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e20" edge="1" parent="1" source="u-api-sonar" target="u-ingress" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;" value="Enruta&#10;[HTTPS]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e21" edge="1" parent="1" source="u-ingress" target="u-mcp-server" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;" value="Forward&#10;[HTTP]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e22" edge="1" parent="1" source="u-mcp-server" target="u-token" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;" value="Lee token&#10;[Env Var]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e23" edge="1" parent="1" source="u-mcp-server" target="sys-sonar" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;" value="Consulta&#10;[JSON/HTTPS]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e24" edge="1" parent="1" source="u-mcp-server" target="u-logs" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;" value="Logs&#10;[stdout]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e25" edge="1" parent="1" source="node-aks" target="u-image-sonar" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#707070;dashed=1;" value="Descarga imagen&#10;[OCI]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e26" edge="1" parent="1" source="u-image-sonar" target="u-acr-replica" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#FF8A65;dashed=1;strokeWidth=2;" value="Replica&#10;[OCI]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e27" edge="1" parent="1" source="u-mcp-server" target="u-csi" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#FF8A65;dashed=1;strokeWidth=2;" value="Debe consumir&#10;[FS volume]"><mxGeometry relative="1" as="geometry"/></mxCell>
+        <mxCell id="e28" edge="1" parent="1" source="u-csi" target="sys-kv" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#FF8A65;dashed=1;strokeWidth=2;" value="Monta secretos&#10;[JSON/HTTPS]"><mxGeometry relative="1" as="geometry"/></mxCell>
+
+        <mxCell id="legend" value="&lt;b&gt;Leyenda&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#438DD5&quot;&gt;■&lt;/font&gt; Deployment unit  &lt;font color=&quot;#2E7D32&quot;&gt;■&lt;/font&gt; Unidad nueva (++)  &lt;font color=&quot;#E65100&quot;&gt;■&lt;/font&gt; Unidad modificada (**)&lt;br&gt;&lt;font color=&quot;#8C8496&quot;&gt;■&lt;/font&gt; Sistema externo  &lt;font color=&quot;#5E4E6E&quot;&gt;■&lt;/font&gt; Core system  &lt;font color=&quot;#B59CC9&quot;&gt;■&lt;/font&gt; Sistema futuro&lt;br&gt;&lt;font color=&quot;#FF8A65&quot;&gt;⤍⤍⤍&lt;/font&gt; Relacion futura/recomendada    &lt;font color=&quot;#707070&quot;&gt;⤍⤍⤍&lt;/font&gt; Relacion actual" style="text;html=1;align=left;verticalAlign=middle;fontSize=12;fillColor=#FFFFFF;strokeColor=#CCCCCC;spacingLeft=10;spacingTop=6;" vertex="1" parent="1">
+          <mxGeometry x="40" y="2000" width="900" height="80" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

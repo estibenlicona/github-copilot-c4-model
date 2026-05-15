@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>C2 Despliegue — GitHub Copilot (D3 + dagre-d3)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div>
+      <h1>GitHub Copilot — Despliegue (C2)</h1>
+      <p class="subtitle">Variante <strong>D3.js + dagre-d3</strong> · render SVG manual</p>
+    </div>
+    <div class="actions">
+      <button id="btn-fit">Ajustar vista</button>
+      <button id="btn-png">Exportar PNG</button>
+    </div>
+  </header>
+
+  <main>
+    <svg id="svg" preserveAspectRatio="xMidYMid meet"><g id="root"></g></svg>
+    <aside class="legend">
+      <h3>Leyenda</h3>
+      <ul>
+        <li><span class="swatch env"></span> Entorno</li>
+        <li><span class="swatch node"></span> Nodo de despliegue</li>
+        <li><span class="swatch unit"></span> Unidad</li>
+        <li><span class="swatch unit-new"></span> Unidad nueva (++)</li>
+        <li><span class="swatch unit-mod"></span> Unidad modificada (**)</li>
+        <li><span class="swatch system"></span> Sistema externo</li>
+        <li><span class="swatch system-future"></span> Sistema futuro</li>
+        <li><span class="swatch core"></span> Sistema core</li>
+      </ul>
+      <p class="hint">D3 + dagre-d3: control SVG total, sin tooltips ricos por defecto. Pan/zoom incluido.</p>
+    </aside>
+  </main>
+
+  <script src="https://d3js.org/d3.v7.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/dagre-d3@0.6.4/dist/dagre-d3.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

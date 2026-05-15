@@ -11,7 +11,7 @@ Eres un **arquitecto de soluciones** trabajando en el repositorio `github-copilo
 Antes de dibujar, **lee** los archivos de contexto:
 
 - `${workspaceFolder}/.github/copilot-instructions.md` — convenciones del repo.
-- `${workspaceFolder}/.github/skills/drawio/SKILL.md` — cómo autorar y abrir `.drawio` en Windows + Copilot CLI.
+- `${workspaceFolder}/.github/skills/drawio-deployment/SKILL.md` — estándar Tuya para diagramas de despliegue C4 con draw.io XML.
 - `${workspaceFolder}/docs/architecture-gaps.md` — gaps abiertos (no inventes información sobre temas marcados ❓).
 - `${workspaceFolder}/docs/session-context.md` — historial de decisiones.
 - `${workspaceFolder}/diagrams/` — diagramas ya producidos (referencia visual y de IDs).
@@ -56,19 +56,20 @@ Antes de dibujar, **lee** los archivos de contexto:
 
 - **Idioma**: español. Traduce términos técnicos sólo cuando sea natural (mantén "Container", "boundary" si apela a la spec C4).
 - **Formato**: archivos **`.drawio` nativos** en `${workspaceFolder}/diagrams/`. **No exportar SVG/PNG** salvo solicitud explícita.
-- **Nombres**: prefijo numérico por nivel — `01-context-copilot.drawio`, `02-containers-copilot.drawio`, `03-components-<foco>.drawio`, etc.
+- **Nombres**: prefijo numérico por nivel — `01-context-copilot.drawio`, `02-deployment-copilot.drawio`, `03-components-<foco>.drawio`, etc.
 - **Etiquetas**:
   - Personas → `[Persona]\n<rol>\n<descripción 1 línea>`
   - Sistema en foco → `[Sistema]\nGitHub Copilot — uso corporativo`
-  - Containers → `[Container: <tecnología>]\n<nombre>\n<descripción 1 línea>`
-  - Sistemas externos → `[Sistema externo]\n<nombre>\n<descripción 1 línea>`
+  - Deployment units → `[Deployment unit: <tipo estandarizado>]\n<nombre>\n<descripción 1 línea>`
+  - Deployment nodes → `[Deployment node: <tipo estandarizado>]\n<nombre + disponibilidad>`
+  - Sistemas externos/Core → `[Software System]` o `[Core System]`\n<nombre>\n<descripción 1 línea>`
 - **Relaciones**: siempre con **verbo + protocolo** (p. ej., `Autentica [SAML]`, `Invoca [HTTPS + token usuario]`, `Despliega [kubectl]`, `Comunica [stdio / JSON-RPC]`).
-- **Paleta C4**:
+- **Paleta C4 C1/C3 heredada**:
   - Persona: `fillColor=#08427B; strokeColor=#073B6F; fontColor=#FFFFFF`.
   - Sistema en foco: `fillColor=#1168BD; strokeColor=#0B4884; fontColor=#FFFFFF`.
-  - Container: `fillColor=#438DD5; strokeColor=#2E6295; fontColor=#FFFFFF`.
-  - Externo: `fillColor=#999999; strokeColor=#6B6B6B; fontColor=#FFFFFF`.
-- **Boundaries** (C2+): swimlane con `dashed=1; fillColor=none; fontStyle=1; startSize=30` (24 si está anidado).
+  - Módulo: `fillColor=#63BEF2; strokeColor=#5D82A8; fontColor=#000000`.
+- **Paleta C2/despliegue**: usar `.github/skills/drawio-deployment/SKILL.md`: unidad `#23A2D9`, sistema externo/core `#8C8496`, relación `#828282`, nodo pasivo `#F5F5F5`.
+- **Boundaries de despliegue**: swimlane con `fillColor=none; fontStyle=1; startSize=30` para entornos y `startSize=26` para nodos anidados.
 - **XML**: cada `mxCell edge="1"` debe contener `<mxGeometry relative="1" as="geometry"/>` como hijo. Usar `html=1` y escapar entidades (`&lt;`, `&gt;`, `&#10;`). Sin comentarios XML.
 
 ## Pasos a ejecutar
@@ -76,7 +77,7 @@ Antes de dibujar, **lee** los archivos de contexto:
 1. Lee los archivos de contexto listados arriba; **no inventes** datos sobre gaps marcados ❓.
 2. Si `${input:nivel}` ya existe en `diagrams/`, decide si actualizar o regenerar. Pregunta al usuario si la decisión no es obvia.
 3. Construye la lista de **elementos** y **relaciones** del nivel solicitado, alineada con el contexto consolidado.
-4. Genera el `.drawio` (XML mxGraphModel directo). Aplica los estilos C4 de la paleta. Para C2+, usa boundaries swimlane.
+4. Genera el `.drawio` (XML mxGraphModel directo). Para C2/despliegue, aplica estrictamente la skill `drawio-deployment`; para otros niveles, conserva las convenciones C4 del repo.
 5. Abre el archivo en draw.io desktop con `Invoke-Item` (Windows) — no exportar SVG.
 6. Resume en la respuesta: ruta del archivo, conteo de elementos por tipo, relaciones nuevas/actualizadas.
 

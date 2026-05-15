@@ -9,7 +9,7 @@ Se documentó la arquitectura empresarial de GitHub Copilot de la compañía sig
 ## Cronología de decisiones
 
 1. **Repositorio inicial vacío**. Se decidió empezar por `.github/copilot-instructions.md` con las convenciones C4 del repo.
-2. **Tooling acordado**: draw.io con MCP. Se adaptó la skill oficial `jgraph/drawio-mcp/skill-cli` (Claude Code) a **Copilot CLI sobre Windows nativo**, alojada en `.github/skills/drawio/SKILL.md` y referenciada desde `copilot-instructions.md` (Copilot CLI no auto-carga `~/.claude/skills/`).
+2. **Tooling acordado**: draw.io con MCP. La skill general inicial fue reemplazada por una skill especializada de despliegue C4/Tuya, alojada en `.github/skills/drawio-deployment/SKILL.md` y referenciada desde `copilot-instructions.md`.
 3. **Modo plan inicial**: se enumeraron 8 áreas de gaps potenciales (A–H) basadas en arquitecturas típicas de Copilot empresarial.
 4. **Cuestionario A–H** respondido por el usuario en bloques. Resultado: contexto consolidado más una lista clara de gaps.
 5. **C1 (Contexto)** generado: `diagrams/01-context-copilot.drawio`. 3 personas, 1 sistema en foco, 6 sistemas externos, 11 relaciones, 2 notas, leyenda. Se rechazó exportar SVG; preferencia por `.drawio` nativo.
@@ -57,8 +57,8 @@ Se documentó la arquitectura empresarial de GitHub Copilot de la compañía sig
 
 | Ruta | Tipo | Descripción |
 |---|---|---|
-| `.github/copilot-instructions.md` | Markdown | Convenciones del repo y referencia a la skill drawio. |
-| `.github/skills/drawio/SKILL.md` | Markdown (skill) | Skill adaptada para Copilot CLI en Windows: cómo autorar y abrir `.drawio` con `C:\Program Files\draw.io\draw.io.exe`. |
+| `.github/copilot-instructions.md` | Markdown | Convenciones del repo y referencia a la skill de despliegue draw.io. |
+| `.github/skills/drawio-deployment/SKILL.md` | Markdown (skill) | Skill especializada para diagramas de despliegue C4/Tuya con draw.io XML. |
 | `diagrams/01-context-copilot.drawio` | draw.io | C4 Nivel 1 — Contexto. Etiquetas en español. |
 | `diagrams/02-containers-copilot.drawio` | draw.io | C4 Nivel 2 — Contenedores. 3 boundaries + AKS anidado. |
 | `docs/architecture-gaps.md` | Markdown | Tabla de gaps con columna "¿Requiere mejora?" y recomendaciones. |
@@ -69,11 +69,12 @@ Se documentó la arquitectura empresarial de GitHub Copilot de la compañía sig
 
 - **Idioma**: español para todas las etiquetas y documentación.
 - **Formato de diagramas**: solo `.drawio` nativo. Se rechazó la generación automática de SVG/PNG.
-- **Estilos C4** (paleta confirmada):
+- **Estilos C4 iniciales** (paleta usada en los primeros C1/C2; para nuevos despliegues usar `.github/skills/drawio-deployment/SKILL.md`):
   - Persona `#08427B` / `#073B6F`.
   - Sistema en foco `#1168BD` / `#0B4884`.
-  - Container `#438DD5` / `#2E6295`.
-  - Externo `#999999` / `#6B6B6B`.
+  - Container inicial `#438DD5` / `#2E6295`.
+  - Externo inicial `#999999` / `#6B6B6B`.
+  - Despliegue v3: unidad `#23A2D9`, sistema/core externo `#8C8496`, relacion `#828282`, nodo pasivo `#F5F5F5`.
 - **Boundaries**: swimlane `dashed=1; fillColor=none; fontStyle=1; startSize=30` (24 si anidado).
 - **XML**: `mxCell` de tipo `edge` con hijo explícito `<mxGeometry relative="1" as="geometry"/>`; `html=1` con entidades escapadas; sin comentarios XML.
 - **Tooling Windows**: `Invoke-Item` para abrir el `.drawio` en draw.io desktop.

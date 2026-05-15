@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diagrama de despliegue — GitHub Copilot (Premium · estilo Tuya)</title>
+  <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/dist/tippy.css" />
+  <link rel="stylesheet" href="https://unpkg.com/tippy.js@6/themes/light-border.css" />
+  <link rel="stylesheet" href="02-deployment-copilot-premium-styles.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/cytoscape@3.30.2/dist/cytoscape.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/elkjs@0.9.3/lib/elk.bundled.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cytoscape-elk@2.2.0/dist/cytoscape-elk.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cytoscape-node-html-label@1.2.2/dist/cytoscape-node-html-label.min.js"></script>
+  <script src="https://unpkg.com/@popperjs/core@2"></script>
+  <script src="https://unpkg.com/tippy.js@6"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cytoscape-popper@2.0.0/cytoscape-popper.js"></script>
+</head>
+<body>
+  <header class="page-header">
+    <div>
+      <h1>GitHub Copilot — Diagrama de despliegue C2</h1>
+      <p class="subtitle">Cytoscape.js + ELK · estilo C4 Tuya · pasa el mouse sobre cualquier elemento</p>
+    </div>
+    <div class="header-actions">
+      <button id="btn-fit" type="button">Ajustar vista</button>
+      <button id="btn-png" type="button">Exportar PNG</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="cy"></div>
+
+    <aside class="legend">
+      <h2>Leyenda</h2>
+      <ul>
+        <li><span class="swatch unit"></span> Unidad de despliegue</li>
+        <li><span class="swatch unit-new"></span> Unidad nueva <code>++</code></li>
+        <li><span class="swatch unit-modified"></span> Unidad modificada <code>**</code></li>
+        <li><span class="swatch system"></span> Sistema externo</li>
+        <li><span class="swatch core"></span> Core System</li>
+        <li><span class="swatch system-future"></span> Sistema futuro</li>
+        <li><span class="swatch node-passive"></span> Pasivo / failover</li>
+        <li><span class="swatch env"></span> Boundary de entorno</li>
+        <li><span class="swatch node-active"></span> Nodo de despliegue</li>
+        <li><span class="line solid"></span> Relacion runtime</li>
+        <li><span class="line dashed"></span> Relacion futura (gap)</li>
+      </ul>
+
+      <h2>Gaps representados</h2>
+      <ul class="gaps">
+        <li><b>A4</b> — SSO Entra no enforced</li>
+        <li><b>D1</b> — Sin Content Exclusions</li>
+        <li><b>D3</b> — Audit no en SIEM</li>
+        <li><b>D4</b> — Metrics no en BI</li>
+        <li><b>E1</b> — TLS B&amp;I Netskope</li>
+        <li><b>F2</b> — Token en env var</li>
+        <li><b>F3</b> — MCP solo en dev</li>
+      </ul>
+    </aside>
+  </main>
+
+  <footer class="page-footer">
+    Fuente: <code>diagrams/02-deployment-copilot-v2.drawio</code> ·
+    Doc: <code>docs/02-deployment-copilot-v2.md</code>
+  </footer>
+
+  <script src="02-deployment-copilot-premium-script.js"></script>
+</body>
+</html>

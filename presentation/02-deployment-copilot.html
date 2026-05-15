@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Diagrama de despliegue — GitHub Copilot (Tuya)</title>
+  <link rel="stylesheet" href="02-deployment-copilot-styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/cytoscape@3.30.2/dist/cytoscape.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/elkjs@0.9.3/lib/elk.bundled.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/cytoscape-elk@2.2.0/dist/cytoscape-elk.js"></script>
+</head>
+<body>
+  <header class="page-header">
+    <h1>GitHub Copilot — Diagrama de despliegue C2</h1>
+    <p class="subtitle">Vista renderizada con Cytoscape.js + ELK · routing ortogonal automatico</p>
+  </header>
+
+  <main>
+    <div id="cy"></div>
+
+    <aside class="legend">
+      <h2>Leyenda</h2>
+      <ul>
+        <li><span class="swatch unit"></span> Unidad de despliegue</li>
+        <li><span class="swatch unit-new"></span> Unidad nueva <code>++</code></li>
+        <li><span class="swatch unit-modified"></span> Unidad modificada <code>**</code></li>
+        <li><span class="swatch system"></span> Sistema externo / Core</li>
+        <li><span class="swatch system-future"></span> Sistema futuro / recomendado</li>
+        <li><span class="swatch node-passive"></span> Nodo / sistema pasivo (failover)</li>
+        <li><span class="swatch env"></span> Boundary de entorno</li>
+        <li><span class="swatch node-active"></span> Nodo de despliegue activo</li>
+        <li><span class="line solid"></span> Relacion runtime</li>
+        <li><span class="line dashed"></span> Relacion recomendada / futura (gap)</li>
+      </ul>
+    </aside>
+  </main>
+
+  <footer class="page-footer">
+    Fuente: <code>diagrams/02-deployment-copilot-v2.drawio</code> ·
+    Doc: <code>docs/02-deployment-copilot-v2.md</code>
+  </footer>
+
+  <script src="02-deployment-copilot-script.js"></script>
+</body>
+</html>

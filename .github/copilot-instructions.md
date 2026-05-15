@@ -18,11 +18,11 @@ When asked to add or modify a diagram, first identify which C4 level it belongs 
 ### Diagramas (draw.io)
 
 - Diagrams are authored in **draw.io** (`.drawio` / `.drawio.svg` / `.drawio.png` / `.drawio.pdf`).
-- **Primary workflow: the drawio skill** — see [`.github/skills/drawio/SKILL.md`](skills/drawio/SKILL.md). **Read it first** — it defines:
-  - **Paleta de colores oficial de Tuya** (Persona `#08427B`, Sistema `#1168BD`, Contenedor `#438DD5`, Módulo `#63BEF2`, Externo `#999999`, etc.)
-  - **Nomenclatura corporativa** (nombres en negrita, sufijos `++`/`**`, tipos en corchetes)
-  - **Estilos XML copiables** para cada elemento C4
-  - **Ejemplos XML** para C1, C2 y C3
+- **Primary workflow for deployment diagrams: the drawio-deployment skill** — see [`.github/skills/drawio-deployment/SKILL.md`](skills/drawio-deployment/SKILL.md). **Read it first** when creating C2/deployment diagrams; it defines:
+  - **Paleta de colores oficial de despliegue Tuya** (Unidad de despliegue `#23A2D9`, Sistema externo/Core `#8C8496`, Nodo pasivo `#F5F5F5`, Relacion `#828282`).
+  - **Nomenclatura corporativa** (nombres en negrita, sufijos `++`/`**`, tipos en corchetes).
+  - **Estilos XML copiables** para entornos, nodos, unidades de despliegue, sistemas y relaciones.
+  - **Ejemplos XML** para diagramas de despliegue C4/Tuya.
 - The draw.io MCP tools (`drawio-open_drawio_xml`, `drawio-open_drawio_mermaid`, `drawio-open_drawio_csv`) remain available as an alternative renderer for previewing in chat.
 - Prefer **draw.io XML** (not Mermaid) for C4 diagrams — it gives precise control over containers, swimlanes, and the C4 shape library.
 
@@ -33,18 +33,18 @@ When asked to add or modify a diagram, first identify which C4 level it belongs 
 - **Cuándo usar cada skill:**
   | Contenido | Skill |
   |-----------|-------|
-  | Diagramas C4 detallados | `drawio` |
+  | Diagramas de despliegue C4 detallados | `drawio-deployment` |
   | Diagramas simples en Wiki | `azdo-wiki` (Mermaid) |
   | Documentación técnica | `azdo-wiki` |
-  | Arquitectura visual compleja | `drawio` → exportar PNG → `azdo-wiki` |
+  | Arquitectura visual compleja de despliegue | `drawio-deployment` → exportar PNG → `azdo-wiki` |
 
 ## Conventions for C4 diagrams in draw.io
 
-> **Fuente de verdad:** para colores hex y estilos completos, consultar el skill en `.github/skills/drawio/SKILL.md`.
+> **Fuente de verdad para despliegue:** para colores hex y estilos completos, consultar el skill en `.github/skills/drawio-deployment/SKILL.md`.
 
 - **One file per C4 level per scope.** Suggested layout:
   - `diagrams/01-context.drawio`
-  - `diagrams/02-container.drawio`
+  - `diagrams/02-deployment.drawio`
   - `diagrams/03-component-<container-name>.drawio`
 
 ### Nomenclatura Tuya
@@ -52,7 +52,7 @@ When asked to add or modify a diagram, first identify which C4 level it belongs 
 - **Nombres en negrita:** `<b>Nombre</b>`
 - **Sufijo `++`** para elementos nuevos (a crear)
 - **Sufijo `**`** para elementos modificados
-- **Tipo en corchetes:** `[Deployment unit: API]`, `[Module: Data Access]`, `[Software System]`
+- **Tipo en corchetes:** `[Deployment unit: API]`, `[Deployment node: Kubernetes Cluster]`, `[Environment: cloud]`, `[Software System]`
 - **Relaciones:** verbo + protocolo en corchetes, e.g. `Consulta datos<br>[JSON/HTTPS]`
 
 ### Labels
@@ -63,7 +63,7 @@ When asked to add or modify a diagram, first identify which C4 level it belongs 
 ### Edges and containers
 
 - **Edges**: `edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;strokeColor=#828282;` — let routing be automatic.
-- **Boundaries** (system boundary, container boundary) are `swimlane` containers with `startSize=24` or `startSize=30` and pastel/transparent fill.
+- **Deployment boundaries** are `swimlane` containers: environments with `startSize=30`, nested nodes with `startSize=26`, transparent fill for active nodes and `#F5F5F5` for passive/failover nodes.
 - **Match the user's language** in all diagram labels.
 
 ## When exporting

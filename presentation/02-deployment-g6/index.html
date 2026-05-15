@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>C2 Despliegue — GitHub Copilot (G6 / AntV)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div>
+      <h1>GitHub Copilot — Despliegue (C2)</h1>
+      <p class="subtitle">Variante <strong>G6 v5 (AntV)</strong> · layout dagre + routing ortogonal</p>
+    </div>
+    <div class="actions">
+      <button id="btn-fit">Ajustar vista</button>
+      <button id="btn-png">Exportar PNG</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="container"></div>
+
+    <aside class="legend">
+      <h3>Leyenda</h3>
+      <ul>
+        <li><span class="swatch env"></span> Entorno</li>
+        <li><span class="swatch node"></span> Nodo de despliegue</li>
+        <li><span class="swatch unit"></span> Unidad de despliegue</li>
+        <li><span class="swatch unit-new"></span> Unidad nueva (++)</li>
+        <li><span class="swatch unit-mod"></span> Unidad modificada (**)</li>
+        <li><span class="swatch system"></span> Sistema externo</li>
+        <li><span class="swatch system-future"></span> Sistema futuro/recomendado</li>
+        <li><span class="swatch core"></span> Sistema core (IdP)</li>
+      </ul>
+      <p class="hint">Hover sobre nodos y aristas para ver detalles. Arrastra el lienzo para mover. Rueda del mouse para zoom.</p>
+    </aside>
+  </main>
+
+  <script src="https://unpkg.com/@antv/g6@5.0.42/dist/g6.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

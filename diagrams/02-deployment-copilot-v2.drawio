@@ -1,0 +1,239 @@
+<mxfile host="Electron" agent="Copilot CLI" version="24.0.0">
+  <diagram id="c2-deployment-copilot-v2" name="C2 - Despliegue v2">
+    <mxGraphModel dx="2400" dy="1600" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2600" pageHeight="1700" math="0" shadow="0" adaptiveColors="auto">
+      <root>
+        <mxCell id="0"/>
+        <mxCell id="1" parent="0"/>
+
+        <mxCell id="title" value="GitHub Copilot - C4 Nivel 2 - Diagrama de Despliegue (v2)" style="text;html=1;align=center;verticalAlign=middle;fontSize=20;fontStyle=1;fontColor=#333333;" vertex="1" parent="1">
+          <mxGeometry x="40" y="20" width="2520" height="40" as="geometry"/>
+        </mxCell>
+        <mxCell id="subtitle" value="Alcance: Enterprise tuyacol + estaciones corporativas + plataforma de MCPs corporativos en Azure dev" style="text;html=1;align=center;verticalAlign=middle;fontSize=13;fontColor=#555555;" vertex="1" parent="1">
+          <mxGeometry x="40" y="60" width="2520" height="24" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="env_endpoint" value="&lt;b&gt;Tuya - Endpoints corporativos&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Environment: on premise]&lt;/i&gt;" style="swimlane;startSize=30;fillColor=none;strokeColor=#444444;fontColor=#333333;fontStyle=1;dashed=1;html=1;rounded=0;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="40" y="110" width="700" height="780" as="geometry"/>
+        </mxCell>
+        <mxCell id="node_workstation" value="&lt;b&gt;Equipo del desarrollador (N/A)&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment node: Workstation Windows/macOS]&lt;/i&gt;" style="swimlane;startSize=26;fillColor=none;strokeColor=#6B6B6B;fontColor=#333333;fontStyle=1;html=1;rounded=0;whiteSpace=wrap;" vertex="1" parent="env_endpoint">
+          <mxGeometry x="20" y="60" width="660" height="700" as="geometry"/>
+        </mxCell>
+        <mxCell id="du_vscode" value="&lt;b&gt;VS Code + Extension Copilot&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment unit: IDE Extension]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Chat, autocompletado, agente y plan." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#23A2D9;strokeColor=#0B7FAB;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;arcSize=12;" vertex="1" parent="node_workstation">
+          <mxGeometry x="30" y="50" width="280" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="du_cli" value="&lt;b&gt;GitHub Copilot CLI&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment unit: CLI]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Cliente Copilot en terminal con modo agente." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#23A2D9;strokeColor=#0B7FAB;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;arcSize=12;" vertex="1" parent="node_workstation">
+          <mxGeometry x="340" y="50" width="280" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="du_local_mcp" value="&lt;b&gt;MCPs locales&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment unit: Local MCP Server]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Procesos hijos stdio/JSON-RPC configurados por el dev." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#23A2D9;strokeColor=#0B7FAB;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;arcSize=12;" vertex="1" parent="node_workstation">
+          <mxGeometry x="30" y="200" width="590" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="du_shell" value="&lt;b&gt;Shell / scripts&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment unit: Shell]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Ejecuta comandos del modo agente." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#23A2D9;strokeColor=#0B7FAB;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;arcSize=12;" vertex="1" parent="node_workstation">
+          <mxGeometry x="30" y="330" width="280" height="105" as="geometry"/>
+        </mxCell>
+        <mxCell id="du_git" value="&lt;b&gt;Cliente Git&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment unit: Git Client]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Opera contra repositorios Azure DevOps." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#23A2D9;strokeColor=#0B7FAB;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;arcSize=12;" vertex="1" parent="node_workstation">
+          <mxGeometry x="340" y="330" width="280" height="105" as="geometry"/>
+        </mxCell>
+        <mxCell id="du_workspace" value="&lt;b&gt;Workspace local&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment unit: File System]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Codigo fuente abierto, contexto enviado a Copilot." style="shape=process;whiteSpace=wrap;html=1;fillColor=#23A2D9;strokeColor=#0B7FAB;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="node_workstation">
+          <mxGeometry x="30" y="465" width="590" height="95" as="geometry"/>
+        </mxCell>
+        <mxCell id="du_browser" value="&lt;b&gt;Navegador corporativo&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment unit: Browser]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Acceso a consola administracion Copilot." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#23A2D9;strokeColor=#0B7FAB;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;arcSize=12;" vertex="1" parent="node_workstation">
+          <mxGeometry x="30" y="590" width="590" height="90" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sys_netskope" value="&lt;b&gt;Netskope SWG&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Software System]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Gateway corporativo de salida.&lt;br&gt;Allowlist Copilot/MCP. TLS B&amp;I por validar." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#8C8496;strokeColor=#6F6878;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;arcSize=16;" vertex="1" parent="1">
+          <mxGeometry x="800" y="380" width="240" height="140" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="env_github" value="&lt;b&gt;GitHub Cloud - Enterprise tuyacol&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Environment: cloud]&lt;/i&gt;" style="swimlane;startSize=30;fillColor=none;strokeColor=#444444;fontColor=#333333;fontStyle=1;dashed=1;html=1;rounded=0;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="1100" y="110" width="780" height="780" as="geometry"/>
+        </mxCell>
+        <mxCell id="node_github_saas" value="&lt;b&gt;GitHub.com / Copilot SaaS (99.9%)&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment node: SaaS Platform]&lt;/i&gt;" style="swimlane;startSize=26;fillColor=none;strokeColor=#6B6B6B;fontColor=#333333;fontStyle=1;html=1;rounded=0;whiteSpace=wrap;" vertex="1" parent="env_github">
+          <mxGeometry x="20" y="60" width="740" height="700" as="geometry"/>
+        </mxCell>
+        <mxCell id="du_copilot_proxy" value="&lt;b&gt;Proxy de GitHub Copilot&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment unit: API]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Recibe prompts, aplica controles, enruta a modelos." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#23A2D9;strokeColor=#0B7FAB;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;arcSize=12;" vertex="1" parent="node_github_saas">
+          <mxGeometry x="30" y="55" width="330" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="du_llm_models" value="&lt;b&gt;Servicio de modelos LLM&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment unit: LLM Inference Service]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Backend opaco de modelos detras del proxy." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#23A2D9;strokeColor=#0B7FAB;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;arcSize=12;" vertex="1" parent="node_github_saas">
+          <mxGeometry x="390" y="55" width="320" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="du_admin_console" value="&lt;b&gt;Consola administracion Copilot&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment unit: Web App]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Licencias, politicas y Content Exclusions." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#23A2D9;strokeColor=#0B7FAB;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;arcSize=12;" vertex="1" parent="node_github_saas">
+          <mxGeometry x="30" y="210" width="330" height="115" as="geometry"/>
+        </mxCell>
+        <mxCell id="du_audit" value="&lt;b&gt;Audit Log API&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment unit: API]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Eventos de uso, admin y politicas." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#23A2D9;strokeColor=#0B7FAB;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;arcSize=12;" vertex="1" parent="node_github_saas">
+          <mxGeometry x="390" y="210" width="320" height="115" as="geometry"/>
+        </mxCell>
+        <mxCell id="du_metrics" value="&lt;b&gt;Metrics API&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment unit: API]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Aceptacion, sugerencias, usuarios activos." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#23A2D9;strokeColor=#0B7FAB;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;arcSize=12;" vertex="1" parent="node_github_saas">
+          <mxGeometry x="30" y="350" width="330" height="115" as="geometry"/>
+        </mxCell>
+        <mxCell id="du_ado_repos" value="&lt;b&gt;Azure DevOps Repos&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment unit: Git Hosting]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Repositorios corporativos consumidos por el cliente Git." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#23A2D9;strokeColor=#0B7FAB;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;arcSize=12;" vertex="1" parent="node_github_saas">
+          <mxGeometry x="390" y="350" width="320" height="115" as="geometry"/>
+        </mxCell>
+        <mxCell id="du_copilot_license" value="&lt;b&gt;Servicio de licenciamiento Copilot&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment unit: API]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Valida sesion y entitlement contra grupo Entra ID." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#23A2D9;strokeColor=#0B7FAB;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;arcSize=12;" vertex="1" parent="node_github_saas">
+          <mxGeometry x="30" y="490" width="680" height="105" as="geometry"/>
+        </mxCell>
+        <mxCell id="du_audit_storage" value="&lt;b&gt;Almacenamiento de auditoria&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment unit: Log Store]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Retencion de eventos Audit Log (sin export a SIEM aun, D3)." style="shape=cylinder3;whiteSpace=wrap;html=1;boundedLbl=1;backgroundOutline=1;size=15;fillColor=#23A2D9;strokeColor=#0B7FAB;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="node_github_saas">
+          <mxGeometry x="240" y="610" width="280" height="80" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sys_entra" value="&lt;b&gt;Microsoft Entra ID&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Core System]&lt;/i&gt;&lt;br&gt;&lt;br&gt;IdP corporativo. SAML SSO + grupo de licenciamiento.&lt;br&gt;Configurado, no enforced (A4)." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#8C8496;strokeColor=#6F6878;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;arcSize=16;" vertex="1" parent="1">
+          <mxGeometry x="1940" y="180" width="260" height="150" as="geometry"/>
+        </mxCell>
+        <mxCell id="sys_siem" value="&lt;b&gt;SIEM corporativo&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Software System]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Destino recomendado de logs de auditoria (D3)." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#8C8496;strokeColor=#6F6878;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;arcSize=16;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1940" y="360" width="260" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="sys_bi" value="&lt;b&gt;Plataforma de BI / Adopcion&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Software System]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Consumidor recomendado de Metrics API (D4)." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#8C8496;strokeColor=#6F6878;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;arcSize=16;dashed=1;" vertex="1" parent="1">
+          <mxGeometry x="1940" y="510" width="260" height="120" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="env_azure_mcp" value="&lt;b&gt;Azure - Plataforma corporativa de MCPs dev&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Environment: cloud]&lt;/i&gt;" style="swimlane;startSize=30;fillColor=none;strokeColor=#444444;fontColor=#333333;fontStyle=1;dashed=1;html=1;rounded=0;whiteSpace=wrap;" vertex="1" parent="1">
+          <mxGeometry x="40" y="930" width="2200" height="640" as="geometry"/>
+        </mxCell>
+        <mxCell id="node_apim" value="&lt;b&gt;Azure API Management dev (N/A)&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment node: API Gateway]&lt;/i&gt;" style="swimlane;startSize=26;fillColor=none;strokeColor=#6B6B6B;fontColor=#333333;fontStyle=1;html=1;rounded=0;whiteSpace=wrap;" vertex="1" parent="env_azure_mcp">
+          <mxGeometry x="30" y="60" width="360" height="240" as="geometry"/>
+        </mxCell>
+        <mxCell id="du_apim_route" value="&lt;b&gt;API SonarCloud MCP&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment unit: API Gateway Route]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Solo enruta; sin auth/politicas propias." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#23A2D9;strokeColor=#0B7FAB;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;arcSize=12;" vertex="1" parent="node_apim">
+          <mxGeometry x="40" y="65" width="280" height="140" as="geometry"/>
+        </mxCell>
+        <mxCell id="node_acr" value="&lt;b&gt;Azure Container Registry dev (N/A)&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment node: Container Registry]&lt;/i&gt;" style="swimlane;startSize=26;fillColor=none;strokeColor=#6B6B6B;fontColor=#333333;fontStyle=1;html=1;rounded=0;whiteSpace=wrap;" vertex="1" parent="env_azure_mcp">
+          <mxGeometry x="30" y="320" width="360" height="220" as="geometry"/>
+        </mxCell>
+        <mxCell id="du_acr_image" value="&lt;b&gt;Imagen SonarCloud MCP&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment unit: OCI Image]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Mirror corporativo de la imagen oficial." style="shape=process;whiteSpace=wrap;html=1;fillColor=#23A2D9;strokeColor=#0B7FAB;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="node_acr">
+          <mxGeometry x="40" y="55" width="280" height="120" as="geometry"/>
+        </mxCell>
+        <mxCell id="node_aks" value="&lt;b&gt;AKS desarrollo (N/A)&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment node: Kubernetes Cluster]&lt;/i&gt;" style="swimlane;startSize=26;fillColor=none;strokeColor=#6B6B6B;fontColor=#333333;fontStyle=1;html=1;rounded=0;whiteSpace=wrap;" vertex="1" parent="env_azure_mcp">
+          <mxGeometry x="430" y="60" width="1300" height="510" as="geometry"/>
+        </mxCell>
+        <mxCell id="node_namespace" value="&lt;b&gt;Namespace MCP dev&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment node: Kubernetes Namespace]&lt;/i&gt;" style="swimlane;startSize=26;fillColor=none;strokeColor=#6B6B6B;fontColor=#333333;fontStyle=1;html=1;rounded=0;whiteSpace=wrap;" vertex="1" parent="node_aks">
+          <mxGeometry x="30" y="55" width="1240" height="420" as="geometry"/>
+        </mxCell>
+        <mxCell id="du_ingress" value="&lt;b&gt;Ingress / Service&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment unit: Kubernetes Service]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Publica el pod del MCP dentro del cluster." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#23A2D9;strokeColor=#0B7FAB;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;arcSize=12;" vertex="1" parent="node_namespace">
+          <mxGeometry x="40" y="65" width="270" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="du_sonar_mcp" value="&lt;b&gt;SonarCloud MCP Server&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment unit: MCP Server]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Pod que atiende JSON-RPC y consulta SonarCloud." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#23A2D9;strokeColor=#0B7FAB;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;arcSize=12;" vertex="1" parent="node_namespace">
+          <mxGeometry x="350" y="65" width="270" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="du_admin_token" value="&lt;b&gt;Token admin SonarCloud**&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment unit: Kubernetes Env Var]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Secreto en env var del deployment.&lt;br&gt;Estado actual (gap F2)." style="shape=process;whiteSpace=wrap;html=1;fillColor=#23A2D9;strokeColor=#0B7FAB;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="node_namespace">
+          <mxGeometry x="660" y="65" width="270" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="du_keyvault_csi" value="&lt;b&gt;CSI Secrets Driver++&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment unit: K8s CSI Driver]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Recomendado para montar secretos desde Key Vault." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#23A2D9;strokeColor=#0B7FAB;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;arcSize=12;dashed=1;" vertex="1" parent="node_namespace">
+          <mxGeometry x="960" y="65" width="270" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="du_future_mcp" value="&lt;b&gt;Plantilla futuros MCPs++&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment unit: Helm Template]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Base reutilizable para nuevos MCPs corporativos (F3)." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#23A2D9;strokeColor=#0B7FAB;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;dashed=1;arcSize=12;" vertex="1" parent="node_namespace">
+          <mxGeometry x="350" y="225" width="580" height="100" as="geometry"/>
+        </mxCell>
+        <mxCell id="du_pod_logs" value="&lt;b&gt;Logs del pod MCP&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Deployment unit: Container Logs]&lt;/i&gt;&lt;br&gt;&lt;br&gt;stdout/stderr recolectado por el cluster." style="shape=process;whiteSpace=wrap;html=1;fillColor=#23A2D9;strokeColor=#0B7FAB;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="node_namespace">
+          <mxGeometry x="40" y="225" width="270" height="100" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="sys_sonar" value="&lt;b&gt;SonarCloud&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Software System]&lt;/i&gt;&lt;br&gt;&lt;br&gt;SaaS de calidad de codigo consultado por el MCP corporativo." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#8C8496;strokeColor=#6F6878;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;arcSize=16;" vertex="1" parent="env_azure_mcp">
+          <mxGeometry x="1770" y="80" width="260" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="sys_keyvault" value="&lt;b&gt;Azure Key Vault++&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Software System]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Boveda recomendada para secretos runtime (F2)." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#8C8496;strokeColor=#6F6878;fontColor=#FFFFFF;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;arcSize=16;dashed=1;" vertex="1" parent="env_azure_mcp">
+          <mxGeometry x="1770" y="240" width="260" height="130" as="geometry"/>
+        </mxCell>
+        <mxCell id="sys_acr_dr" value="&lt;b&gt;Replica geo ACR (recomendada)&lt;/b&gt;&lt;br&gt;&lt;i&gt;[Software System]&lt;/i&gt;&lt;br&gt;&lt;br&gt;Failover de imagenes para alta disponibilidad." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#F5F5F5;strokeColor=#CCCCCC;fontColor=#333333;align=center;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;arcSize=16;dashed=1;" vertex="1" parent="env_azure_mcp">
+          <mxGeometry x="1770" y="400" width="260" height="130" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="note_gaps" value="&lt;b&gt;Gaps representados:&lt;/b&gt;&lt;br&gt;A4 SSO Entra configurado no enforced. E1 TLS B&amp;amp;I Netskope por validar. D1 sin Content Exclusions. D3 audit logs no exportados a SIEM. D4 Metrics API no consumida. F2 token admin SonarCloud en env var (debe migrar a Key Vault). F3 MCP corporativo solo en dev." style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF4C2;strokeColor=#D6B656;fontColor=#333333;align=left;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="40" y="1600" width="1480" height="90" as="geometry"/>
+        </mxCell>
+        <mxCell id="legend" value="&lt;b&gt;Leyenda&lt;/b&gt;&lt;br&gt;&lt;font color=&quot;#23A2D9&quot;&gt;■&lt;/font&gt; Unidad de despliegue   &lt;font color=&quot;#8C8496&quot;&gt;■&lt;/font&gt; Sistema/Core externo   □ Entorno / Nodo activo   &lt;font color=&quot;#F5F5F5&quot;&gt;■&lt;/font&gt; Nodo pasivo&lt;br&gt;Linea/borde punteado = recomendado o futuro (++ nuevo, ** modificado)" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#FFF4C2;strokeColor=#D6B656;fontColor=#333333;align=left;verticalAlign=top;spacingTop=8;spacingLeft=10;spacingRight=10;" vertex="1" parent="1">
+          <mxGeometry x="1540" y="1600" width="700" height="90" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e_vscode_workspace" edge="1" parent="1" source="du_vscode" target="du_workspace" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;" value="&lt;b&gt;Lee contexto de codigo&lt;/b&gt;&lt;br&gt;[FS local]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_cli_workspace" edge="1" parent="1" source="du_cli" target="du_workspace" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;" value="&lt;b&gt;Lee contexto de codigo&lt;/b&gt;&lt;br&gt;[FS local]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_vscode_mcp" edge="1" parent="1" source="du_vscode" target="du_local_mcp" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;" value="&lt;b&gt;Invoca herramientas&lt;/b&gt;&lt;br&gt;[JSON-RPC/stdio]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_cli_mcp" edge="1" parent="1" source="du_cli" target="du_local_mcp" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;" value="&lt;b&gt;Invoca herramientas&lt;/b&gt;&lt;br&gt;[JSON-RPC/stdio]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_vscode_shell" edge="1" parent="1" source="du_vscode" target="du_shell" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;" value="&lt;b&gt;Ejecuta comandos&lt;/b&gt;&lt;br&gt;[Proceso local]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_cli_shell" edge="1" parent="1" source="du_cli" target="du_shell" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;" value="&lt;b&gt;Ejecuta comandos&lt;/b&gt;&lt;br&gt;[Proceso local]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_git_ado" edge="1" parent="1" source="du_git" target="du_ado_repos" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;" value="&lt;b&gt;Push/pull codigo&lt;/b&gt;&lt;br&gt;[Git/HTTPS]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e_vscode_netskope" edge="1" parent="1" source="du_vscode" target="sys_netskope" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;" value="&lt;b&gt;Envia prompts/chat&lt;/b&gt;&lt;br&gt;[JSON/HTTPS]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_cli_netskope" edge="1" parent="1" source="du_cli" target="sys_netskope" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;" value="&lt;b&gt;Envia solicitudes CLI&lt;/b&gt;&lt;br&gt;[JSON/HTTPS]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_browser_admin" edge="1" parent="1" source="du_browser" target="du_admin_console" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;" value="&lt;b&gt;Administra Enterprise&lt;/b&gt;&lt;br&gt;[HTML/HTTPS]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e_netskope_proxy" edge="1" parent="1" source="sys_netskope" target="du_copilot_proxy" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=2;" value="&lt;b&gt;Permite egress Copilot&lt;/b&gt;&lt;br&gt;[JSON/HTTPS]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_proxy_llm" edge="1" parent="1" source="du_copilot_proxy" target="du_llm_models" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;" value="&lt;b&gt;Solicita inferencia&lt;/b&gt;&lt;br&gt;[API interna/HTTPS]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_proxy_license" edge="1" parent="1" source="du_copilot_proxy" target="du_copilot_license" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;" value="&lt;b&gt;Valida entitlement&lt;/b&gt;&lt;br&gt;[JSON/HTTPS]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_license_entra" edge="1" parent="1" source="du_copilot_license" target="sys_entra" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;" value="&lt;b&gt;Verifica grupo y SSO&lt;/b&gt;&lt;br&gt;[SAML/OIDC]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_admin_entra" edge="1" parent="1" source="du_admin_console" target="sys_entra" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;" value="&lt;b&gt;Autentica admin&lt;/b&gt;&lt;br&gt;[SAML/SCIM]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_audit_storage" edge="1" parent="1" source="du_audit" target="du_audit_storage" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;" value="&lt;b&gt;Persiste eventos&lt;/b&gt;&lt;br&gt;[interno]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_audit_siem" edge="1" parent="1" source="du_audit" target="sys_siem" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;dashed=1;" value="&lt;b&gt;Debe exportar&lt;/b&gt;&lt;br&gt;[JSON/HTTPS]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_metrics_bi" edge="1" parent="1" source="du_metrics" target="sys_bi" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;dashed=1;" value="&lt;b&gt;Debe consumir&lt;/b&gt;&lt;br&gt;[JSON/HTTPS]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+        <mxCell id="e_vscode_apim" edge="1" parent="1" source="du_vscode" target="sys_netskope" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;dashed=1;" value="">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_netskope_apim" edge="1" parent="1" source="sys_netskope" target="du_apim_route" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=2;" value="&lt;b&gt;Permite egress MCP&lt;/b&gt;&lt;br&gt;[JSON/HTTPS + token usuario]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_apim_ingress" edge="1" parent="1" source="du_apim_route" target="du_ingress" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;" value="&lt;b&gt;Enruta solicitud&lt;/b&gt;&lt;br&gt;[HTTPS]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_ingress_pod" edge="1" parent="1" source="du_ingress" target="du_sonar_mcp" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;" value="&lt;b&gt;Forward request&lt;/b&gt;&lt;br&gt;[HTTP]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_pod_token" edge="1" parent="1" source="du_sonar_mcp" target="du_admin_token" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;" value="&lt;b&gt;Lee token admin&lt;/b&gt;&lt;br&gt;[Env Var]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_pod_sonar" edge="1" parent="1" source="du_sonar_mcp" target="sys_sonar" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=2;" value="&lt;b&gt;Consulta metricas e issues&lt;/b&gt;&lt;br&gt;[JSON/HTTPS + token admin]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_pod_logs" edge="1" parent="1" source="du_sonar_mcp" target="du_pod_logs" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;" value="&lt;b&gt;Emite logs&lt;/b&gt;&lt;br&gt;[stdout/stderr]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_aks_acr" edge="1" parent="1" source="node_aks" target="du_acr_image" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;" value="&lt;b&gt;Descarga imagen&lt;/b&gt;&lt;br&gt;[OCI/HTTPS]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_acr_dr" edge="1" parent="1" source="du_acr_image" target="sys_acr_dr" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;dashed=1;" value="&lt;b&gt;Replica imagen&lt;/b&gt;&lt;br&gt;[OCI/HTTPS]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_csi_kv" edge="1" parent="1" source="du_keyvault_csi" target="sys_keyvault" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;dashed=1;" value="&lt;b&gt;Monta secretos&lt;/b&gt;&lt;br&gt;[JSON/HTTPS]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+        <mxCell id="e_pod_csi" edge="1" parent="1" source="du_sonar_mcp" target="du_keyvault_csi" style="edgeStyle=orthogonalEdgeStyle;rounded=1;html=1;endArrow=classic;strokeColor=#828282;fontColor=#333333;strokeWidth=1.5;dashed=1;" value="&lt;b&gt;Debe consumir&lt;/b&gt;&lt;br&gt;[FS volume]">
+          <mxGeometry relative="1" as="geometry"/>
+        </mxCell>
+
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>

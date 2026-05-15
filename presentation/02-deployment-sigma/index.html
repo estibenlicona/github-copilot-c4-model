@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <title>C2 Despliegue — GitHub Copilot (Sigma.js)</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+<body>
+  <header class="header">
+    <div>
+      <h1>GitHub Copilot — Despliegue (C2)</h1>
+      <p class="subtitle">Variante <strong>Sigma.js v2 + Graphology</strong> · WebGL · <em>orientado a grafos densos, NO a arquitectura</em></p>
+    </div>
+    <div class="actions">
+      <button id="btn-fit">Ajustar vista</button>
+      <button id="btn-png">Exportar PNG</button>
+    </div>
+  </header>
+
+  <main>
+    <div id="sigma-container"></div>
+    <aside class="legend">
+      <h3>Leyenda</h3>
+      <ul>
+        <li><span class="swatch unit"></span> Unidad</li>
+        <li><span class="swatch unit-new"></span> Unidad nueva (++)</li>
+        <li><span class="swatch unit-mod"></span> Unidad modificada (**)</li>
+        <li><span class="swatch system"></span> Sistema externo</li>
+        <li><span class="swatch system-future"></span> Sistema futuro</li>
+        <li><span class="swatch core"></span> Sistema core</li>
+        <li><span class="swatch node"></span> Nodo de despliegue (anillo)</li>
+        <li><span class="swatch env"></span> Entorno (anillo grueso)</li>
+      </ul>
+      <div class="warn">
+        <strong>⚠ Limitaciones de Sigma para C4:</strong>
+        <ul>
+          <li>Sin <em>groups/clusters</em> nativos: los entornos/nodos se representan como nodos grandes que envuelven a sus hijos.</li>
+          <li>Layout principalmente force-directed; no es jerárquico C4-style.</li>
+          <li>Etiquetas pequeñas; texto multilínea no soportado.</li>
+          <li>Edge labels solo en hover.</li>
+        </ul>
+        Brilla con miles de nodos (redes sociales, citaciones), no con ~35 nodos jerárquicos.
+      </div>
+    </aside>
+  </main>
+
+  <script src="https://unpkg.com/graphology@0.25.4/dist/graphology.umd.min.js"></script>
+  <script src="https://unpkg.com/graphology-library@0.7.0/dist/graphology-library.min.js"></script>
+  <script src="https://unpkg.com/sigma@2.4.0/build/sigma.min.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>

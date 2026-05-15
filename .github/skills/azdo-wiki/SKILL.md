@@ -377,13 +377,13 @@ Cuando el usuario solicite:
 
 ## Integración con Otros Skills
 
-Este skill complementa al skill de **draw.io** para documentación de arquitectura:
+Este skill complementa al skill de **drawio-deployment** para documentación de arquitectura de despliegue:
 
 | Tipo de Contenido | Skill a Usar |
 |-------------------|--------------|
-| Diagramas C4 detallados | `drawio` |
+| Diagramas de despliegue C4 detallados | `drawio-deployment` |
 | Diagramas simples en Wiki | `azdo-wiki` (Mermaid) |
 | Documentación técnica | `azdo-wiki` |
-| Arquitectura visual compleja | `drawio` → exportar PNG → `azdo-wiki` |
+| Arquitectura visual compleja de despliegue | `drawio-deployment` → exportar PNG → `azdo-wiki` |
 
-Para diagramas complejos de arquitectura (C4 Model), usa el skill de draw.io y luego embebe la imagen exportada en la Wiki.
+Para diagramas complejos de despliegue (C4 Deployment), usa el skill de drawio-deployment y luego embebe la imagen exportada en la Wiki.
