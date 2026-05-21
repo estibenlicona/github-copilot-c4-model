@@ -1,0 +1,134 @@
+<mxfile host="Electron" agent="Claude">
+  <diagram id="c4-container-copilot-v3" name="C4 Container - GitHub Copilot v3">
+    <mxGraphModel dx="2330" dy="1375" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="2400" pageHeight="920" math="0" shadow="0">
+      <root>
+        <mxCell id="0" />
+        <mxCell id="1" parent="0" />
+        <mxCell id="b-ide" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D8AC0;strokeColor=#1F6896;fontColor=#FFFFFF;fontSize=11;align=center;verticalAlign=middle;" value="&lt;b&gt;IDE&lt;/b&gt;&#xa;[Container: VS Code, Visual Studio]&#xa;&#xa;Entorno de desarrollo para interactuar con GitHub Copilot." vertex="1">
+          <mxGeometry height="160" width="300" x="100" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="b-cli" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D8AC0;strokeColor=#1F6896;fontColor=#FFFFFF;fontSize=11;align=center;verticalAlign=middle;" value="&lt;b&gt;GitHub Copilot CLI&lt;/b&gt;&#xa;[Container: Command-line Interface]&#xa;&#xa;Interfaz de línea de comandos para interactuar con GitHub Copilot (requiere PowerShell 7+)." vertex="1">
+          <mxGeometry height="160" width="300" x="440" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="b-git" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D8AC0;strokeColor=#1F6896;fontColor=#FFFFFF;fontSize=11;align=center;verticalAlign=middle;" value="&lt;b&gt;Git Client&lt;/b&gt;&#xa;[Container: Version Control Client]&#xa;&#xa;Cliente de control de versiones para flujos Git asistidos por Copilot." vertex="1">
+          <mxGeometry height="160" width="300" x="100" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="b-mcp" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D8AC0;strokeColor=#1F6896;fontColor=#FFFFFF;fontSize=11;align=center;verticalAlign=middle;" value="&lt;b&gt;Local MCP Servers&lt;/b&gt;&#xa;[Container: MCP Server]&#xa;&#xa;Servicios locales que aportan contexto adicional vía protocolo MCP." vertex="1">
+          <mxGeometry height="160" width="300" x="440" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="b-netclient" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D8AC0;strokeColor=#1F6896;fontColor=#FFFFFF;fontSize=11;align=center;verticalAlign=middle;" value="&lt;b&gt;Netskope Client&lt;/b&gt;&#xa;[Container: Security Agent]&#xa;&#xa;Agente de seguridad corporativo en el endpoint." vertex="1">
+          <mxGeometry height="160" width="300" x="270" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="b-entra" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D8AC0;strokeColor=#1F6896;fontColor=#FFFFFF;fontSize=11;align=center;verticalAlign=middle;" value="&lt;b&gt;Entra ID&lt;/b&gt;&#xa;[Container: Identity Provider]&#xa;&#xa;Proveedor corporativo de identidad y acceso condicional." vertex="1">
+          <mxGeometry height="160" width="300" x="860" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="b-azopenai" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D8AC0;strokeColor=#1F6896;fontColor=#FFFFFF;fontSize=11;align=center;verticalAlign=middle;" value="&lt;b&gt;Azure OpenAI&lt;/b&gt;&#xa;[Container: Copilot Chat, Copilot Admin]&#xa;&#xa;Acceso administrativo a capacidades de GitHub Copilot." vertex="1">
+          <mxGeometry height="160" width="300" x="1180" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="b-netsse" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D8AC0;strokeColor=#1F6896;fontColor=#FFFFFF;fontSize=11;align=center;verticalAlign=middle;" value="&lt;b&gt;Netskope SSE&lt;/b&gt;&#xa;[Container: Security Service Edge]&#xa;&#xa;Plataforma corporativa de seguridad y acceso seguro a servicios externos." vertex="1">
+          <mxGeometry height="160" width="300" x="860" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="b-azrepos" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#2D8AC0;strokeColor=#1F6896;fontColor=#FFFFFF;fontSize=11;align=center;verticalAlign=middle;" value="&lt;b&gt;Azure Repos&lt;/b&gt;&#xa;[Container: Source Control Service]&#xa;&#xa;Servicio corporativo para repositorios de código fuente." vertex="1">
+          <mxGeometry height="160" width="300" x="1180" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="b-cs" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#8C8496;strokeColor=#1F6896;fontColor=#FFFFFF;fontSize=11;align=center;verticalAlign=middle;" value="&lt;b&gt;GitHub Copilot Services&lt;/b&gt;&#xa;[Container: AI Assistant Platform]&#xa;&#xa;Plataforma SaaS de asistencia al desarrollo con IA." vertex="1">
+          <mxGeometry height="160" width="300" x="1620" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="b-webportal" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#8C8496;strokeColor=#1F6896;fontColor=#FFFFFF;fontSize=11;align=center;verticalAlign=middle;" value="&lt;b&gt;GitHub Web Portal&lt;/b&gt;&#xa;[Container: Web Application]&#xa;&#xa;Aplicación web para administración de GitHub Copilot y GitHub." vertex="1">
+          <mxGeometry height="160" width="300" x="1940" y="140" as="geometry" />
+        </mxCell>
+        <mxCell id="b-models" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#8C8496;strokeColor=#1F6896;fontColor=#FFFFFF;fontSize=11;align=center;verticalAlign=middle;" value="&lt;b&gt;GitHub Models&lt;/b&gt;&#xa;[Container: Managed Model Gateway]&#xa;&#xa;Gateway administrado de modelos fundacionales." vertex="1">
+          <mxGeometry height="160" width="300" x="1780" y="380" as="geometry" />
+        </mxCell>
+        <mxCell id="b-openai" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#8C8496;strokeColor=#1F6896;fontColor=#FFFFFF;fontSize=11;align=center;verticalAlign=middle;" value="&lt;b&gt;OpenAI&lt;/b&gt;&#xa;[Container: Software System]&#xa;&#xa;Proveedor externo de modelos fundacionales." vertex="1">
+          <mxGeometry height="160" width="300" x="1620" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="b-anthropic" parent="1" style="rounded=1;whiteSpace=wrap;html=1;fillColor=#8C8496;strokeColor=#1F6896;fontColor=#FFFFFF;fontSize=11;align=center;verticalAlign=middle;" value="&lt;b&gt;Anthropic&lt;/b&gt;&#xa;[Container: Software System]&#xa;&#xa;Proveedor externo de modelos avanzados." vertex="1">
+          <mxGeometry height="160" width="300" x="1940" y="620" as="geometry" />
+        </mxCell>
+        <mxCell id="e1" edge="1" parent="1" source="b-ide" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#222222;strokeWidth=1.8;endArrow=classic;endFill=1;jumpStyle=arc;jumpSize=12;" target="b-cs">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="250" y="100" />
+              <mxPoint x="1770" y="100" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e2" edge="1" parent="1" source="b-ide" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#222222;strokeWidth=1.8;endArrow=classic;endFill=1;jumpStyle=arc;jumpSize=12;" target="b-git">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e3" edge="1" parent="1" source="b-cli" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.267;exitY=1;exitDx=0;exitDy=0;entryX=0.667;entryY=0;entryDx=0;entryDy=0;strokeColor=#222222;strokeWidth=1.8;endArrow=classic;endFill=1;jumpStyle=arc;jumpSize=12;" target="b-git">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="520" y="340" />
+              <mxPoint x="300" y="340" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e4" edge="1" parent="1" source="b-cli" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.467;exitY=1;exitDx=0;exitDy=0;entryX=0.467;entryY=0;entryDx=0;entryDy=0;strokeColor=#222222;strokeWidth=1.8;endArrow=classic;endFill=1;jumpStyle=arc;jumpSize=12;" target="b-mcp">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e5" edge="1" parent="1" source="b-mcp" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.267;entryY=1;entryDx=0;entryDy=0;strokeColor=#222222;strokeWidth=1.8;endArrow=classic;endFill=1;jumpStyle=arc;jumpSize=12;" target="b-cs">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="590" y="335" />
+              <mxPoint x="1700" y="335" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e6" edge="1" parent="1" source="b-netclient" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#222222;strokeWidth=1.8;endArrow=classic;endFill=1;jumpStyle=arc;jumpSize=12;" target="b-netsse">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e7" edge="1" parent="1" source="b-netsse" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=#222222;strokeWidth=1.8;endArrow=classic;endFill=1;jumpStyle=arc;jumpSize=12;" target="b-entra">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e8" edge="1" parent="1" source="b-entra" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=1;exitY=0.5;exitDx=0;exitDy=0;entryX=0;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#222222;strokeWidth=1.8;endArrow=classic;endFill=1;jumpStyle=arc;jumpSize=12;" target="b-cs">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e9" edge="1" parent="1" source="b-azopenai" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=0;exitDx=0;exitDy=0;entryX=0.5;entryY=1;entryDx=0;entryDy=0;strokeColor=#222222;strokeWidth=1.8;endArrow=classic;endFill=1;jumpStyle=arc;jumpSize=12;" target="b-webportal">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="1330" y="355" />
+              <mxPoint x="2090" y="355" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e10" edge="1" parent="1" source="b-git" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.5;exitY=1;exitDx=0;exitDy=0;entryX=0.5;entryY=0;entryDx=0;entryDy=0;strokeColor=#222222;strokeWidth=1.8;endArrow=classic;endFill=1;jumpStyle=arc;jumpSize=12;" target="b-azrepos">
+          <mxGeometry relative="1" as="geometry">
+            <Array as="points">
+              <mxPoint x="250" y="580" />
+              <mxPoint x="1330" y="580" />
+            </Array>
+          </mxGeometry>
+        </mxCell>
+        <mxCell id="e11" edge="1" parent="1" source="b-webportal" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0;exitY=0.5;exitDx=0;exitDy=0;entryX=1;entryY=0.5;entryDx=0;entryDy=0;strokeColor=#222222;strokeWidth=1.8;endArrow=classic;endFill=1;jumpStyle=arc;jumpSize=12;" target="b-cs">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e12" edge="1" parent="1" source="b-cs" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.767;exitY=1;exitDx=0;exitDy=0;entryX=0.233;entryY=0;entryDx=0;entryDy=0;strokeColor=#222222;strokeWidth=1.8;endArrow=classic;endFill=1;jumpStyle=arc;jumpSize=12;" target="b-models">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e13" edge="1" parent="1" source="b-models" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.133;exitY=1;exitDx=0;exitDy=0;entryX=0.667;entryY=0;entryDx=0;entryDy=0;strokeColor=#222222;strokeWidth=1.8;endArrow=classic;endFill=1;jumpStyle=arc;jumpSize=12;" target="b-openai">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <mxCell id="e14" edge="1" parent="1" source="b-models" style="edgeStyle=orthogonalEdgeStyle;rounded=0;orthogonalLoop=1;jettySize=auto;html=1;exitX=0.833;exitY=1;exitDx=0;exitDy=0;entryX=0.3;entryY=0;entryDx=0;entryDy=0;strokeColor=#222222;strokeWidth=1.8;endArrow=classic;endFill=1;jumpStyle=arc;jumpSize=12;" target="b-anthropic">
+          <mxGeometry relative="1" as="geometry" />
+        </mxCell>
+        <object placeholders="1" c4Name="Github Copilot" c4Type="ContainerScopeBoundary" c4Application="SaaS Platform" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;&lt;div style=&quot;text-align: left&quot;&gt;%c4Name%&lt;/div&gt;&lt;/b&gt;&lt;/font&gt;&lt;div style=&quot;text-align: left&quot;&gt;[%c4Application%]&lt;/div&gt;" id="QzCvt0TnLKIJF98uK-kq-1">
+          <mxCell parent="1" style="rounded=1;fontSize=11;whiteSpace=wrap;html=1;dashed=1;arcSize=20;fillColor=none;strokeColor=#666666;fontColor=#333333;labelBackgroundColor=none;align=left;verticalAlign=bottom;labelBorderColor=none;spacingTop=0;spacing=10;dashPattern=8 4;metaEdit=1;rotatable=0;perimeter=rectanglePerimeter;noLabel=0;labelPadding=0;allowArrows=0;connectable=0;expand=0;recursiveResize=0;editable=1;pointerEvents=0;absoluteArcSize=1;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];" vertex="1">
+            <mxGeometry height="800" width="680" x="1590" y="60" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Name="Azure Cloud" c4Type="SystemScopeBoundary" c4Application="Corporate Cloud Services" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;&lt;div style=&quot;text-align: left&quot;&gt;%c4Name%&lt;/div&gt;&lt;/b&gt;&lt;/font&gt;&lt;div style=&quot;text-align: left&quot;&gt;[%c4Application%]&lt;/div&gt;" id="QzCvt0TnLKIJF98uK-kq-2">
+          <mxCell parent="1" style="rounded=1;fontSize=11;whiteSpace=wrap;html=1;dashed=1;arcSize=20;fillColor=none;strokeColor=#666666;fontColor=#333333;labelBackgroundColor=none;align=left;verticalAlign=bottom;labelBorderColor=none;spacingTop=0;spacing=10;dashPattern=8 4;metaEdit=1;rotatable=0;perimeter=rectanglePerimeter;noLabel=0;labelPadding=0;allowArrows=0;connectable=0;expand=0;recursiveResize=0;editable=1;pointerEvents=0;absoluteArcSize=1;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];" vertex="1">
+            <mxGeometry height="800" width="700" x="820" y="60" as="geometry" />
+          </mxCell>
+        </object>
+        <object placeholders="1" c4Name="Workstation" c4Type="SystemScopeBoundary" c4Application="Endpoint" label="&lt;font style=&quot;font-size: 16px&quot;&gt;&lt;b&gt;&lt;div style=&quot;text-align: left&quot;&gt;%c4Name%&lt;/div&gt;&lt;/b&gt;&lt;/font&gt;&lt;div style=&quot;text-align: left&quot;&gt;[%c4Application%]&lt;/div&gt;" id="QzCvt0TnLKIJF98uK-kq-3">
+          <mxCell parent="1" style="rounded=1;fontSize=11;whiteSpace=wrap;html=1;dashed=1;arcSize=20;fillColor=none;strokeColor=#666666;fontColor=#333333;labelBackgroundColor=none;align=left;verticalAlign=bottom;labelBorderColor=none;spacingTop=0;spacing=10;dashPattern=8 4;metaEdit=1;rotatable=0;perimeter=rectanglePerimeter;noLabel=0;labelPadding=0;allowArrows=0;connectable=0;expand=0;recursiveResize=0;editable=1;pointerEvents=0;absoluteArcSize=1;points=[[0.25,0,0],[0.5,0,0],[0.75,0,0],[1,0.25,0],[1,0.5,0],[1,0.75,0],[0.75,1,0],[0.5,1,0],[0.25,1,0],[0,0.75,0],[0,0.5,0],[0,0.25,0]];" vertex="1">
+            <mxGeometry height="800" width="720" x="60" y="60" as="geometry" />
+          </mxCell>
+        </object>
+      </root>
+    </mxGraphModel>
+  </diagram>
+</mxfile>
