@@ -97,8 +97,33 @@ td.c,th.c{text-align:center}tbody tr:hover{background:var(--hover)}
 .pill{font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:30px}
 .pill.ok{background:var(--ok-bg);color:var(--ok)}.pill.warn{background:var(--warn-bg);color:var(--warn)}.pill.bad{background:var(--bad-bg);color:var(--bad)}
 .badgeT{display:inline-flex;align-items:center;justify-content:center;min-width:30px;color:#1b2030;font-weight:800;border-radius:8px;padding:3px 9px;font-size:13px}
-.eval{display:grid;grid-template-columns:minmax(380px,0.85fr) minmax(560px,1.15fr);gap:18px;align-items:start}
-@media(max-width:1080px){.eval{grid-template-columns:1fr}}
+.eval{display:block}
+.evalcol{display:flex;flex-direction:column;gap:16px}
+.resbar{position:sticky;top:0;z-index:35;display:flex;align-items:center;gap:18px;flex-wrap:wrap;
+  background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:10px 74px 10px 16px;margin-bottom:16px;
+  backdrop-filter:blur(12px);box-shadow:0 8px 24px rgba(20,26,48,.12)}
+.app.collapsed .resbar{padding-left:54px}
+@media(max-width:1000px){.app.collapsed .resbar{padding-left:16px}}
+.resbar .rb-talla{padding:4px 11px;border-radius:9px;font-weight:800;font-size:15px;color:#fff;letter-spacing:.02em;box-shadow:0 4px 12px rgba(0,0,0,.18)}
+.resbar .rb-item{display:flex;flex-direction:column;line-height:1.15}
+.resbar .rb-item .k{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);font-weight:700}
+.resbar .rb-item .v{font-size:16.5px;font-weight:780;color:var(--ink)}
+.resbar .rb-item .v small{font-size:10.5px;color:var(--muted);font-weight:600}
+.resbar .rb-spacer{flex:1;min-width:8px}
+.resbar .rb-open{display:flex;align-items:center;gap:7px}
+@media(max-width:560px){.resbar{gap:12px}.resbar .rb-open{width:100%;justify-content:center}}
+.drawer-ovl{position:fixed;inset:0;background:rgba(12,16,30,.40);z-index:79;opacity:0;pointer-events:none;transition:opacity .3s;backdrop-filter:blur(2px)}
+.drawer-ovl.show{opacity:1;pointer-events:auto}
+.resdrawer{position:fixed;top:0;right:0;height:100vh;width:80vw;z-index:80;
+  background:var(--surf);border-left:1px solid var(--line2);box-shadow:-18px 0 50px rgba(20,26,48,.32);
+  transform:translateX(100%);transition:transform .34s cubic-bezier(.4,0,.2,1);display:flex;flex-direction:column;overflow:hidden}
+.resdrawer.open{transform:none}
+.resdrawer-hd{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:15px 20px;border-bottom:1px solid var(--line);background:var(--hd-grad)}
+.resdrawer-hd .ttl{font-weight:680;font-size:15.5px}
+.resdrawer-hd .acts{display:flex;align-items:center;gap:8px}
+.drawer-close{width:32px;height:32px;border-radius:9px;border:1px solid var(--line2);background:var(--glass);color:var(--muted);cursor:pointer;font-size:15px;display:flex;align-items:center;justify-content:center;transition:.18s;flex-shrink:0}
+.drawer-close:hover{background:var(--bad-bg);color:var(--bad);border-color:var(--bad)}
+.resdrawer-bd{padding:18px 20px 40px;overflow-y:auto;flex:1}
 .resgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;align-items:start}
 .dimh{display:flex;align-items:center;gap:8px;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--ink);margin:16px 0 8px}
 .dimh:first-child{margin-top:0}.dimh::before{content:"";width:10px;height:10px;border-radius:3px;background:linear-gradient(135deg,var(--brand),var(--brand2))}
@@ -398,6 +423,7 @@ function Evaluar({cfg,cur,setCur,onSave,resetKey,setTip}){
   const tri=triageEval(cfg,cur.tri);
   const col=TALLA_COL[R.t.n]||"#888";
   const [phase,setPhase]=useState(0);
+  const [drawerOpen,setDrawerOpen]=useState(false);
   const NPH=DIMS.length+1;
   const phaseQs=phase===0?[]:cfg.questions.map((q,i)=>({q,i})).filter(x=>x.q[1]===phase-1);
   useEffect(()=>{setPhase(0);},[cur.id]);
@@ -417,8 +443,16 @@ function Evaluar({cfg,cur,setCur,onSave,resetKey,setTip}){
   return (
    <div className="fade">
     <div className="head"><div className="kick">Evaluación</div><h1>Evaluar iniciativa</h1></div>
+    <div className="resbar">
+      <div className="rb-talla" style={{background:col}}>{R.t.n}</div>
+      <div className="rb-item"><span className="k">Complejidad</span><span className="v">{R.pct}%</span></div>
+      <div className="rb-item"><span className="k">FTE esperado</span><span className="v">{fmt(R.fMed)} <small>FTE</small></span></div>
+      <div className="rb-item"><span className="k">Esfuerzo</span><span className="v">{R.t.pmMin}–{R.t.pmMax} <small>PM</small></span></div>
+      <div className="rb-spacer"/>
+      <button className="btn pri rb-open" onClick={()=>setDrawerOpen(true)}><Ico d={icons.capacidad} width="15" height="15"/>Ver resultados</button>
+    </div>
     <div className="eval">
-      <div style={{display:"flex",flexDirection:"column",gap:16}}>
+      <div className="evalcol">
         <div className="card">
           <div className="hd">Evaluación</div>
           <div className="bd">
@@ -475,10 +509,16 @@ function Evaluar({cfg,cur,setCur,onSave,resetKey,setTip}){
         </div>
       </div>
 
-      <div className="res">
-        <div className="card">
-          <div className="hd">Resultados <button className="btn sm pri" onClick={()=>onSave(cur,R)}><Ico d={icons.plus} width="14" height="14"/>Guardar</button></div>
-          <div className="bd">
+      <div className={"drawer-ovl"+(drawerOpen?" show":"")} onClick={()=>setDrawerOpen(false)}/>
+      <div className={"resdrawer"+(drawerOpen?" open":"")}>
+        <div className="resdrawer-hd">
+          <span className="ttl">Resultados</span>
+          <div className="acts">
+            <button className="btn sm pri" onClick={()=>onSave(cur,R)}><Ico d={icons.plus} width="14" height="14"/>Guardar</button>
+            <button className="drawer-close" onClick={()=>setDrawerOpen(false)} title="Cerrar">✕</button>
+          </div>
+        </div>
+        <div className="resdrawer-bd">
             <div className="resgrid">
             <div>
             <div className="gauge-wrap">
@@ -506,17 +546,18 @@ function Evaluar({cfg,cur,setCur,onSave,resetKey,setTip}){
               {R.dims.map((d,k)=>(<div className="dbar" key={k}><div className="lab"><span>{d.d}</span><span className="muted">{d.pct}%</span></div><div className="track"><div className="bar" style={{width:d.pct+"%"}}/></div></div>))}
             </div>
             </div>
-            </div>
-            <div className="sec-t" style={{marginTop:18}}>Mix de capacidades</div>
+            <div>
+            <div className="sec-t" style={{marginTop:0}}>Mix de capacidades</div>
             <table><thead><tr><th>Capacidad</th><th className="c">SFIA</th><th className="c">%</th><th className="c">FTE</th></tr></thead>
               <tbody>
                 {R.mix.map((m,k)=>(<tr key={k}><td>{m.n}</td><td className="c"><span className="sfia">{m.sfia}</span></td><td className="c">{m.mixPct}%</td><td className="c">{fmt(m.fte)}</td></tr>))}
                 <tr style={{fontWeight:700}}><td>Total</td><td className="c">—</td><td className="c">{R.mix.reduce((a,m)=>a+m.mixPct,0)}%</td><td className="c">{fmt(R.mix.reduce((a,m)=>a+m.fte,0))}</td></tr>
               </tbody>
             </table>
+            </div>
+            </div>
           </div>
         </div>
-      </div>
     </div>
    </div>
   );
