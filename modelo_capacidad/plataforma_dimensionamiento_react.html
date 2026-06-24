@@ -47,6 +47,17 @@ input,select,button{font-family:inherit}
 .navi svg{width:18px;height:18px;flex-shrink:0}
 .io{display:flex;flex-direction:column;gap:8px;padding-top:12px;border-top:1px solid var(--line)}
 .io .btn{justify-content:center}
+.collapsebtn{margin-left:auto;width:30px;height:30px;border-radius:8px;border:1px solid var(--line2);background:var(--glass);color:var(--muted);cursor:pointer;display:flex;align-items:center;justify-content:center;transition:.18s;flex-shrink:0;padding:0}
+.collapsebtn:hover{background:var(--nav-on);color:var(--ink)}
+.collapsebtn svg{width:17px;height:17px}
+.menuopen{position:fixed;top:16px;left:16px;z-index:60;width:42px;height:42px;border-radius:11px;border:1px solid var(--line2);background:var(--glass);color:var(--ink);cursor:pointer;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 16px rgba(0,0,0,.14);transition:.18s;backdrop-filter:blur(8px)}
+.menuopen:hover{background:var(--nav-on);transform:translateY(-1px)}
+.menuopen svg{width:20px;height:20px}
+.app.collapsed{grid-template-columns:1fr}
+.app.collapsed .side{display:none}
+.app.collapsed .main{padding-top:68px}
+.app.collapsed .head{padding-left:54px}
+@media(max-width:1000px){.collapsebtn{display:none}.app.collapsed .side{display:flex}.app.collapsed .main{padding-top:20px}.app.collapsed .head{padding-left:0}}
 .main{padding:28px 34px 70px;max-width:none;width:100%}
 @media(max-width:600px){.main{padding:20px 16px 50px}}
 .head{margin-bottom:22px;padding-right:170px}
@@ -707,6 +718,7 @@ function App(){
   const [portfolio,setPortfolio]=useLS("mdtR_portfolio",[]);
   const [capacity,setCapacity]=useLS("mdtR_capacity",{});
   const [view,setView]=useState("evaluar");
+  const [collapsed,setCollapsed]=useLS("mdtR_collapsed",false);
   const [tip,setTip]=useState(null);
   const [theme,setTheme]=useLS("mdtR_theme","azul");
   useEffect(()=>{applyTheme(theme);},[theme]);
@@ -752,10 +764,11 @@ function App(){
   const _tk=Object.keys(THEMES);const nextKey=_tk[(_tk.indexOf(theme)+1)%_tk.length];const nextColor=THEMES[nextKey].vars["--brand"];
   const navItems=[["evaluar","Evaluar"],["portafolio","Portafolio"],["capacidad","Capacidad y demanda"],["calibracion","Calibración"],["sfia","Niveles SFIA"],["parametros","Parámetros"]];
   return (
-   <div className="app">
+   <div className={"app"+(collapsed?" collapsed":"")}>
+    {collapsed&&<button className="menuopen" onClick={()=>setCollapsed(false)} title="Mostrar menú"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>}
     <button className="themebtn" onClick={cycleTheme} title={"Cambiar a tema "+THEMES[nextKey].label} style={{background:nextColor+"24",borderColor:nextColor+"7a"}}><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41"/></svg></button>
     <aside className="side">
-      <div className="brandbox"><div className="logo-dot">◈</div><div className="nm">Dimensionamiento<small>CÉLULAS TI · TUYA</small></div></div>
+      <div className="brandbox"><div className="logo-dot">◈</div><div className="nm">Dimensionamiento<small>CÉLULAS TI · TUYA</small></div><button className="collapsebtn" onClick={()=>setCollapsed(true)} title="Contraer menú"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button></div>
       <div className="navi">
         {navItems.map(([k,l])=>(<button key={k} className={view===k?"on":""} onClick={()=>setView(k)}><Ico d={icons[k]}/>{l}</button>))}
       </div>
