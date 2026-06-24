@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modelo de Dimensionamiento Temprano de Células TI — Presentación</title>
+<style>
+:root{
+  /* === Paleta Tuya (ajustable: cambia estos hex si tienes los oficiales) === */
+  --brand:#E2007A;        /* magenta Tuya */
+  --brand-d:#A8005C;      /* magenta oscuro */
+  --plum:#33102A;         /* plomo/ciruela oscuro para fondos */
+  --plum-2:#4a1a3c;
+  --ink:#2a2230;          /* texto principal */
+  --muted:#7d7280;        /* texto secundario */
+  --bg:#f7f4f6;           /* fondo claro */
+  --card:#ffffff;
+  --line:#ece4ea;
+  --soft:#fbeef5;         /* magenta muy claro */
+  --gold:#E0A23C;         /* acento complementario */
+  --ok:#2E8B57; --warn:#C9962B; --bad:#C0392B;
+  /* tallas */
+  --xs:#8a7f88; --s:#3f8f5a; --m:#caa31e; --l:#cd6a1f; --xl:#b23a3a;
+  --shadow:0 2px 6px rgba(40,15,30,.08),0 14px 40px rgba(40,15,30,.10);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{height:100%}
+body{font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;color:var(--ink);background:#241020;overflow:hidden}
+
+/* ---- deck ---- */
+.deck{position:fixed;inset:0;display:flex;align-items:center;justify-content:center}
+.slide{position:absolute;inset:0;display:none;flex-direction:column;
+  padding:54px 7vw 70px;background:var(--bg);overflow:auto}
+.slide.active{display:flex;animation:fade .45s ease}
+@keyframes fade{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.slide.dark{background:radial-gradient(120% 120% at 80% 0%,var(--plum-2),var(--plum) 60%);color:#fff}
+
+.kicker{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:700;letter-spacing:.12em;
+  text-transform:uppercase;color:var(--brand);margin-bottom:14px}
+.dark .kicker{color:#ff8fc4}
+.kicker::before{content:"";width:26px;height:3px;background:var(--brand);border-radius:2px}
+.dark .kicker::before{background:#ff8fc4}
+h1{font-size:clamp(28px,4.6vw,52px);line-height:1.06;font-weight:760;letter-spacing:-.01em}
+h2{font-size:clamp(23px,3.2vw,38px);line-height:1.12;font-weight:730;margin-bottom:18px;letter-spacing:-.01em}
+.lead{font-size:clamp(16px,1.7vw,21px);color:var(--muted);max-width:60ch;line-height:1.5}
+.dark .lead{color:#e7d6e2}
+p{font-size:clamp(15px,1.35vw,17px);line-height:1.55}
+.big-quote{font-size:clamp(24px,3.6vw,40px);font-weight:680;line-height:1.25;max-width:20ch}
+.em{color:var(--brand);font-weight:700}
+.dark .em{color:#ff9ccb}
+
+/* layout helpers */
+.grid{display:grid;gap:18px}
+.g2{grid-template-columns:1fr 1fr}
+.g3{grid-template-columns:repeat(3,1fr)}
+.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:860px){.g2,.g3,.g4{grid-template-columns:1fr}}
+.mt{margin-top:22px}.mt-s{margin-top:12px}
+.row{display:flex;gap:16px;flex-wrap:wrap}
+
+.card{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:18px 20px;box-shadow:var(--shadow)}
+.card h3{font-size:16px;color:var(--brand-d);margin-bottom:8px;display:flex;align-items:center;gap:9px}
+.card.soft{background:var(--soft);border-color:#f4d7e6}
+.card .ic{width:30px;height:30px;border-radius:9px;background:var(--soft);color:var(--brand);
+  display:inline-flex;align-items:center;justify-content:center;font-weight:800;flex-shrink:0}
+ul.clean{list-style:none}
+ul.clean li{position:relative;padding:5px 0 5px 22px;font-size:15px;line-height:1.5}
+ul.clean li::before{content:"";position:absolute;left:2px;top:12px;width:8px;height:8px;border-radius:50%;background:var(--brand)}
+ul.check li::before{content:"✓";background:none;color:var(--ok);font-weight:800;top:5px;left:0;font-size:14px}
+ul.warn li::before{content:"!";background:none;color:var(--warn);font-weight:800;top:5px;left:2px;font-size:15px}
+
+/* pipeline / phases */
+.flow{display:flex;flex-wrap:wrap;align-items:stretch;gap:8px;margin-top:8px}
+.flow .step{flex:1;min-width:120px;background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 12px;position:relative;box-shadow:var(--shadow)}
+.flow .step .s-n{font-size:11px;font-weight:800;color:var(--brand);letter-spacing:.08em}
+.flow .step .s-t{font-weight:680;font-size:14.5px;margin-top:3px}
+.flow .step .s-d{font-size:12px;color:var(--muted);margin-top:3px;line-height:1.4}
+.flow .arrow{align-self:center;color:var(--brand);font-size:20px;font-weight:800}
+@media(max-width:860px){.flow .arrow{transform:rotate(90deg)}}
+
+.pipe{display:flex;flex-wrap:wrap;gap:7px;align-items:center;margin-top:14px}
+.pipe span.n{background:var(--plum);color:#fff;padding:8px 14px;border-radius:30px;font-weight:650;font-size:14px}
+.pipe span.n.hl{background:var(--brand)}
+.pipe span.a{color:var(--brand);font-weight:800}
+
+/* formulas */
+.formula{background:#fff;border:1px solid var(--line);border-left:4px solid var(--brand);border-radius:10px;padding:14px 16px;box-shadow:var(--shadow)}
+.formula .f{font-family:"Cascadia Code",Consolas,monospace;font-size:16px;font-weight:600;color:var(--ink)}
+.formula .d{font-size:13px;color:var(--muted);margin-top:6px}
+.tag{display:inline-block;background:var(--soft);color:var(--brand-d);font-weight:700;font-size:12px;padding:3px 9px;border-radius:20px}
+
+/* tables */
+table{width:100%;border-collapse:collapse;font-size:13.5px;background:#fff;border-radius:12px;overflow:hidden;box-shadow:var(--shadow)}
+th,td{padding:9px 11px;text-align:left;border-bottom:1px solid var(--line)}
+thead th{background:var(--plum);color:#fff;font-size:12px;letter-spacing:.02em;font-weight:650}
+tbody tr:nth-child(even){background:#fbf8fa}
+td.c,th.c{text-align:center}
+.cap-cell b{color:var(--brand-d)}
+.cap-cell small{color:var(--muted)}
+.dash{color:#c9bcc6}
+.badge-t{display:inline-block;color:#fff;font-weight:800;border-radius:7px;padding:2px 9px;font-size:13px}
+
+/* chips */
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.chip{font-size:12.5px;font-weight:600;padding:5px 11px;border-radius:20px;background:#fff;border:1px solid var(--line);color:#4a3f48}
+.chip b{color:var(--brand-d)}
+
+/* nav */
+.nav{position:fixed;left:0;right:0;bottom:0;height:50px;display:flex;align-items:center;gap:14px;
+  padding:0 20px;background:rgba(255,255,255,.86);backdrop-filter:blur(8px);border-top:1px solid var(--line);z-index:20}
+.slide.dark ~ .nav{}
+.nav .pbar{flex:1;height:5px;background:#eadfe6;border-radius:3px;overflow:hidden}
+.nav .pbar i{display:block;height:100%;background:linear-gradient(90deg,var(--brand),var(--gold));width:0;transition:width .3s}
+.nav button{border:1px solid #d8c9d3;background:#fff;color:var(--ink);width:36px;height:34px;border-radius:9px;cursor:pointer;font-size:16px;transition:.15s}
+.nav button:hover{background:var(--soft);border-color:var(--brand)}
+.nav .count{font-size:13px;color:var(--muted);font-weight:600;min-width:54px;text-align:center}
+.nav .title-mini{font-size:12.5px;color:var(--muted);max-width:34vw;overflow:hidden;white-space:nowrap;text-overflow:ellipsis}
+.brandtag{position:fixed;top:16px;right:20px;font-size:12px;font-weight:800;letter-spacing:.18em;color:var(--brand);z-index:20}
+.slide.dark ~ .brandtag,.dark .brandtag{color:#ff8fc4}
+.hint{position:fixed;bottom:58px;right:18px;font-size:11px;color:#b6a7b1;z-index:5}
+.num-water{position:absolute;right:5vw;bottom:60px;font-size:170px;font-weight:800;color:rgba(226,0,122,.05);line-height:1;user-select:none}
+</style>
+</head>
+<body>
+<div class="brandtag">TUYA · TI</div>
+<div class="deck" id="deck">
+
+<!-- 1 PORTADA -->
+<section class="slide dark active" data-title="Portada">
+  <div style="margin:auto 0">
+    <div class="kicker">Planeación temprana de capacidad</div>
+    <h1>Modelo de Dimensionamiento<br>Temprano de Células TI</h1>
+    <p class="lead mt">Cómo definir el tamaño, los perfiles y las capacidades de una célula <em class="em">cuando apenas existe la idea de negocio</em> — antes de arquitectura, historias de usuario o backlog.</p>
+    <div class="chips mt">
+      <span class="chip" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.25)">Talla · Esfuerzo · FTE</span>
+      <span class="chip" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.25)">Capacidades · SFIA</span>
+      <span class="chip" style="background:rgba(255,255,255,.1);color:#fff;border-color:rgba(255,255,255,.25)">Calibrable con datos</span>
+    </div>
+    <p class="lead mt-s" style="font-size:14px;opacity:.7">Presentación para líderes · Visión ejecutiva con respaldo técnico</p>
+  </div>
+</section>
+
+<!-- 2 EL PROBLEMA -->
+<section class="slide" data-title="El problema">
+  <div class="kicker">Contexto</div>
+  <h2>Cuando nace una iniciativa, hay que decidir sin tener casi nada</h2>
+  <p class="lead">Antes de empezar, la organización necesita responder cuántas personas, qué perfiles, qué capacidades y a qué nivel de experiencia. Pero esas decisiones ocurren <em class="em">antes</em> de existir la información que normalmente se usa para estimar.</p>
+  <div class="grid g2 mt">
+    <div class="card"><h3><span class="ic">?</span>Hay que definir ya</h3>
+      <ul class="clean"><li>Tamaño de la célula</li><li>Perfiles requeridos</li><li>Capacidades necesarias</li><li>Nivel de experiencia de cada perfil</li></ul></div>
+    <div class="card soft"><h3><span class="ic">✕</span>Todavía no existe</h3>
+      <ul class="clean"><li>Arquitectura detallada</li><li>Historias de usuario</li><li>Backlog refinado</li><li>Estimaciones detalladas</li></ul></div>
+  </div>
+  <p class="mt"><span class="tag">Conclusión</span> &nbsp;Los modelos de estimación detallada no son suficientes en esta etapa.</p>
+  <div class="num-water">01</div>
+</section>
+
+<!-- 3 LA PREGUNTA -->
+<section class="slide dark" data-title="La pregunta">
+  <div style="margin:auto 0">
+    <div class="kicker">El verdadero problema a resolver</div>
+    <p class="big-quote">¿Cómo dimensionar una célula cuando <em class="em">apenas existe una idea de negocio</em>?</p>
+    <p class="lead mt">El reto no es elegir una metodología de moda, sino tomar una decisión de staffing razonable y defendible con la poca información disponible — y mejorarla a medida que se aprende.</p>
+  </div>
+</section>
+
+<!-- 4 QUÉ RESPONDE -->
+<section class="slide" data-title="Qué responde">
+  <div class="kicker">Alcance</div>
+  <h2>Cada pregunta de negocio se apoya en la herramienta adecuada</h2>
+  <p class="lead">Ningún marco resuelve todo solo. El modelo combina varios, usando cada uno para lo que es bueno.</p>
+  <table class="mt">
+    <thead><tr><th>Pregunta</th><th>Herramienta principal</th></tr></thead>
+    <tbody>
+      <tr><td>¿Qué capacidades necesito?</td><td>Análisis de iniciativa + <b>SFIA</b></td></tr>
+      <tr><td>¿A qué nivel necesito esas capacidades?</td><td><b>SFIA</b></td></tr>
+      <tr><td>¿Cuánto trabajo hay?</td><td><b>T-shirt sizing</b> (luego COCOMO/estimación)</td></tr>
+      <tr><td>¿Cuántas personas necesito?</td><td><b>Capacity planning</b> (PM → FTE)</td></tr>
+      <tr><td>¿Cómo organizo el equipo?</td><td>Conformación por capacidades + <b>SFIA</b></td></tr>
+    </tbody>
+  </table>
+  <div class="num-water">02</div>
+</section>
+
+<!-- 5 POR QUÉ ESTE ENFOQUE (SFIA) -->
+<section class="slide" data-title="Por qué SFIA">
+  <div class="kicker">Justificación · 1 de 2</div>
+  <h2>SFIA define la calidad, no la cantidad</h2>
+  <p class="lead">SFIA es un estándar de capacidades de TI. Aporta justo lo que necesitamos para perfilar, pero no pretende decir cuántas personas — por eso se complementa con otra herramienta.</p>
+  <div class="grid g2 mt">
+    <div class="card"><h3><span class="ic">✓</span>SFIA sí responde</h3>
+      <ul class="clean"><li>Qué capacidades se requieren</li><li>Qué nivel de responsabilidad debe tener cada una (1 a 7)</li><li>La profundidad y seniority esperados</li></ul></div>
+    <div class="card soft"><h3><span class="ic">—</span>SFIA no responde</h3>
+      <ul class="clean"><li>Cuántas personas en total</li><li>Cuántos arquitectos o desarrolladores</li><li>El tamaño (FTE) de la célula</li></ul></div>
+  </div>
+  <p class="mt"><span class="tag">Idea clave</span> &nbsp;SFIA describe <em class="em">qué tan profundo</em>, no <em class="em">cuántos</em>. La cantidad la aporta el capacity planning.</p>
+  <div class="num-water">03</div>
+</section>
+
+<!-- 6 POR QUÉ T-SHIRT (vs COCOMO) -->
+<section class="slide" data-title="T-shirt vs estimación detallada">
+  <div class="kicker">Justificación · 2 de 2</div>
+  <h2>La herramienta correcta depende de la etapa</h2>
+  <p class="lead">Se evaluaron enfoques de estimación. La conclusión no es que uno sea “mejor”, sino que cada uno encaja en un momento distinto del ciclo.</p>
+  <div class="grid g2 mt">
+    <div class="card"><h3>Estimación detallada (p. ej. COCOMO)</h3>
+      <p class="mt-s">Estima esfuerzo, costo y duración con rigor — <b>pero requiere</b> un tamaño aproximado (KLOC, puntos de función, casos de uso, story points).</p>
+      <p class="mt-s muted">Esa información normalmente <em class="em">no existe</em> cuando nace la iniciativa. Es muy valiosa <b>más adelante</b>, con discovery y backlog.</p></div>
+    <div class="card soft"><h3>T-shirt sizing (etapa temprana)</h3>
+      <ul class="clean"><li>Funciona con poca información</li><li>Permite clasificar iniciativas pronto</li><li>Facilita decisiones de portafolio</li></ul>
+      <p class="mt-s"><span class="tag">Por eso</span> es el punto de partida; la estimación fina entra después, cuando hay detalle.</p></div>
+  </div>
+  <div class="num-water">04</div>
+</section>
+
+<!-- 7 CÓMO ESTÁ CONFORMADO (flujo lógico) -->
+<section class="slide" data-title="Cómo está conformado">
+  <div class="kicker">Arquitectura del modelo</div>
+  <h2>De una idea a una célula, paso a paso</h2>
+  <p class="lead">El modelo encadena una serie de transformaciones, cada una alimentada por la anterior.</p>
+  <div class="pipe">
+    <span class="n hl">Idea</span><span class="a">→</span>
+    <span class="n">Complejidad</span><span class="a">→</span>
+    <span class="n">Talla (XS–XL)</span><span class="a">→</span>
+    <span class="n">Esfuerzo (PM)</span><span class="a">→</span>
+    <span class="n">FTE</span><span class="a">→</span>
+    <span class="n">Capacidades</span><span class="a">→</span>
+    <span class="n">Nivel SFIA</span><span class="a">→</span>
+    <span class="n hl">Conformación de la célula</span>
+  </div>
+  <div class="grid g3 mt">
+    <div class="card"><h3>Entrada</h3><p>Un formulario de evaluación con preguntas objetivas y de juicio experto.</p></div>
+    <div class="card"><h3>Motor</h3><p>Un scoring ponderado que traduce respuestas en una talla y un esfuerzo.</p></div>
+    <div class="card"><h3>Salida</h3><p>Talla, rango de PM, FTE y un mix de capacidades con su nivel SFIA.</p></div>
+  </div>
+  <div class="num-water">05</div>
+</section>
+
+<!-- 8 LAS FASES (proceso de uso) -->
+<section class="slide" data-title="Las fases">
+  <div class="kicker">Proceso de uso</div>
+  <h2>Cuatro fases, de la decisión rápida a la mejora continua</h2>
+  <div class="flow mt">
+    <div class="step"><div class="s-n">FASE 1</div><div class="s-t">Tamizaje</div><div class="s-d">6 preguntas Sí/No deciden si hace falta la evaluación completa o va por vía rápida.</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="s-n">FASE 2</div><div class="s-t">Evaluación</div><div class="s-d">Formulario de complejidad: 30 preguntas en 7 dimensiones, escala 0–4.</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="s-n">FASE 3</div><div class="s-t">Resultados</div><div class="s-d">Talla, PM, FTE y mix de capacidades con nivel SFIA, automáticos.</div></div>
+    <div class="arrow">→</div>
+    <div class="step"><div class="s-n">FASE 4</div><div class="s-t">Calibración</div><div class="s-d">Registro de estimado vs. real al cierre, para ajustar reglas y pesos.</div></div>
+  </div>
+  <p class="mt"><span class="tag">Evolución esperada</span> &nbsp;Opinión experta → reglas iniciales → captura de métricas → calibración → <em class="em">modelo basado en evidencia</em>.</p>
+  <div class="num-water">06</div>
+</section>
+
+<!-- 9 CONCEPTOS CLAVE -->
+<section class="slide" data-title="Conceptos clave">
+  <div class="kicker">Glosario</div>
+  <h2>Palabras clave, en una línea</h2>
+  <div class="grid g2 mt">
+    <div class="card"><h3>PM — Persona-Mes</h3><p>Unidad de <b>esfuerzo</b>: el trabajo de una persona a tiempo completo durante un mes. Mide cuánto trabajo hay, no cuándo ni con cuánta gente.</p></div>
+    <div class="card"><h3>FTE — Equivalente a Tiempo Completo</h3><p>Unidad de <b>capacidad</b>: una persona dedicada al 100%. Mide dedicación, no cabezas (dos personas al 50% = 1 FTE).</p></div>
+    <div class="card"><h3>SFIA</h3><p>Estándar de <b>capacidades de TI</b>. Define qué capacidad y a qué nivel de responsabilidad (1 seguir → 7 estrategia).</p></div>
+    <div class="card"><h3>Talla (T-shirt)</h3><p>Clasificación de <b>tamaño</b> de la iniciativa (XS a XL) según su complejidad. Lenguaje simple para portafolio.</p></div>
+    <div class="card"><h3>Capability / Capacidad</h3><p>Un tipo de aporte del equipo (Backend, QA, Seguridad…). El modelo recomienda el <b>mix</b> y el nivel de cada uno.</p></div>
+    <div class="card"><h3>Complejidad</h3><p>Puntaje ponderado (0–100%) que resume el riesgo y la dificultad de la iniciativa. Es la base para la talla.</p></div>
+  </div>
+  <div class="num-water">07</div>
+</section>
+
+<!-- 10 LAS FÓRMULAS -->
+<section class="slide" data-title="Las fórmulas">
+  <div class="kicker">Mecánica · respaldo técnico</div>
+  <h2>Las fórmulas, transparentes y auditables</h2>
+  <div class="grid g2 mt">
+    <div class="formula"><div class="f">Complejidad % = (Σ respuesta × peso) ÷ 280 × 100</div><div class="d">30 preguntas, cada una con peso 1–3 y respuesta 0–4. Máximo posible = 280.</div></div>
+    <div class="formula"><div class="f">Talla = banda de %</div><div class="d">XS ≤20 · S ≤35 · M ≤50 · L ≤70 · XL ≤100</div></div>
+    <div class="formula"><div class="f">Esfuerzo (PM) = rango por talla</div><div class="d">XS 1–3 · S 3–8 · M 8–16 · L 16–32 · XL 32–64</div></div>
+    <div class="formula"><div class="f">FTE = PM ÷ plazo (meses)</div><div class="d">Convierte el esfuerzo en personas a tiempo completo simultáneas.</div></div>
+    <div class="formula"><div class="f">FTE por capacidad = % mix(talla) × FTE medio</div><div class="d">Distribuye el equipo entre roles según la talla.</div></div>
+    <div class="formula" style="border-left-color:var(--gold)"><div class="f">Principio: el plazo no cambia la talla</div><div class="d">Apretar el plazo no agranda la iniciativa; solo exige más FTE a la vez.</div></div>
+  </div>
+  <div class="num-water">08</div>
+</section>
+
+<!-- 11 EL SCORING -->
+<section class="slide" data-title="El scoring">
+  <div class="kicker">Cómo se mide la complejidad</div>
+  <h2>30 preguntas, 7 dimensiones, dos tipos de respuesta</h2>
+  <div class="grid g2 mt">
+    <div>
+      <p class="lead">Cada dimensión aporta señales distintas de complejidad y riesgo. Las preguntas con más peso pesan más en el puntaje.</p>
+      <div class="chips mt">
+        <span class="chip"><b>Negocio y cliente</b></span>
+        <span class="chip"><b>Alcance funcional</b></span>
+        <span class="chip"><b>Integraciones</b></span>
+        <span class="chip"><b>Datos, seguridad y cumplimiento</b></span>
+        <span class="chip"><b>Tecnología y arquitectura</b></span>
+        <span class="chip"><b>Operación y soporte</b></span>
+        <span class="chip"><b>Incertidumbre y dependencias</b></span>
+      </div>
+    </div>
+    <div class="grid" style="gap:14px">
+      <div class="card"><h3>Cualitativa (juicio)</h3><p>0 sin impacto · 1 bajo · 2 medio · 3 alto · 4 crítico. Para sensibilidad, criticidad, riesgo.</p></div>
+      <div class="card soft"><h3>Cuantitativa (conteo)</h3><p>Rangos numéricos por pregunta (p. ej. sistemas: 0 · 1–2 · 3–5 · 6–10 · +10). Reduce subjetividad.</p></div>
+    </div>
+  </div>
+  <p class="mt"><span class="tag">Regla de diseño</span> &nbsp;Preguntas cuantitativas → respuestas cuantitativas. El tiempo objetivo no altera la talla.</p>
+  <div class="num-water">09</div>
+</section>
+
+<!-- 12 ESCALA DE TALLAS -->
+<section class="slide" data-title="Escala de tallas">
+  <div class="kicker">De complejidad a esfuerzo</div>
+  <h2>Escala de tallas</h2>
+  <table class="mt" id="tabTallas">
+    <thead><tr><th>Talla</th><th class="c">Complejidad %</th><th class="c">Esfuerzo (PM)</th><th>Lectura</th></tr></thead>
+    <tbody></tbody>
+  </table>
+  <p class="mt muted">El FTE resulta de dividir el PM entre el plazo objetivo, así que dos iniciativas de la misma talla pueden requerir equipos distintos según el tiempo disponible.</p>
+  <div class="num-water">10</div>
+</section>
+
+<!-- 13 TABLA DE CAPACIDADES -->
+<section class="slide" data-title="Tabla de capacidades">
+  <div class="kicker">El corazón del staffing</div>
+  <h2>Mix de capacidades y nivel SFIA por talla</h2>
+  <p class="lead" style="font-size:15px">Cada celda muestra el <b>% del equipo</b> y el <b>nivel SFIA</b> sugerido. El % mix de cada talla suma 100%; el FTE de cada rol = % × FTE medio.</p>
+  <div style="overflow:auto" class="mt">
+    <table id="tabCaps">
+      <thead><tr><th>Capacidad</th><th class="c">XS</th><th class="c">S</th><th class="c">M</th><th class="c">L</th><th class="c">XL</th></tr></thead>
+      <tbody></tbody>
+    </table>
+  </div>
+  <p class="mt-s muted" style="font-size:12.5px">Formato de celda: <b>% mix</b> · <b>SFIA n</b>. “—” = no se asigna de forma dedicada en esa talla. SFIA: 2 asiste · 3 aplica · 4 facilita/senior · 5 asegura/asesora.</p>
+  <div class="num-water">11</div>
+</section>
+
+<!-- 14 EJEMPLO EN VIVO -->
+<section class="slide" data-title="Ejemplos">
+  <div class="kicker">El modelo en acción</div>
+  <h2>Tres iniciativas, tres tallas</h2>
+  <div class="grid g3 mt">
+    <div class="card"><h3><span class="badge-t" style="background:var(--s)">S</span> Pequeña</h3>
+      <p class="muted" style="font-size:13px">Ajuste de mensajes en App · 3 meses</p>
+      <ul class="clean mt-s" style="font-size:14px"><li>Complejidad 22%</li><li>PM 3–8</li><li>FTE medio 1,83</li><li>Triage: vía rápida</li></ul></div>
+    <div class="card"><h3><span class="badge-t" style="background:var(--m)">M</span> Mediana</h3>
+      <p class="muted" style="font-size:13px">Pago con QR en App · 6 meses</p>
+      <ul class="clean mt-s" style="font-size:14px"><li>Complejidad 45%</li><li>PM 8–16</li><li>FTE medio 2,00</li><li>Triage: recomendada</li></ul></div>
+    <div class="card"><h3><span class="badge-t" style="background:var(--l)">L</span> Grande</h3>
+      <p class="muted" style="font-size:13px">Originación de crédito con terceros · 9 meses</p>
+      <ul class="clean mt-s" style="font-size:14px"><li>Complejidad 65%</li><li>PM 16–32</li><li>FTE medio 2,67</li><li>Triage: obligatoria</li></ul></div>
+  </div>
+  <p class="mt"><span class="tag">Lectura</span> &nbsp;Misma vara para iniciativas muy distintas: la talla y el FTE salen de la complejidad y el plazo, no de una intuición.</p>
+  <div class="num-water">12</div>
+</section>
+
+<!-- 15 POR QUÉ ESTÁ BIEN -->
+<section class="slide" data-title="Fortalezas">
+  <div class="kicker">Por qué este enfoque funciona</div>
+  <h2>Lo que aporta al negocio</h2>
+  <div class="grid g2 mt">
+    <ul class="clean check">
+      <li><b>Decide con poca información:</b> sirve justo en la etapa donde no hay backlog ni arquitectura.</li>
+      <li><b>Objetivo y repetible:</b> preguntas con rangos y pesos definidos reducen el “depende de quién evalúe”.</li>
+      <li><b>Separa esfuerzo de seniority:</b> mucho trabajo no implica más seniors; son variables distintas.</li>
+    </ul>
+    <ul class="clean check">
+      <li><b>Lenguaje común:</b> PM, FTE y SFIA conectan TI, proyectos y finanzas sin traducir.</li>
+      <li><b>Rápido y de bajo costo:</b> minutos para una primera lectura defendible de staffing.</li>
+      <li><b>Calibrable:</b> mejora con cada iniciativa al comparar estimado vs. real.</li>
+    </ul>
+  </div>
+  <div class="num-water">13</div>
+</section>
+
+<!-- 16 LÍMITES Y RIESGOS -->
+<section class="slide" data-title="Límites y mitigaciones">
+  <div class="kicker">Honestidad intelectual</div>
+  <h2>Qué tiene en cuenta… y qué no</h2>
+  <p class="lead">Un modelo útil conoce sus límites. Estos son los principales, con su mitigación.</p>
+  <table class="mt">
+    <thead><tr><th>Límite</th><th>Mitigación</th></tr></thead>
+    <tbody>
+      <tr><td>Subjetividad entre evaluadores</td><td>Preguntas objetivas con rangos, reglas claras y pesos fijos</td></tr>
+      <tr><td>No reemplaza la estimación detallada</td><td>Es punto de partida; COCOMO/estimación fina entran con discovery</td></tr>
+      <tr><td>FTE no es disponibilidad real</td><td>0,5 FTE asume capacidad existente; se valida contra la realidad del equipo</td></tr>
+      <tr><td>Demasiadas preguntas = burocracia</td><td>Tamizaje de 6 preguntas para casos pequeños; versión completa solo si aplica</td></tr>
+      <tr><td>Sin históricos al inicio</td><td>Reglas con criterio experto que se recalibran con datos reales</td></tr>
+    </tbody>
+  </table>
+  <div class="num-water">14</div>
+</section>
+
+<!-- 17 VISIÓN / CIERRE -->
+<section class="slide dark" data-title="Cierre">
+  <div style="margin:auto 0">
+    <div class="kicker">Hacia dónde va</div>
+    <h1 style="font-size:clamp(26px,4vw,46px)">De criterio experto<br>a evidencia histórica</h1>
+    <p class="lead mt">A medida que se acumulen iniciativas, comparamos estimado vs. real y ajustamos pesos, tallas y FTE — hasta tener un <em class="em">modelo corporativo de dimensionamiento</em> basado en capacidades, complejidad y evidencia.</p>
+    <div class="pipe mt">
+      <span class="n">Opinión experta</span><span class="a">→</span>
+      <span class="n">Reglas iniciales</span><span class="a">→</span>
+      <span class="n">Métricas</span><span class="a">→</span>
+      <span class="n">Calibración</span><span class="a">→</span>
+      <span class="n hl">Decisión basada en evidencia</span>
+    </div>
+    <p class="lead mt-s" style="font-size:15px;opacity:.8">Gracias. ¿Conversamos sobre el siguiente paso?</p>
+  </div>
+</section>
+
+</div>
+
+<!-- NAV -->
+<div class="nav">
+  <button onclick="go(-1)" aria-label="Anterior">‹</button>
+  <span class="count" id="count">1 / 17</span>
+  <button onclick="go(1)" aria-label="Siguiente">›</button>
+  <span class="title-mini" id="tmini"></span>
+  <div class="pbar"><i id="pbar"></i></div>
+</div>
+<div class="hint">← → para navegar</div>
+
+<script>
+/* ---- datos para tablas ---- */
+const TALLAS=[
+ ["XS","0–20","1–3","Cambio menor o ajuste acotado.","var(--xs)"],
+ ["S","21–35","3–8","Iniciativa pequeña con alcance conocido.","var(--s)"],
+ ["M","36–50","8–16","Iniciativa media con varias piezas o integraciones.","var(--m)"],
+ ["L","51–70","16–32","Iniciativa grande, transversal o con riesgo relevante.","var(--l)"],
+ ["XL","71–100","32–64","Programa estratégico de alta incertidumbre.","var(--xl)"]
+];
+const CAPS=[
+ ["Product Owner / Negocio",[3,3,4,4,5],[20,15,12,10,8]],
+ ["Analista negocio / funcional",[2,3,3,4,4],[20,15,14,12,10]],
+ ["Arquitectura de solución",[0,4,4,5,5],[10,8,8,8,8]],
+ ["Desarrollo Backend / API",[2,3,3,4,4],[25,30,30,28,25]],
+ ["Desarrollo Frontend / Mobile",[0,3,3,4,4],[0,10,12,14,15]],
+ ["QA / Automatización",[2,3,3,4,4],[15,12,12,13,14]],
+ ["Seguridad / AppSec",[0,3,4,4,5],[0,3,4,5,6]],
+ ["DevOps / Plataforma",[2,3,3,4,4],[5,5,4,4,5]],
+ ["Datos / Integración",[0,0,3,4,4],[0,0,2,3,4]],
+ ["UX/UI / Experiencia",[0,2,3,3,4],[0,2,2,2,3]],
+ ["Operación / SRE",[0,0,0,3,4],[5,0,0,1,2]]
+];
+// tabla tallas
+document.querySelector('#tabTallas tbody').innerHTML=TALLAS.map(t=>
+ `<tr><td><span class="badge-t" style="background:${t[4]}">${t[0]}</span></td><td class="c">${t[1]}</td><td class="c">${t[2]}</td><td>${t[3]}</td></tr>`).join('');
+// tabla capacidades
+document.querySelector('#tabCaps tbody').innerHTML=CAPS.map(c=>{
+  const cells=c[1].map((sfia,i)=>{
+    const mix=c[2][i];
+    return (mix>0&&sfia>0)
+      ? `<td class="c cap-cell"><b>${mix}%</b> · <small>SFIA ${sfia}</small></td>`
+      : `<td class="c"><span class="dash">—</span></td>`;
+  }).join('');
+  return `<tr><td>${c[0]}</td>${cells}</tr>`;
+}).join('');
+
+/* ---- navegación ---- */
+const slides=[...document.querySelectorAll('.slide')];
+let i=0;
+function render(){
+  slides.forEach((s,k)=>s.classList.toggle('active',k===i));
+  document.getElementById('count').textContent=`${i+1} / ${slides.length}`;
+  document.getElementById('tmini').textContent=slides[i].dataset.title||'';
+  document.getElementById('pbar').style.width=((i+1)/slides.length*100)+'%';
+  slides[i].scrollTop=0;
+}
+function go(d){i=Math.min(slides.length-1,Math.max(0,i+d));render();}
+function goto(n){i=Math.min(slides.length-1,Math.max(0,n));render();}
+document.addEventListener('keydown',e=>{
+  if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){e.preventDefault();go(1);}
+  else if(e.key==='ArrowLeft'||e.key==='PageUp'){e.preventDefault();go(-1);}
+  else if(e.key==='Home'){goto(0);} else if(e.key==='End'){goto(slides.length-1);}
+});
+render();
+</script>
+</body>
+</html>

@@ -1,0 +1,424 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Modelo de Dimensionamiento Temprano de Células TI</title>
+<style>
+  :root{
+    --azul:#1F4E79; --azul2:#2E75B6; --azul-cl:#D9EAF7;
+    --gris:#5a6b7b; --gris-cl:#f4f6f8; --linea:#e3e8ee;
+    --verde:#2E7D32; --verde-bg:#C6EFCE; --amar:#8a6d00; --amar-bg:#FFEB9C;
+    --naranja:#b5530a; --naranja-bg:#FFD9B3; --rojo:#9c2a2a; --rojo-bg:#FFC7CE;
+    --sombra:0 1px 3px rgba(16,40,70,.08),0 6px 20px rgba(16,40,70,.06);
+  }
+  *{box-sizing:border-box}
+  body{margin:0;font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;
+    color:#21303f;background:#eef2f6;line-height:1.45;font-size:15px}
+  header{background:linear-gradient(135deg,#163d5c,#1F4E79 55%,#2E75B6);color:#fff;padding:26px 22px}
+  .wrap{max-width:1180px;margin:0 auto}
+  header h1{margin:0 0 6px;font-size:22px;font-weight:650}
+  header p{margin:0;opacity:.92;font-size:14px;max-width:760px}
+  .layout{max-width:1180px;margin:18px auto;padding:0 16px;display:grid;
+    grid-template-columns:1fr 380px;gap:18px;align-items:start}
+  @media(max-width:920px){.layout{grid-template-columns:1fr}}
+  .card{background:#fff;border:1px solid var(--linea);border-radius:12px;box-shadow:var(--sombra);margin-bottom:18px;overflow:hidden}
+  .card>h2{margin:0;font-size:15px;font-weight:650;color:#fff;background:var(--azul2);padding:11px 16px;display:flex;align-items:center;gap:9px}
+  .card>h2 .n{background:rgba(255,255,255,.22);width:22px;height:22px;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:13px}
+  .card .body{padding:16px}
+  .muted{color:var(--gris);font-size:13px}
+  .ctx{padding:14px 16px;background:var(--gris-cl);border-bottom:1px solid var(--linea);font-size:13.5px;color:#3c4b5a}
+
+  /* meta inputs */
+  .meta{display:grid;grid-template-columns:1fr 150px;gap:12px;margin-bottom:4px}
+  @media(max-width:520px){.meta{grid-template-columns:1fr}}
+  .field label{display:block;font-size:12px;font-weight:600;color:var(--gris);margin-bottom:4px;text-transform:uppercase;letter-spacing:.03em}
+  .field input{width:100%;padding:9px 10px;border:1px solid #cdd6e0;border-radius:8px;font-size:14px;font-family:inherit}
+  .field input:focus{outline:none;border-color:var(--azul2);box-shadow:0 0 0 3px rgba(46,117,182,.15)}
+
+  /* toolbar */
+  .toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:6px 0 4px}
+  .toolbar .lbl{font-size:12px;font-weight:600;color:var(--gris);margin-right:2px}
+  .btn{border:1px solid #cdd6e0;background:#fff;color:#21303f;padding:7px 12px;border-radius:8px;font-size:13px;cursor:pointer;font-family:inherit;transition:.15s}
+  .btn:hover{border-color:var(--azul2);background:var(--azul-cl)}
+  .btn.ghost{color:var(--gris)}
+
+  /* questions */
+  .dim{margin-top:16px}
+  .dim:first-child{margin-top:0}
+  .dim-h{font-size:12.5px;font-weight:700;color:var(--azul);text-transform:uppercase;letter-spacing:.04em;padding:7px 10px;background:var(--azul-cl);border-radius:7px;margin-bottom:8px}
+  .q{padding:10px 4px;border-bottom:1px solid var(--linea)}
+  .q:last-child{border-bottom:none}
+  .q .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+  .q .txt{font-size:14px}
+  .chip{font-size:10.5px;font-weight:700;padding:2px 7px;border-radius:20px;white-space:nowrap;letter-spacing:.02em}
+  .chip.cuant{background:#e7f1ff;color:#1b5fb0;border:1px solid #c4ddff}
+  .chip.cual{background:#eef0f2;color:#5a6b7b;border:1px solid #dfe4e9}
+  .help{font-size:11.5px;color:var(--gris);margin-top:3px}
+  .seg{display:inline-flex;margin-top:8px;border:1px solid #cdd6e0;border-radius:8px;overflow:hidden}
+  .seg button{border:none;background:#fff;color:#41525f;width:40px;height:32px;cursor:pointer;font-size:13px;font-weight:600;font-family:inherit;border-left:1px solid #e3e8ee}
+  .seg button:first-child{border-left:none}
+  .seg button.on{background:var(--azul);color:#fff}
+  .seg button:hover:not(.on){background:var(--azul-cl)}
+
+  /* triage */
+  .tq{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:9px 2px;border-bottom:1px solid var(--linea);font-size:13.5px}
+  .tq:last-child{border-bottom:none}
+  .tgl{display:inline-flex;border:1px solid #cdd6e0;border-radius:8px;overflow:hidden;flex-shrink:0}
+  .tgl button{border:none;background:#fff;color:#41525f;padding:6px 14px;cursor:pointer;font-size:13px;font-weight:600;font-family:inherit;border-left:1px solid #e3e8ee}
+  .tgl button.on.si{background:var(--rojo);color:#fff}
+  .tgl button.on.no{background:#2E7D32;color:#fff}
+  .crit{font-size:10.5px;font-weight:700;color:var(--rojo);background:var(--rojo-bg);padding:1px 6px;border-radius:10px;margin-left:6px}
+  .reco{margin-top:14px;border-radius:10px;padding:14px 16px;font-weight:650;font-size:15px;text-align:center;border:2px solid}
+  .reco.via{background:var(--verde-bg);border-color:#9ed6a8;color:#1d5e26}
+  .reco.rec{background:var(--amar-bg);border-color:#e6cf70;color:#6b5400}
+  .reco.obl{background:var(--rojo-bg);border-color:#e69aa2;color:#8a232d}
+
+  /* results */
+  .res{position:sticky;top:16px}
+  .res .body{padding:16px}
+  .talla-row{display:flex;gap:14px;align-items:center;margin-bottom:14px}
+  .badge{width:78px;height:78px;border-radius:14px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;flex-shrink:0;box-shadow:var(--sombra)}
+  .badge .t{font-size:30px;font-weight:800;line-height:1}
+  .badge .l{font-size:10px;opacity:.9;margin-top:2px;letter-spacing:.05em}
+  .kfacts{flex:1}
+  .kfacts .pct{font-size:26px;font-weight:750;color:var(--azul)}
+  .kfacts .sub{font-size:12px;color:var(--gris)}
+  .gauge{height:12px;border-radius:7px;background:#eceff3;overflow:hidden;position:relative;margin:6px 0 2px}
+  .gauge .fill{height:100%;border-radius:7px;transition:width .35s ease,background .35s}
+  .ticks{display:flex;justify-content:space-between;font-size:10px;color:var(--gris);margin-bottom:14px}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-bottom:14px}
+  .stat{background:var(--gris-cl);border:1px solid var(--linea);border-radius:9px;padding:9px 11px}
+  .stat .k{font-size:11px;color:var(--gris);text-transform:uppercase;letter-spacing:.03em}
+  .stat .v{font-size:17px;font-weight:700;color:#21303f;margin-top:2px}
+  .stat .v small{font-size:12px;font-weight:500;color:var(--gris)}
+  .lectura{background:#fbfcfd;border:1px solid var(--linea);border-left:3px solid var(--azul2);border-radius:8px;padding:10px 12px;font-size:13px;margin-bottom:14px}
+  .lectura b{display:block;font-size:11px;color:var(--gris);text-transform:uppercase;letter-spacing:.03em;margin-bottom:2px;font-weight:700}
+  .sec-t{font-size:12.5px;font-weight:700;color:var(--azul);text-transform:uppercase;letter-spacing:.03em;margin:4px 0 8px}
+  .dbar{margin-bottom:7px}
+  .dbar .lab{display:flex;justify-content:space-between;font-size:12px;margin-bottom:2px}
+  .dbar .track{height:8px;background:#eceff3;border-radius:5px;overflow:hidden}
+  .dbar .bar{height:100%;background:linear-gradient(90deg,#5B8FB9,#1F4E79);border-radius:5px;transition:width .35s}
+  table.mix{width:100%;border-collapse:collapse;font-size:12.5px;margin-top:4px}
+  table.mix th{text-align:left;color:var(--gris);font-weight:600;font-size:11px;text-transform:uppercase;letter-spacing:.02em;padding:5px 6px;border-bottom:1px solid var(--linea)}
+  table.mix td{padding:6px 6px;border-bottom:1px solid #f0f3f6}
+  table.mix td.c{text-align:center}
+  table.mix tr:last-child td{border-bottom:none}
+  .sfia{display:inline-block;min-width:20px;text-align:center;background:var(--azul-cl);color:var(--azul);border-radius:6px;font-weight:700;padding:1px 0}
+  .total-row td{font-weight:700;background:var(--gris-cl)}
+  footer{max-width:1180px;margin:6px auto 30px;padding:0 16px;color:#90a0b0;font-size:12px}
+  .pill{display:inline-block;font-size:11px;color:var(--gris);background:#fff;border:1px solid var(--linea);border-radius:20px;padding:3px 9px;margin:2px 4px 2px 0}
+</style>
+</head>
+<body>
+<header>
+  <div class="wrap">
+    <h1>Modelo de Dimensionamiento Temprano de Células TI</h1>
+    <p>Evalúa una iniciativa antes de tener arquitectura, historias de usuario o backlog, y obtén una talla,
+       un rango de esfuerzo, los FTE y un mix de capacidades con su nivel SFIA. Los cálculos se actualizan en vivo.</p>
+  </div>
+</header>
+
+<div class="layout">
+  <!-- ===================== COLUMNA IZQUIERDA ===================== -->
+  <div>
+    <!-- TRIAGE -->
+    <div class="card">
+      <h2><span class="n">1</span> Tamizaje inicial</h2>
+      <div class="ctx">¿La iniciativa necesita la evaluación completa o puede dimensionarse por vía rápida?
+        Responde estas 6 preguntas. Las marcadas como <span class="crit">crítica</span> (seguridad / fraude) fuerzan la evaluación completa.</div>
+      <div class="body">
+        <div id="triage"></div>
+        <div id="triageReco" class="reco via">Vía rápida (XS–S) — no requiere evaluación completa</div>
+      </div>
+    </div>
+
+    <!-- FORMULARIO -->
+    <div class="card">
+      <h2><span class="n">2</span> Evaluación completa</h2>
+      <div class="ctx">Responde con la escala <b>0–4</b>. En preguntas <span class="chip cual">Cualitativa</span> es juicio experto
+        (0 sin impacto · 1 bajo · 2 medio · 3 alto · 4 crítico); en <span class="chip cuant">Cuantitativa</span> es conteo
+        (cada una indica sus rangos).</div>
+      <div class="body">
+        <div class="meta">
+          <div class="field"><label>Nombre de la iniciativa</label><input id="nombre" type="text" placeholder="Ej. Nuevo flujo de pagos"></div>
+          <div class="field"><label>Plazo objetivo (meses)</label><input id="plazo" type="number" min="1" step="1" value="6"></div>
+        </div>
+        <div class="toolbar">
+          <span class="lbl">Cargar ejemplo:</span>
+          <button class="btn" onclick="loadEx('pequena')">Pequeña</button>
+          <button class="btn" onclick="loadEx('mediana')">Mediana</button>
+          <button class="btn" onclick="loadEx('grande')">Grande</button>
+          <button class="btn ghost" onclick="clearAll()">Limpiar</button>
+        </div>
+        <div id="form"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===================== COLUMNA DERECHA (RESULTADOS) ===================== -->
+  <div>
+    <div class="card res">
+      <h2>Resultados</h2>
+      <div class="body">
+        <div class="talla-row">
+          <div class="badge" id="badge"><div class="t" id="tallaT">XS</div><div class="l">TALLA</div></div>
+          <div class="kfacts">
+            <div class="pct" id="pct">0%</div>
+            <div class="sub">complejidad · <span id="pts">0</span>/280 puntos</div>
+            <div class="gauge"><div class="fill" id="gfill" style="width:0%"></div></div>
+            <div class="ticks"><span>XS</span><span>S</span><span>M</span><span>L</span><span>XL</span></div>
+          </div>
+        </div>
+
+        <div class="grid2">
+          <div class="stat"><div class="k">Esfuerzo (PM)</div><div class="v" id="pm">1–3</div></div>
+          <div class="stat"><div class="k">FTE medio</div><div class="v" id="fteMed">—</div></div>
+          <div class="stat"><div class="k">FTE mínimo</div><div class="v" id="fteMin">—</div></div>
+          <div class="stat"><div class="k">FTE máximo</div><div class="v" id="fteMax">—</div></div>
+        </div>
+
+        <div class="lectura"><b>Lectura ejecutiva</b><span id="lectura">—</span></div>
+        <div class="lectura" style="border-left-color:#2E7D32"><b>Acción recomendada</b><span id="accion">—</span></div>
+
+        <div class="sec-t">Complejidad por dimensión</div>
+        <div id="dims"></div>
+
+        <div class="sec-t" style="margin-top:16px">Mix de capacidades sugerido</div>
+        <table class="mix">
+          <thead><tr><th>Capacidad</th><th class="c">SFIA</th><th class="c">% mix</th><th class="c">FTE</th></tr></thead>
+          <tbody id="mix"></tbody>
+        </table>
+        <div class="muted" id="mixNote" style="margin-top:8px"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer>
+  Herramienta de planeación temprana. No reemplaza discovery, arquitectura ni estimación detallada; sus resultados se recalibran con datos reales.
+</footer>
+
+<script>
+/* ---------- DATOS DEL MODELO ---------- */
+const QUAL=["Sin impacto / no aplica","Bajo","Medio","Alto","Crítico / muy alto"];
+const QOPTS={
+  areas:["Ninguna / solo la célula","1 área","2 áreas","3–4 áreas","5 o más áreas"],
+  canales:["Ninguno","1 canal","2 canales","3 canales","4 o más canales"],
+  sistemas:["Ninguno","1–2 sistemas","3–5 sistemas","6–10 sistemas","Más de 10"],
+  terceros:["Ninguno","1 tercero","2 terceros","3–4 terceros","5 o más"],
+  apis:["Ninguna","1–2","3–5","6–10","Más de 10"],
+  equipos:["Ninguno","1 equipo","2 equipos","3 equipos","4 o más"]
+};
+// id, dimensión, texto, peso, tipo (cual | quant key)
+const DIMS=["Negocio y cliente","Alcance funcional","Integraciones","Datos, seguridad y cumplimiento","Tecnología y arquitectura","Operación y soporte","Incertidumbre y dependencias"];
+const Q=[
+ ["N1",0,"¿Impacta directamente clientes, comercios aliados o canales digitales?",2,"cual"],
+ ["N2",0,"¿Soporta una capacidad crítica del negocio financiero (originación, pagos, tarjetas, crédito, cartera o recaudo)?",3,"cual"],
+ ["N3",0,"¿Tiene fecha comprometida por negocio, campaña, aliado, regulador o auditoría?",2,"cual"],
+ ["N4",0,"¿Cuántas áreas de negocio u operación deben coordinarse?",1,"areas"],
+ ["F1",1,"¿Crea una capacidad nueva y no solo modifica una existente?",3,"cual"],
+ ["F2",1,"¿Cuántos canales o frontales impacta (App, web, portal, contact center, backoffice)?",2,"canales"],
+ ["F3",1,"¿Incluye reglas de negocio complejas, parametrización o flujos de aprobación?",2,"cual"],
+ ["F4",1,"¿Requiere trazabilidad, reversos, conciliación o auditoría funcional?",3,"cual"],
+ ["I1",2,"¿Cuántos sistemas internos deben integrarse o modificarse?",3,"sistemas"],
+ ["I2",2,"¿Cuántos terceros externos involucra (aliados retail, bureaus, pasarelas, proveedores, core, antifraude)?",3,"terceros"],
+ ["I3",2,"¿Cuántas APIs o integraciones nuevas/cambios requiere (APIM, eventos, mensajería)?",2,"apis"],
+ ["I4",2,"¿De cuántos equipos externos a la célula depende?",2,"equipos"],
+ ["S1",3,"¿Procesa datos personales, financieros, transaccionales o sensibles?",3,"cual"],
+ ["S2",3,"¿Está expuesta a internet o a canales de cliente/aliado?",3,"cual"],
+ ["S3",3,"¿Requiere controles de identidad, autorización, roles, MFA o segregación?",2,"cual"],
+ ["S4",3,"¿Puede generar impacto de fraude, pérdida económica, reputacional o sanción?",3,"cual"],
+ ["S5",3,"¿Requiere evidencia para auditoría, cumplimiento, monitoreo o trazabilidad regulatoria?",2,"cual"],
+ ["T1",4,"¿Introduce tecnología, patrón o componente nuevo para TI?",3,"cual"],
+ ["T2",4,"¿Modifica arquitectura transversal, APIs comunes, plataforma, datos maestros o capacidades compartidas?",3,"cual"],
+ ["T3",4,"¿Exige alta disponibilidad, resiliencia, recuperación, performance o escalabilidad relevante?",3,"cual"],
+ ["T4",4,"¿Requiere diseño de datos complejo, migración, sincronización o consistencia entre sistemas?",2,"cual"],
+ ["T5",4,"¿Requiere automatización CI/CD, infraestructura cloud, Kubernetes, APIM, colas o IaC?",2,"cual"],
+ ["O1",5,"¿Impacta operación 7x24, mesa de servicio, backoffice o procesos de soporte?",2,"cual"],
+ ["O2",5,"¿Requiere observabilidad, alertas, métricas, SLI/SLO o trazabilidad técnica nueva?",2,"cual"],
+ ["O3",5,"¿Un error en producción afecta continuidad, recaudo, pagos, crédito o atención al cliente?",3,"cual"],
+ ["O4",5,"¿Requiere despliegue gradual, rollback, feature flags o migración controlada?",2,"cual"],
+ ["D1",6,"¿El requerimiento aún es ambiguo o requiere discovery funcional/técnico?",2,"cual"],
+ ["D2",6,"¿Hay dependencias con proveedores, áreas internas o decisiones no confirmadas?",2,"cual"],
+ ["D3",6,"¿Cambia procesos, roles operativos o requiere gestión del cambio?",1,"cual"],
+ ["D4",6,"¿Hay restricciones fuertes de tiempo, capacidad o coexistencia con otros proyectos?",2,"cual"]
+];
+const MAXPTS=Q.reduce((a,q)=>a+4*q[3],0); // 280
+// talla: [min%,max%,nombre,PMmin,PMmax,lectura,accion]
+const TALLAS=[
+ [0,20,"XS",1,3,"Cambio menor o ajuste acotado.","Resolver con capacidad existente o célula ligera."],
+ [21,35,"S",3,8,"Iniciativa pequeña con alcance conocido.","Célula reducida y apoyo puntual de arquitectura/seguridad."],
+ [36,50,"M",8,16,"Iniciativa media con varias piezas o integraciones.","Célula base y discovery corto para validar supuestos."],
+ [51,70,"L",16,32,"Iniciativa grande, transversal o con riesgo relevante.","Célula completa, arquitectura temprana y validación AppSec."],
+ [71,100,"XL",32,64,"Programa o iniciativa estratégica de alta incertidumbre.","Evaluar dividir en frentes/células y hacer discovery formal."]
+];
+const TALLA_COL={XS:"#7b8a99",S:"#3f8f5a",M:"#caa31e",L:"#cd6a1f",XL:"#b23a3a"};
+const BAND_COL=["#3f8f5a","#7aa53c","#caa31e","#cd6a1f","#b23a3a"];
+// capacidades: nombre, SFIA[XS,S,M,L,XL], mix[XS,S,M,L,XL]
+const CAPS=[
+ ["Product Owner / Negocio",[3,3,4,4,5],[.20,.15,.12,.10,.08]],
+ ["Analista negocio / funcional",[2,3,3,4,4],[.20,.15,.14,.12,.10]],
+ ["Arquitectura de solución",[0,4,4,5,5],[.10,.08,.08,.08,.08]],
+ ["Desarrollo Backend / API",[2,3,3,4,4],[.25,.30,.30,.28,.25]],
+ ["Desarrollo Frontend / Mobile",[0,3,3,4,4],[0,.10,.12,.14,.15]],
+ ["QA / Automatización",[2,3,3,4,4],[.15,.12,.12,.13,.14]],
+ ["Seguridad / AppSec",[0,3,4,4,5],[0,.03,.04,.05,.06]],
+ ["DevOps / Plataforma",[2,3,3,4,4],[.05,.05,.04,.04,.05]],
+ ["Datos / Integración",[0,0,3,4,4],[0,0,.02,.03,.04]],
+ ["UX/UI / Experiencia",[0,2,3,3,4],[0,.02,.02,.02,.03]],
+ ["Operación / SRE",[0,0,0,3,4],[.05,0,0,.01,.02]]
+];
+const TRIAGE_Q=[
+ ["¿Integra o modifica sistemas internos o terceros externos?",false],
+ ["¿Procesa datos personales, financieros o sensibles, o está expuesta a internet?",true],
+ ["¿Puede generar fraude, pérdida económica, impacto reputacional o sanción?",true],
+ ["¿Introduce tecnología nueva o cambia arquitectura transversal/compartida?",false],
+ ["¿Impacta una capacidad crítica (pagos, crédito, cartera, recaudo, originación)?",false],
+ ["¿El requerimiento aún es ambiguo o requiere discovery funcional o técnico?",false]
+];
+const EXAMPLES={
+ pequena:{nombre:"Ajuste de mensajes informativos en App",plazo:3,
+   ans:[1,1,1,1, 1,1,1,1, 1,1,1,0, 1,2,1,1,0, 0,0,1,0,1, 1,1,2,0, 1,1,1,1],
+   tri:[false,false,false,false,false,false]},
+ mediana:{nombre:"Pago con QR en App",plazo:6,
+   ans:[2,2,2,2, 2,2,2,2, 2,2,2,1, 2,2,2,2,1, 2,1,2,2,1, 2,2,2,1, 2,2,1,1],
+   tri:[true,false,false,true,false,false]},
+ grande:{nombre:"Originación digital de crédito con terceros",plazo:9,
+   ans:[3,3,2,2, 3,2,2,3, 3,3,2,2, 4,3,2,3,2, 3,2,3,2,2, 2,2,4,2, 2,3,2,2],
+   tri:[true,true,true,true,true,false]}
+};
+
+/* ---------- ESTADO ---------- */
+let ans=Q.map(()=>0);
+let tri=TRIAGE_Q.map(()=>false);
+
+/* ---------- RENDER FORMULARIO ---------- */
+function buildForm(){
+  const root=document.getElementById('form'); root.innerHTML='';
+  let curDim=-1, dimBox=null;
+  Q.forEach((q,i)=>{
+    if(q[1]!==curDim){
+      curDim=q[1];
+      const d=document.createElement('div'); d.className='dim';
+      d.innerHTML='<div class="dim-h">'+DIMS[curDim]+'</div>';
+      dimBox=document.createElement('div'); d.appendChild(dimBox); root.appendChild(d);
+    }
+    const quant=q[4]!=='cual';
+    const help = quant
+      ? QOPTS[q[4]].map((o,k)=>'<b>'+k+'</b> '+o).join(' · ')
+      : '';
+    const row=document.createElement('div'); row.className='q';
+    row.innerHTML=
+      '<div class="top"><div class="txt"><b style="color:#3a4a59">'+q[0]+'.</b> '+q[2]+
+        (help?'<div class="help">'+help+'</div>':'')+'</div>'+
+        '<span class="chip '+(quant?'cuant':'cual')+'">'+(quant?'Cuantitativa':'Cualitativa')+'</span></div>'+
+      '<div class="seg" id="seg'+i+'">'+[0,1,2,3,4].map(v=>'<button onclick="setAns('+i+','+v+')">'+v+'</button>').join('')+'</div>';
+    dimBox.appendChild(row);
+  });
+  syncForm();
+}
+function setAns(i,v){ans[i]=v;syncForm();compute();}
+function syncForm(){
+  Q.forEach((q,i)=>{
+    const seg=document.getElementById('seg'+i);
+    if(seg)[...seg.children].forEach((b,v)=>b.classList.toggle('on',v===ans[i]));
+  });
+}
+
+/* ---------- RENDER TRIAGE ---------- */
+function buildTriage(){
+  const root=document.getElementById('triage'); root.innerHTML='';
+  TRIAGE_Q.forEach((t,i)=>{
+    const row=document.createElement('div'); row.className='tq';
+    row.innerHTML='<div>'+t[0]+(t[1]?'<span class="crit">crítica</span>':'')+'</div>'+
+      '<div class="tgl" id="tgl'+i+'">'+
+        '<button class="no" onclick="setTri('+i+',false)">No</button>'+
+        '<button class="si" onclick="setTri('+i+',true)">Sí</button></div>';
+    root.appendChild(row);
+  });
+  syncTriage();
+}
+function setTri(i,v){tri[i]=v;syncTriage();computeTriage();}
+function syncTriage(){
+  tri.forEach((v,i)=>{
+    const g=document.getElementById('tgl'+i); if(!g)return;
+    g.children[0].classList.toggle('on',!v);
+    g.children[1].classList.toggle('on',v);
+  });
+}
+function computeTriage(){
+  const count=tri.filter(Boolean).length;
+  const crit=tri.some((v,i)=>v&&TRIAGE_Q[i][1]);
+  const el=document.getElementById('triageReco');
+  if(crit||count>=3){el.className='reco obl';el.textContent='Evaluación completa obligatoria — talla probable M o superior';}
+  else if(count>=1){el.className='reco rec';el.textContent='Evaluación completa recomendada — talla probable S–M';}
+  else{el.className='reco via';el.textContent='Vía rápida (XS–S) — no requiere evaluación completa';}
+}
+
+/* ---------- CÁLCULO PRINCIPAL ---------- */
+function tallaOf(pct){return TALLAS.find(t=>pct<=t[1])||TALLAS[TALLAS.length-1];}
+function fmt(n){return (Math.round(n*100)/100).toLocaleString('es',{minimumFractionDigits:2,maximumFractionDigits:2});}
+function compute(){
+  const pts=Q.reduce((a,q,i)=>a+ans[i]*q[3],0);
+  const pct=Math.round(pts/MAXPTS*1000)/10;
+  const t=tallaOf(pct); const idx=TALLAS.indexOf(t); const col=TALLA_COL[t[2]];
+  const plazo=Math.max(1,parseFloat(document.getElementById('plazo').value)||1);
+  // headline
+  document.getElementById('tallaT').textContent=t[2];
+  document.getElementById('badge').style.background=col;
+  document.getElementById('pct').textContent=pct+'%';
+  document.getElementById('pct').style.color=col;
+  document.getElementById('pts').textContent=pts;
+  const gf=document.getElementById('gfill');
+  gf.style.width=Math.max(2,pct)+'%'; gf.style.background=BAND_COL[idx];
+  document.getElementById('pm').textContent=t[3]+'–'+t[4]+' PM';
+  const fMin=t[3]/plazo, fMax=t[4]/plazo, fMed=((t[3]+t[4])/2)/plazo;
+  document.getElementById('fteMin').innerHTML=fmt(fMin)+' <small>FTE</small>';
+  document.getElementById('fteMax').innerHTML=fmt(fMax)+' <small>FTE</small>';
+  document.getElementById('fteMed').innerHTML=fmt(fMed)+' <small>FTE</small>';
+  document.getElementById('lectura').textContent=t[5];
+  document.getElementById('accion').textContent=t[6];
+  // dimensiones
+  const dp=Array(7).fill(0), dm=Array(7).fill(0);
+  Q.forEach((q,i)=>{dp[q[1]]+=ans[i]*q[3]; dm[q[1]]+=4*q[3];});
+  document.getElementById('dims').innerHTML=DIMS.map((d,k)=>{
+    const p=dm[k]?Math.round(dp[k]/dm[k]*100):0;
+    return '<div class="dbar"><div class="lab"><span>'+d+'</span><span style="color:var(--gris)">'+p+'%</span></div>'+
+      '<div class="track"><div class="bar" style="width:'+p+'%"></div></div></div>';
+  }).join('');
+  // mix de capacidades (FTE = mix * FTE medio)
+  let rows='', totMix=0, totFte=0;
+  CAPS.forEach(c=>{
+    const sfia=c[1][idx], mix=c[2][idx];
+    if(mix<=0||sfia<=0) return;
+    const fte=mix*fMed; totMix+=mix; totFte+=fte;
+    rows+='<tr><td>'+c[0]+'</td><td class="c"><span class="sfia">'+sfia+'</span></td>'+
+      '<td class="c">'+Math.round(mix*100)+'%</td><td class="c">'+fmt(fte)+'</td></tr>';
+  });
+  rows+='<tr class="total-row"><td>Total</td><td class="c">—</td><td class="c">'+Math.round(totMix*100)+'%</td><td class="c">'+fmt(totFte)+'</td></tr>';
+  document.getElementById('mix').innerHTML=rows;
+  document.getElementById('mixNote').textContent='SFIA: nivel de responsabilidad sugerido (3 aplica · 4 facilita/senior · 5 asegura/asesora). FTE por capacidad = % mix × FTE medio.';
+}
+
+/* ---------- EJEMPLOS / RESET ---------- */
+function loadEx(k){
+  const e=EXAMPLES[k];
+  document.getElementById('nombre').value=e.nombre;
+  document.getElementById('plazo').value=e.plazo;
+  ans=e.ans.slice(); tri=e.tri.slice();
+  syncForm();syncTriage();compute();computeTriage();
+  document.querySelector('.res').scrollIntoView({behavior:'smooth',block:'start'});
+}
+function clearAll(){
+  document.getElementById('nombre').value='';
+  ans=Q.map(()=>0); tri=TRIAGE_Q.map(()=>false);
+  syncForm();syncTriage();compute();computeTriage();
+}
+
+/* ---------- INIT ---------- */
+buildTriage();buildForm();compute();computeTriage();
+document.getElementById('plazo').addEventListener('input',compute);
+</script>
+</body>
+</html>

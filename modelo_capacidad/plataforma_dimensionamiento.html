@@ -1,0 +1,561 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plataforma de Dimensionamiento de Células TI</title>
+<style>
+:root{
+  --azul:#1F4E79;--azul2:#2E75B6;--azul-cl:#D9EAF7;--soft:#eef4fb;
+  --ink:#21303f;--muted:#6a7886;--bg:#eef2f6;--card:#fff;--line:#e3e8ee;
+  --ok:#2E7D32;--ok-bg:#E3F4E5;--warn:#9a7400;--warn-bg:#FFF4D6;--bad:#B3261E;--bad-bg:#FBE3E1;
+  --xs:#7b8a99;--s:#3f8f5a;--m:#caa31e;--l:#cd6a1f;--xl:#b23a3a;
+  --shadow:0 1px 3px rgba(16,40,70,.07),0 8px 26px rgba(16,40,70,.07);
+}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:"Segoe UI",system-ui,-apple-system,Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg);font-size:14.5px;line-height:1.45}
+.app{display:grid;grid-template-columns:230px 1fr;min-height:100vh}
+/* sidebar */
+.side{background:linear-gradient(180deg,#163d5c,#1F4E79);color:#fff;display:flex;flex-direction:column;padding:18px 0;position:sticky;top:0;height:100vh}
+.side .logo{padding:0 20px 16px;font-weight:700;font-size:16px;line-height:1.2;border-bottom:1px solid rgba(255,255,255,.12)}
+.side .logo small{display:block;font-weight:400;opacity:.7;font-size:11px;margin-top:3px;letter-spacing:.05em}
+.side nav{margin-top:10px;flex:1}
+.side a{display:flex;align-items:center;gap:10px;color:#dbe7f3;padding:11px 20px;cursor:pointer;font-size:14px;border-left:3px solid transparent}
+.side a:hover{background:rgba(255,255,255,.07)}
+.side a.on{background:rgba(255,255,255,.12);border-left-color:#7fc4ff;color:#fff;font-weight:600}
+.side a .i{width:18px;text-align:center;opacity:.9}
+.side .io{padding:12px 16px 0;border-top:1px solid rgba(255,255,255,.12);margin-top:6px}
+.side .io button{width:100%;margin-bottom:7px;background:rgba(255,255,255,.1);border:1px solid rgba(255,255,255,.18);color:#fff;padding:8px;border-radius:8px;cursor:pointer;font-size:12.5px}
+.side .io button:hover{background:rgba(255,255,255,.2)}
+/* main */
+.main{padding:24px 28px 60px;max-width:1180px}
+.view{display:none}.view.on{display:block;animation:f .3s ease}
+@keyframes f{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:none}}
+.h-row{display:flex;justify-content:space-between;align-items:flex-end;flex-wrap:wrap;gap:12px;margin-bottom:18px}
+h1{font-size:22px;font-weight:700}
+.sub{color:var(--muted);font-size:13.5px;margin-top:3px;max-width:70ch}
+h2.sec{font-size:13px;text-transform:uppercase;letter-spacing:.04em;color:var(--azul);font-weight:700;margin:18px 0 10px}
+.grid{display:grid;gap:16px}.g2{grid-template-columns:1fr 1fr}.g3{grid-template-columns:repeat(3,1fr)}.g4{grid-template-columns:repeat(4,1fr)}
+@media(max-width:980px){.g2,.g3,.g4{grid-template-columns:1fr}.app{grid-template-columns:1fr}.side{position:static;height:auto;flex-direction:row;flex-wrap:wrap}.side nav{display:flex;flex-wrap:wrap}}
+.card{background:var(--card);border:1px solid var(--line);border-radius:12px;box-shadow:var(--shadow);overflow:hidden}
+.card .hd{padding:11px 16px;font-weight:600;font-size:14px;color:#fff;background:var(--azul2);display:flex;justify-content:space-between;align-items:center}
+.card .bd{padding:16px}
+.muted{color:var(--muted)}.small{font-size:12.5px}
+.btn{border:1px solid #cdd6e0;background:#fff;color:var(--ink);padding:8px 13px;border-radius:8px;font-size:13px;cursor:pointer;font-family:inherit;transition:.15s}
+.btn:hover{border-color:var(--azul2);background:var(--azul-cl)}
+.btn.pri{background:var(--azul);color:#fff;border-color:var(--azul)}
+.btn.pri:hover{background:#163d5c}
+.btn.sm{padding:5px 9px;font-size:12px}
+.btn.gh{color:var(--muted)}
+.field label{display:block;font-size:11px;font-weight:600;color:var(--muted);margin-bottom:4px;text-transform:uppercase;letter-spacing:.03em}
+input,select{padding:8px 10px;border:1px solid #cdd6e0;border-radius:8px;font-size:14px;font-family:inherit;width:100%;background:#fff;color:var(--ink)}
+input:focus,select:focus{outline:none;border-color:var(--azul2);box-shadow:0 0 0 3px rgba(46,117,182,.14)}
+input.mini{width:62px;padding:5px 6px;text-align:center}
+table{width:100%;border-collapse:collapse;font-size:13.5px}
+th,td{padding:8px 10px;text-align:left;border-bottom:1px solid var(--line)}
+thead th{background:var(--soft);color:var(--azul);font-size:11.5px;text-transform:uppercase;letter-spacing:.02em}
+td.c,th.c{text-align:center}
+tbody tr:hover{background:#fafcfe}
+.badge-t{display:inline-block;color:#fff;font-weight:800;border-radius:6px;padding:2px 9px;font-size:13px}
+.chip{display:inline-block;font-size:11px;font-weight:600;padding:3px 9px;border-radius:20px;background:#eef0f2;color:#52606d}
+.chip.cuant{background:#e7f1ff;color:#1b5fb0}.chip.cual{background:#eef0f2;color:#52606d}
+.pill{font-size:11px;font-weight:700;padding:2px 8px;border-radius:20px}
+.pill.ok{background:var(--ok-bg);color:var(--ok)}.pill.warn{background:var(--warn-bg);color:var(--warn)}.pill.bad{background:var(--bad-bg);color:var(--bad)}
+/* eval layout */
+.eval{display:grid;grid-template-columns:1fr 372px;gap:18px;align-items:start}
+@media(max-width:980px){.eval{grid-template-columns:1fr}}
+.q{padding:9px 2px;border-bottom:1px solid var(--line)}
+.q:last-child{border-bottom:none}
+.q .top{display:flex;justify-content:space-between;gap:10px;align-items:flex-start}
+.q .txt{font-size:13.5px}.q .txt b{color:#3a4a59}
+.help{font-size:11px;color:var(--muted);margin-top:2px}
+.seg{display:inline-flex;margin-top:7px;border:1px solid #cdd6e0;border-radius:8px;overflow:hidden}
+.seg button{border:none;background:#fff;color:#41525f;width:36px;height:30px;cursor:pointer;font-size:13px;font-weight:600;font-family:inherit;border-left:1px solid #e3e8ee}
+.seg button:first-child{border-left:none}.seg button.on{background:var(--azul);color:#fff}.seg button:hover:not(.on){background:var(--azul-cl)}
+.dim-h{font-size:12px;font-weight:700;color:var(--azul);text-transform:uppercase;letter-spacing:.04em;padding:6px 9px;background:var(--azul-cl);border-radius:6px;margin:14px 0 6px}
+.dim-h:first-child{margin-top:0}
+.tq{display:flex;justify-content:space-between;align-items:center;gap:10px;padding:8px 2px;border-bottom:1px solid var(--line);font-size:13px}
+.tq:last-child{border-bottom:none}
+.tgl{display:inline-flex;border:1px solid #cdd6e0;border-radius:8px;overflow:hidden;flex-shrink:0}
+.tgl button{border:none;background:#fff;color:#41525f;padding:5px 12px;cursor:pointer;font-size:12.5px;font-weight:600;font-family:inherit;border-left:1px solid #e3e8ee}
+.tgl button.on.si{background:var(--bad);color:#fff}.tgl button.on.no{background:var(--ok);color:#fff}
+.crit{font-size:10px;font-weight:700;color:var(--bad);background:var(--bad-bg);padding:1px 6px;border-radius:10px;margin-left:6px}
+.reco{margin-top:12px;border-radius:9px;padding:11px 13px;font-weight:650;font-size:13.5px;text-align:center;border:2px solid}
+.reco.via{background:var(--ok-bg);border-color:#9ed6a8;color:#1d5e26}
+.reco.rec{background:var(--warn-bg);border-color:#e6cf70;color:#6b5400}
+.reco.obl{background:var(--bad-bg);border-color:#e69aa2;color:#8a232d}
+/* results */
+.res{position:sticky;top:16px}
+.talla-row{display:flex;gap:13px;align-items:center;margin-bottom:13px}
+.badge{width:72px;height:72px;border-radius:13px;display:flex;flex-direction:column;align-items:center;justify-content:center;color:#fff;flex-shrink:0;box-shadow:var(--shadow)}
+.badge .t{font-size:28px;font-weight:800;line-height:1}.badge .l{font-size:9px;opacity:.9;margin-top:2px;letter-spacing:.05em}
+.kf .pct{font-size:24px;font-weight:750;color:var(--azul)}.kf .sub{font-size:11.5px;color:var(--muted)}
+.gauge{height:11px;border-radius:6px;background:#eceff3;overflow:hidden;margin:6px 0 2px}
+.gauge .fill{height:100%;border-radius:6px;transition:width .35s,background .35s}
+.ticks{display:flex;justify-content:space-between;font-size:9.5px;color:var(--muted);margin-bottom:12px}
+.stat{background:var(--soft);border:1px solid var(--line);border-radius:9px;padding:8px 10px}
+.stat .k{font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+.stat .v{font-size:16px;font-weight:700;margin-top:1px}.stat .v small{font-size:11px;font-weight:500;color:var(--muted)}
+.lectura{background:#fbfcfd;border:1px solid var(--line);border-left:3px solid var(--azul2);border-radius:8px;padding:9px 11px;font-size:12.5px;margin-bottom:12px}
+.lectura b{display:block;font-size:10.5px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em;margin-bottom:2px}
+.dbar{margin-bottom:6px}.dbar .lab{display:flex;justify-content:space-between;font-size:11.5px;margin-bottom:2px}
+.dbar .track{height:7px;background:#eceff3;border-radius:5px;overflow:hidden}
+.dbar .bar{height:100%;background:linear-gradient(90deg,#5B8FB9,#1F4E79);border-radius:5px;transition:width .35s}
+.sfia{display:inline-block;min-width:20px;text-align:center;background:var(--azul-cl);color:var(--azul);border-radius:6px;font-weight:700;padding:1px 0}
+.toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 6px}
+.kpi{background:#fff;border:1px solid var(--line);border-radius:12px;padding:14px 16px;box-shadow:var(--shadow)}
+.kpi .n{font-size:26px;font-weight:750;color:var(--azul)}.kpi .l{font-size:12px;color:var(--muted);margin-top:2px}
+.barrow{display:flex;align-items:center;gap:10px;margin-bottom:8px;font-size:13px}
+.barrow .nm{width:170px;flex-shrink:0}
+.barrow .tk{flex:1;height:18px;background:#eceff3;border-radius:5px;position:relative;overflow:hidden}
+.barrow .tk .d{position:absolute;left:0;top:0;height:100%;background:var(--azul2);opacity:.85}
+.barrow .tk .cap{position:absolute;top:0;height:100%;border-right:2px dashed #2a3b49}
+.notice{background:var(--azul-cl);border:1px solid #bcd6f0;border-radius:9px;padding:10px 13px;font-size:12.5px;color:#244b6b;margin-bottom:14px}
+.empty{padding:30px;text-align:center;color:var(--muted);font-size:13.5px}
+.sumtag{font-size:11px;font-weight:700;padding:2px 8px;border-radius:6px}
+input[type=file]{display:none}
+</style>
+</head>
+<body>
+<div class="app">
+  <aside class="side">
+    <div class="logo">Plataforma de Dimensionamiento<small>CÉLULAS TI · TUYA</small></div>
+    <nav>
+      <a class="on" data-v="evaluar"><span class="i">▣</span> Evaluar</a>
+      <a data-v="portafolio"><span class="i">▤</span> Portafolio</a>
+      <a data-v="capacidad"><span class="i">▦</span> Capacidad y demanda</a>
+      <a data-v="calibracion"><span class="i">◴</span> Calibración</a>
+      <a data-v="parametros"><span class="i">⚙</span> Parámetros</a>
+    </nav>
+    <div class="io">
+      <button onclick="exportAll()">⭳ Exportar respaldo</button>
+      <button onclick="document.getElementById('imp').click()">⭱ Importar respaldo</button>
+      <input type="file" id="imp" accept="application/json" onchange="importAll(event)">
+    </div>
+  </aside>
+
+  <main class="main">
+    <!-- ===== EVALUAR ===== -->
+    <section class="view on" id="v-evaluar">
+      <div class="h-row"><div><h1>Evaluar iniciativa</h1><div class="sub">Tamizaje, formulario de complejidad y resultados en vivo. Guarda el resultado al portafolio para planear la capacidad.</div></div></div>
+      <div class="eval">
+        <div>
+          <div class="card" style="margin-bottom:16px">
+            <div class="hd">Tamizaje inicial</div>
+            <div class="bd"><div id="triage"></div><div id="triageReco" class="reco via"></div></div>
+          </div>
+          <div class="card">
+            <div class="hd">Evaluación completa</div>
+            <div class="bd">
+              <div class="grid g2" style="margin-bottom:10px">
+                <div class="field"><label>Nombre de la iniciativa</label><input id="nombre" placeholder="Ej. Nuevo flujo de pagos"></div>
+                <div class="grid g2" style="gap:10px">
+                  <div class="field"><label>Plazo (meses)</label><input id="plazo" type="number" min="1" value="6"></div>
+                  <div class="field"><label>Estado</label><select id="estado"><option>Evaluación</option><option>Activa</option><option>Cerrada</option></select></div>
+                </div>
+              </div>
+              <div class="toolbar">
+                <span class="small muted">Ejemplos:</span>
+                <button class="btn sm" onclick="loadEx('pequena')">Pequeña</button>
+                <button class="btn sm" onclick="loadEx('mediana')">Mediana</button>
+                <button class="btn sm" onclick="loadEx('grande')">Grande</button>
+                <button class="btn sm gh" onclick="clearAll()">Limpiar</button>
+              </div>
+              <div id="form"></div>
+            </div>
+          </div>
+        </div>
+        <div>
+          <div class="card res">
+            <div class="hd">Resultados <button class="btn sm" style="background:#fff;color:var(--azul)" onclick="saveToPortfolio()">＋ Guardar</button></div>
+            <div class="bd">
+              <div class="talla-row">
+                <div class="badge" id="badge"><div class="t" id="tallaT">XS</div><div class="l">TALLA</div></div>
+                <div class="kf" style="flex:1">
+                  <div class="pct" id="pct">0%</div><div class="sub" id="ptsline">complejidad · 0/0</div>
+                  <div class="gauge"><div class="fill" id="gfill" style="width:0%"></div></div>
+                  <div class="ticks" id="ticks"></div>
+                </div>
+              </div>
+              <div class="grid g2" style="gap:9px;margin-bottom:12px">
+                <div class="stat"><div class="k">Esfuerzo</div><div class="v" id="pm">—</div></div>
+                <div class="stat"><div class="k">Esperado</div><div class="v" id="fteMed">—</div></div>
+                <div class="stat"><div class="k">Optimista</div><div class="v" id="fteMin">—</div></div>
+                <div class="stat"><div class="k">Pesimista</div><div class="v" id="fteMax">—</div></div>
+              </div>
+              <div class="lectura" id="cono" style="border-left-color:var(--warn)"></div>
+              <div class="lectura"><b>Lectura ejecutiva</b><span id="lectura">—</span></div>
+              <div class="lectura" style="border-left-color:var(--ok)"><b>Acción recomendada</b><span id="accion">—</span></div>
+              <h2 class="sec" style="margin-top:4px">Complejidad por dimensión</h2><div id="dims"></div>
+              <h2 class="sec">Mix de capacidades</h2>
+              <table><thead><tr><th>Capacidad</th><th class="c">SFIA</th><th class="c">%</th><th class="c">FTE</th></tr></thead><tbody id="mix"></tbody></table>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===== PORTAFOLIO ===== -->
+    <section class="view" id="v-portafolio">
+      <div class="h-row"><div><h1>Portafolio</h1><div class="sub">Iniciativas evaluadas y guardadas. Recárgalas para editar o cambia su estado para incluirlas en la demanda.</div></div></div>
+      <div class="grid g4" id="pfKpis" style="margin-bottom:16px"></div>
+      <div class="card"><div class="hd">Iniciativas</div><div class="bd" style="padding:0"><div id="pfTable"></div></div></div>
+    </section>
+
+    <!-- ===== CAPACIDAD ===== -->
+    <section class="view" id="v-capacidad">
+      <div class="h-row"><div><h1>Capacidad y demanda</h1><div class="sub">Captura el FTE disponible por capacidad y compáralo con la demanda agregada de las iniciativas <b>activas</b>.</div></div></div>
+      <div class="notice">La demanda suma el FTE por capacidad de todas las iniciativas en estado <b>Activa</b>. La barra muestra la demanda; la línea punteada, tu capacidad disponible.</div>
+      <div class="card"><div class="hd">Demanda vs. capacidad por capacidad</div><div class="bd"><div id="capBody"></div></div></div>
+    </section>
+
+    <!-- ===== CALIBRACIÓN ===== -->
+    <section class="view" id="v-calibracion">
+      <div class="h-row"><div><h1>Calibración con datos reales</h1><div class="sub">Registra el FTE y la duración reales al cerrar cada iniciativa. La plataforma calcula la desviación y un factor de ajuste sugerido.</div></div></div>
+      <div class="grid g3" id="calKpis" style="margin-bottom:16px"></div>
+      <div class="card"><div class="hd">Estimado vs. real</div><div class="bd" style="padding:0"><div id="calTable"></div></div></div>
+    </section>
+
+    <!-- ===== PARÁMETROS ===== -->
+    <section class="view" id="v-parametros">
+      <div class="h-row">
+        <div><h1>Parámetros del modelo</h1><div class="sub">Recalibra todo: pesos, tallas, esfuerzo, mix de capacidades, SFIA y rangos. Los cambios se guardan y recalculan automáticamente.</div></div>
+        <button class="btn" onclick="resetCfg()">↺ Restaurar valores por defecto</button>
+      </div>
+      <div id="paramsBody"></div>
+    </section>
+  </main>
+</div>
+
+<script>
+/* =================== MODELO POR DEFECTO =================== */
+const DIMS=["Negocio y cliente","Alcance funcional","Integraciones","Datos, seguridad y cumplimiento","Tecnología y arquitectura","Operación y soporte","Incertidumbre y dependencias"];
+const DEFAULTS={
+ qualLabels:["Sin impacto / no aplica","Bajo","Medio","Alto","Crítico / muy alto"],
+ quantRanges:{
+  areas:["Ninguna / solo la célula","1 área","2 áreas","3–4 áreas","5 o más áreas"],
+  canales:["Ninguno","1 canal","2 canales","3 canales","4 o más canales"],
+  sistemas:["Ninguno","1–2 sistemas","3–5 sistemas","6–10 sistemas","Más de 10"],
+  terceros:["Ninguno","1 tercero","2 terceros","3–4 terceros","5 o más"],
+  apis:["Ninguna","1–2","3–5","6–10","Más de 10"],
+  equipos:["Ninguno","1 equipo","2 equipos","3 equipos","4 o más"]
+ },
+ questions:[
+  ["N1",0,"¿Impacta directamente clientes, comercios aliados o canales digitales?",2,"cual"],
+  ["N2",0,"¿Soporta una capacidad crítica del negocio (originación, pagos, tarjetas, crédito, cartera o recaudo)?",3,"cual"],
+  ["N3",0,"¿Tiene fecha comprometida por negocio, campaña, aliado, regulador o auditoría?",2,"cual"],
+  ["N4",0,"¿Cuántas áreas de negocio u operación deben coordinarse?",1,"areas"],
+  ["F1",1,"¿Crea una capacidad nueva y no solo modifica una existente?",3,"cual"],
+  ["F2",1,"¿Cuántos canales o frontales impacta (App, web, portal, contact center, backoffice)?",2,"canales"],
+  ["F3",1,"¿Incluye reglas de negocio complejas, parametrización o flujos de aprobación?",2,"cual"],
+  ["F4",1,"¿Requiere trazabilidad, reversos, conciliación o auditoría funcional?",3,"cual"],
+  ["I1",2,"¿Cuántos sistemas internos deben integrarse o modificarse?",3,"sistemas"],
+  ["I2",2,"¿Cuántos terceros externos involucra (aliados, bureaus, pasarelas, core, antifraude)?",3,"terceros"],
+  ["I3",2,"¿Cuántas APIs o integraciones nuevas/cambios requiere (APIM, eventos, mensajería)?",2,"apis"],
+  ["I4",2,"¿De cuántos equipos externos a la célula depende?",2,"equipos"],
+  ["S1",3,"¿Procesa datos personales, financieros, transaccionales o sensibles?",3,"cual"],
+  ["S2",3,"¿Está expuesta a internet o a canales de cliente/aliado?",3,"cual"],
+  ["S3",3,"¿Requiere controles de identidad, autorización, roles, MFA o segregación?",2,"cual"],
+  ["S4",3,"¿Puede generar impacto de fraude, pérdida económica, reputacional o sanción?",3,"cual"],
+  ["S5",3,"¿Requiere evidencia para auditoría, cumplimiento o trazabilidad regulatoria?",2,"cual"],
+  ["T1",4,"¿Introduce tecnología, patrón o componente nuevo para TI?",3,"cual"],
+  ["T2",4,"¿Modifica arquitectura transversal, APIs comunes, plataforma o capacidades compartidas?",3,"cual"],
+  ["T3",4,"¿Exige alta disponibilidad, resiliencia, performance o escalabilidad relevante?",3,"cual"],
+  ["T4",4,"¿Requiere diseño de datos complejo, migración, sincronización o consistencia?",2,"cual"],
+  ["T5",4,"¿Requiere automatización CI/CD, cloud, Kubernetes, APIM, colas o IaC?",2,"cual"],
+  ["O1",5,"¿Impacta operación 7x24, mesa de servicio, backoffice o soporte?",2,"cual"],
+  ["O2",5,"¿Requiere observabilidad, alertas, métricas, SLI/SLO o trazabilidad técnica nueva?",2,"cual"],
+  ["O3",5,"¿Un error en producción afecta continuidad, recaudo, pagos, crédito o atención?",3,"cual"],
+  ["O4",5,"¿Requiere despliegue gradual, rollback, feature flags o migración controlada?",2,"cual"],
+  ["D1",6,"¿El requerimiento aún es ambiguo o requiere discovery funcional/técnico?",2,"cual"],
+  ["D2",6,"¿Hay dependencias con proveedores, áreas internas o decisiones no confirmadas?",2,"cual"],
+  ["D3",6,"¿Cambia procesos, roles operativos o requiere gestión del cambio?",1,"cual"],
+  ["D4",6,"¿Hay restricciones fuertes de tiempo, capacidad o coexistencia con otros proyectos?",2,"cual"]
+ ],
+ tallas:[
+  {n:"XS",min:0,max:20,pmMin:1,pmMax:3,lec:"Cambio menor o ajuste acotado.",acc:"Resolver con capacidad existente o célula ligera."},
+  {n:"S",min:21,max:35,pmMin:3,pmMax:8,lec:"Iniciativa pequeña con alcance conocido.",acc:"Célula reducida y apoyo puntual de arquitectura/seguridad."},
+  {n:"M",min:36,max:50,pmMin:8,pmMax:16,lec:"Iniciativa media con varias piezas o integraciones.",acc:"Célula base y discovery corto para validar supuestos."},
+  {n:"L",min:51,max:70,pmMin:16,pmMax:32,lec:"Iniciativa grande, transversal o con riesgo relevante.",acc:"Célula completa, arquitectura temprana y validación AppSec."},
+  {n:"XL",min:71,max:100,pmMin:32,pmMax:64,lec:"Programa estratégico de alta incertidumbre.",acc:"Evaluar dividir en frentes/células y hacer discovery formal."}
+ ],
+ caps:[
+  {n:"Product Owner / Negocio",sfia:[3,3,4,4,5],mix:[20,15,12,10,8]},
+  {n:"Analista negocio / funcional",sfia:[2,3,3,4,4],mix:[20,15,14,12,10]},
+  {n:"Arquitectura de solución",sfia:[0,4,4,5,5],mix:[10,8,8,8,8]},
+  {n:"Desarrollo Backend / API",sfia:[2,3,3,4,4],mix:[25,30,30,28,25]},
+  {n:"Desarrollo Frontend / Mobile",sfia:[0,3,3,4,4],mix:[0,10,12,14,15]},
+  {n:"QA / Automatización",sfia:[2,3,3,4,4],mix:[15,12,12,13,14]},
+  {n:"Seguridad / AppSec",sfia:[0,3,4,4,5],mix:[0,3,4,5,6]},
+  {n:"DevOps / Plataforma",sfia:[2,3,3,4,4],mix:[5,5,4,4,5]},
+  {n:"Datos / Integración",sfia:[0,0,3,4,4],mix:[0,0,2,3,4]},
+  {n:"UX/UI / Experiencia",sfia:[0,2,3,3,4],mix:[0,2,2,2,3]},
+  {n:"Operación / SRE",sfia:[0,0,0,3,4],mix:[5,0,0,1,2]}
+ ],
+ triage:[
+  {t:"¿Integra o modifica sistemas internos o terceros externos?",c:false},
+  {t:"¿Procesa datos personales, financieros o sensibles, o está expuesta a internet?",c:true},
+  {t:"¿Puede generar fraude, pérdida económica, impacto reputacional o sanción?",c:true},
+  {t:"¿Introduce tecnología nueva o cambia arquitectura transversal/compartida?",c:false},
+  {t:"¿Impacta una capacidad crítica (pagos, crédito, cartera, recaudo, originación)?",c:false},
+  {t:"¿El requerimiento aún es ambiguo o requiere discovery funcional o técnico?",c:false}
+ ]
+};
+const TALLA_COL={XS:"#7b8a99",S:"#3f8f5a",M:"#caa31e",L:"#cd6a1f",XL:"#b23a3a"};
+const BAND_COL=["#3f8f5a","#7aa53c","#caa31e","#cd6a1f","#b23a3a"];
+const EXAMPLES={
+ pequena:{nombre:"Ajuste de mensajes informativos en App",plazo:3,ans:[1,1,1,1,1,1,1,1,1,1,1,0,1,2,1,1,0,0,0,1,0,1,1,1,2,0,1,1,1,1],tri:[false,false,false,false,false,false]},
+ mediana:{nombre:"Pago con QR en App",plazo:6,ans:[2,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,1,2,1,2,2,1,2,2,2,1,2,2,1,1],tri:[true,false,false,true,false,false]},
+ grande:{nombre:"Originación digital de crédito con terceros",plazo:9,ans:[3,3,2,2,3,2,2,3,3,3,2,2,4,3,2,3,2,3,2,3,2,2,2,2,4,2,2,3,2,2],tri:[true,true,true,true,true,false]}
+};
+
+/* =================== ESTADO / PERSISTENCIA =================== */
+const LS={cfg:"mdt2_config",pf:"mdt2_portfolio",cap:"mdt2_capacity"};
+function loadJSON(k,def){try{const v=JSON.parse(localStorage.getItem(k));return v??def}catch(e){return def}}
+function saveJSON(k,v){try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}
+let cfg=loadJSON(LS.cfg,null)||structuredClone(DEFAULTS);
+let portfolio=loadJSON(LS.pf,[]);
+let capacity=loadJSON(LS.cap,{});
+let cur={id:null,nombre:"",plazo:6,estado:"Evaluación",ans:new Array(cfg.questions.length).fill(0),tri:cfg.triage.map(()=>false)};
+function saveCfg(){saveJSON(LS.cfg,cfg)}
+function savePf(){saveJSON(LS.pf,portfolio)}
+function saveCap(){saveJSON(LS.cap,capacity)}
+
+/* =================== CÁLCULO =================== */
+function maxPts(){return cfg.questions.reduce((a,q)=>a+4*q[3],0)}
+function tallaIdx(pct){let i=cfg.tallas.findIndex(t=>pct<=t.max);return i<0?cfg.tallas.length-1:i}
+function fmt(n){return (Math.round(n*100)/100).toLocaleString('es',{minimumFractionDigits:2,maximumFractionDigits:2})}
+function compute(ans,plazo){
+  const MP=maxPts(); const pts=cfg.questions.reduce((a,q,i)=>a+(ans[i]||0)*q[3],0);
+  const pct=MP?Math.round(pts/MP*1000)/10:0;
+  const idx=tallaIdx(pct); const t=cfg.tallas[idx];
+  const pl=Math.max(0.1,plazo||1);
+  const fMin=t.pmMin/pl,fMax=t.pmMax/pl,fMed=((t.pmMin+t.pmMax)/2)/pl;
+  const dp=Array(7).fill(0),dm=Array(7).fill(0);
+  cfg.questions.forEach((q,i)=>{dp[q[1]]+=(ans[i]||0)*q[3];dm[q[1]]+=4*q[3];});
+  const dims=DIMS.map((d,k)=>({d,pct:dm[k]?Math.round(dp[k]/dm[k]*100):0}));
+  const mix=cfg.caps.map(c=>({n:c.n,sfia:c.sfia[idx],mixPct:c.mix[idx],fte:c.mix[idx]/100*fMed})).filter(x=>x.mixPct>0&&x.sfia>0);
+  return {pts,MP,pct,idx,t,fMin,fMax,fMed,dims,mix,plazo:pl};
+}
+function triageEval(tri){
+  const count=tri.filter(Boolean).length;
+  const crit=tri.some((v,i)=>v&&cfg.triage[i].c);
+  if(crit||count>=3)return{cls:"obl",txt:"Evaluación completa obligatoria — talla probable M o superior"};
+  if(count>=1)return{cls:"rec",txt:"Evaluación completa recomendada — talla probable S–M"};
+  return{cls:"via",txt:"Vía rápida (XS–S) — no requiere evaluación completa"};
+}
+
+/* =================== EVALUAR: RENDER =================== */
+function optLabels(q){return q[4]==='cual'?cfg.qualLabels:cfg.quantRanges[q[4]];}
+function buildForm(){
+  const root=document.getElementById('form');root.innerHTML='';let cur_d=-1,box=null;
+  cfg.questions.forEach((q,i)=>{
+    if(q[1]!==cur_d){cur_d=q[1];const h=document.createElement('div');h.className='dim-h';h.textContent=DIMS[cur_d];root.appendChild(h);box=document.createElement('div');root.appendChild(box);}
+    const quant=q[4]!=='cual';const labs=optLabels(q);
+    const help=quant?labs.map((o,k)=>'<b>'+k+'</b> '+o).join(' · '):'';
+    const row=document.createElement('div');row.className='q';
+    row.innerHTML='<div class="top"><div class="txt"><b>'+q[0]+'.</b> '+q[2]+(help?'<div class="help">'+help+'</div>':'')+'</div>'+
+      '<span class="chip '+(quant?'cuant':'cual')+'">'+(quant?'Cuantitativa':'Cualitativa')+'</span></div>'+
+      '<div class="seg" id="seg'+i+'">'+[0,1,2,3,4].map(v=>'<button onclick="setAns('+i+','+v+')">'+v+'</button>').join('')+'</div>';
+    box.appendChild(row);
+  });
+  syncForm();
+}
+function setAns(i,v){cur.ans[i]=v;syncForm();renderResults();}
+function syncForm(){cfg.questions.forEach((q,i)=>{const s=document.getElementById('seg'+i);if(s)[...s.children].forEach((b,v)=>b.classList.toggle('on',v===cur.ans[i]));});}
+function buildTriage(){
+  const root=document.getElementById('triage');root.innerHTML='';
+  cfg.triage.forEach((t,i)=>{const r=document.createElement('div');r.className='tq';
+    r.innerHTML='<div>'+t.t+(t.c?'<span class="crit">crítica</span>':'')+'</div><div class="tgl" id="tg'+i+'">'+
+    '<button class="no" onclick="setTri('+i+',false)">No</button><button class="si" onclick="setTri('+i+',true)">Sí</button></div>';
+    root.appendChild(r);});
+  syncTri();
+}
+function setTri(i,v){cur.tri[i]=v;syncTri();renderTriage();}
+function syncTri(){cur.tri.forEach((v,i)=>{const g=document.getElementById('tg'+i);if(g){g.children[0].classList.toggle('on',!v);g.children[1].classList.toggle('on',v);}});}
+function renderTriage(){const r=triageEval(cur.tri);const el=document.getElementById('triageReco');el.className='reco '+r.cls;el.textContent=r.txt;}
+function renderResults(){
+  cur.nombre=document.getElementById('nombre').value;
+  cur.plazo=parseFloat(document.getElementById('plazo').value)||1;
+  cur.estado=document.getElementById('estado').value;
+  const R=compute(cur.ans,cur.plazo);const col=TALLA_COL[R.t.n]||'#888';
+  document.getElementById('tallaT').textContent=R.t.n;
+  document.getElementById('badge').style.background=col;
+  document.getElementById('pct').textContent=R.pct+'%';document.getElementById('pct').style.color=col;
+  document.getElementById('ptsline').textContent='complejidad · '+R.pts+'/'+R.MP+' puntos';
+  const gf=document.getElementById('gfill');gf.style.width=Math.max(2,R.pct)+'%';gf.style.background=BAND_COL[R.idx];
+  document.getElementById('ticks').innerHTML=cfg.tallas.map(t=>'<span>'+t.n+'</span>').join('');
+  document.getElementById('pm').innerHTML=R.t.pmMin+'–'+R.t.pmMax+' <small>PM</small>';
+  document.getElementById('fteMed').innerHTML=fmt(R.fMed)+' <small>FTE</small>';
+  document.getElementById('fteMin').innerHTML=fmt(R.fMin)+' <small>FTE</small>';
+  document.getElementById('fteMax').innerHTML=fmt(R.fMax)+' <small>FTE</small>';
+  const factor=Math.round((R.t.pmMax/Math.max(0.01,R.t.pmMin))*10)/10;
+  document.getElementById('cono').innerHTML='<b>Banda de incertidumbre</b>Estimación temprana: el esfuerzo real puede variar ~'+factor+'× entre el escenario optimista y el pesimista. Se estrecha con discovery.';
+  document.getElementById('lectura').textContent=R.t.lec;
+  document.getElementById('accion').textContent=R.t.acc;
+  document.getElementById('dims').innerHTML=R.dims.map(d=>'<div class="dbar"><div class="lab"><span>'+d.d+'</span><span class="muted">'+d.pct+'%</span></div><div class="track"><div class="bar" style="width:'+d.pct+'%"></div></div></div>').join('');
+  let rows='',tM=0,tF=0;
+  R.mix.forEach(m=>{tM+=m.mixPct;tF+=m.fte;rows+='<tr><td>'+m.n+'</td><td class="c"><span class="sfia">'+m.sfia+'</span></td><td class="c">'+m.mixPct+'%</td><td class="c">'+fmt(m.fte)+'</td></tr>';});
+  rows+='<tr style="font-weight:700;background:var(--soft)"><td>Total</td><td class="c">—</td><td class="c">'+tM+'%</td><td class="c">'+fmt(tF)+'</td></tr>';
+  document.getElementById('mix').innerHTML=rows;
+}
+function loadEx(k){const e=EXAMPLES[k];document.getElementById('nombre').value=e.nombre;document.getElementById('plazo').value=e.plazo;document.getElementById('estado').value='Evaluación';cur={id:null,nombre:e.nombre,plazo:e.plazo,estado:'Evaluación',ans:e.ans.slice(),tri:e.tri.slice()};syncForm();syncTri();renderResults();renderTriage();}
+function clearAll(){document.getElementById('nombre').value='';document.getElementById('plazo').value=6;document.getElementById('estado').value='Evaluación';cur={id:null,nombre:'',plazo:6,estado:'Evaluación',ans:cfg.questions.map(()=>0),tri:cfg.triage.map(()=>false)};syncForm();syncTri();renderResults();renderTriage();}
+function saveToPortfolio(){
+  renderResults();
+  if(!cur.nombre.trim()){alert('Ponle un nombre a la iniciativa antes de guardar.');return;}
+  const item={id:cur.id||Date.now(),nombre:cur.nombre,plazo:cur.plazo,estado:cur.estado,ans:cur.ans.slice(),tri:cur.tri.slice(),real:(cur.real||{fte:null,dur:null})};
+  const ix=portfolio.findIndex(p=>p.id===item.id);
+  if(ix>=0)portfolio[ix]=item;else portfolio.push(item);
+  cur.id=item.id;savePf();alert('Guardado en el portafolio.');renderPortfolio();
+}
+
+/* =================== PORTAFOLIO =================== */
+function renderPortfolio(){
+  const kpis=document.getElementById('pfKpis');
+  const tallaCount={};let totFte=0,activas=0;
+  portfolio.forEach(p=>{const R=compute(p.ans,p.plazo);tallaCount[R.t.n]=(tallaCount[R.t.n]||0)+1;if(p.estado==='Activa'){totFte+=R.fMed;activas++;}});
+  kpis.innerHTML=
+    '<div class="kpi"><div class="n">'+portfolio.length+'</div><div class="l">Iniciativas</div></div>'+
+    '<div class="kpi"><div class="n">'+activas+'</div><div class="l">Activas</div></div>'+
+    '<div class="kpi"><div class="n">'+fmt(totFte)+'</div><div class="l">FTE demandado (activas)</div></div>'+
+    '<div class="kpi"><div class="n">'+Object.keys(tallaCount).length+'</div><div class="l">Tallas presentes</div></div>';
+  const tb=document.getElementById('pfTable');
+  if(!portfolio.length){tb.innerHTML='<div class="empty">Aún no hay iniciativas. Ve a <b>Evaluar</b> y guarda una.</div>';return;}
+  let rows=portfolio.map(p=>{const R=compute(p.ans,p.plazo);return '<tr>'+
+    '<td>'+esc(p.nombre)+'</td>'+
+    '<td class="c"><span class="badge-t" style="background:'+(TALLA_COL[R.t.n])+'">'+R.t.n+'</span></td>'+
+    '<td class="c">'+R.pct+'%</td><td class="c">'+R.t.pmMin+'–'+R.t.pmMax+'</td>'+
+    '<td class="c">'+p.plazo+'m</td><td class="c">'+fmt(R.fMed)+'</td>'+
+    '<td><select class="mini" style="width:110px" onchange="setEstado('+p.id+',this.value)">'+['Evaluación','Activa','Cerrada'].map(s=>'<option'+(s===p.estado?' selected':'')+'>'+s+'</option>').join('')+'</select></td>'+
+    '<td class="c"><button class="btn sm" onclick="loadFromPf('+p.id+')">Editar</button> <button class="btn sm gh" onclick="delPf('+p.id+')">✕</button></td></tr>';}).join('');
+  tb.innerHTML='<table><thead><tr><th>Iniciativa</th><th class="c">Talla</th><th class="c">Compl.</th><th class="c">PM</th><th class="c">Plazo</th><th class="c">FTE medio</th><th>Estado</th><th></th></tr></thead><tbody>'+rows+'</tbody></table>';
+}
+function setEstado(id,v){const p=portfolio.find(x=>x.id===id);if(p){p.estado=v;savePf();renderPortfolio();}}
+function delPf(id){if(!confirm('¿Eliminar esta iniciativa?'))return;portfolio=portfolio.filter(x=>x.id!==id);savePf();renderPortfolio();}
+function loadFromPf(id){const p=portfolio.find(x=>x.id===id);if(!p)return;cur={id:p.id,nombre:p.nombre,plazo:p.plazo,estado:p.estado,ans:p.ans.slice(),tri:p.tri.slice(),real:p.real};
+  document.getElementById('nombre').value=p.nombre;document.getElementById('plazo').value=p.plazo;document.getElementById('estado').value=p.estado;
+  syncForm();syncTri();renderResults();renderTriage();switchView('evaluar');}
+
+/* =================== CAPACIDAD Y DEMANDA =================== */
+function renderCapacidad(){
+  const demand={};
+  portfolio.filter(p=>p.estado==='Activa').forEach(p=>{compute(p.ans,p.plazo).mix.forEach(m=>{demand[m.n]=(demand[m.n]||0)+m.fte;});});
+  const names=cfg.caps.map(c=>c.n);
+  const maxV=Math.max(1,...names.map(n=>Math.max(demand[n]||0,capacity[n]||0)));
+  let html='';
+  names.forEach(n=>{
+    const d=demand[n]||0,c=capacity[n]||0;const gap=c-d;
+    const dW=d/maxV*100,cW=c/maxV*100;
+    const st=gap>=0?'ok':(d-c<=0.5?'warn':'bad');
+    html+='<div class="barrow"><div class="nm">'+n+'</div>'+
+      '<div class="tk"><div class="d" style="width:'+dW+'%"></div><div class="cap" style="left:'+Math.min(99.5,cW)+'%"></div></div>'+
+      '<div style="width:150px;text-align:right" class="small">dem '+fmt(d)+' · cap <input class="mini" type="number" min="0" step="0.1" value="'+c+'" onchange="setCap(\''+n.replace(/'/g,"\\'")+'\',this.value)"> '+
+      '<span class="pill '+st+'">'+(gap>=0?'+':'')+fmt(gap)+'</span></div></div>';
+  });
+  const totD=Object.values(demand).reduce((a,b)=>a+b,0);
+  const totC=names.reduce((a,n)=>a+(capacity[n]||0),0);
+  document.getElementById('capBody').innerHTML=
+    '<div class="grid g3" style="margin-bottom:14px"><div class="kpi"><div class="n">'+fmt(totD)+'</div><div class="l">FTE demandado (activas)</div></div>'+
+    '<div class="kpi"><div class="n">'+fmt(totC)+'</div><div class="l">FTE disponible</div></div>'+
+    '<div class="kpi"><div class="n" style="color:'+(totC-totD>=0?'var(--ok)':'var(--bad)')+'">'+(totC-totD>=0?'+':'')+fmt(totC-totD)+'</div><div class="l">Balance</div></div></div>'+
+    html;
+}
+function setCap(n,v){capacity[n]=parseFloat(v)||0;saveCap();renderCapacidad();}
+
+/* =================== CALIBRACIÓN =================== */
+function renderCalibracion(){
+  const items=portfolio;
+  const kp=document.getElementById('calKpis');
+  let withReal=0,sumFactor=0;
+  items.forEach(p=>{if(p.real&&p.real.fte){const est=compute(p.ans,p.plazo).fMed;if(est>0){withReal++;sumFactor+=p.real.fte/est;}}});
+  const avgF=withReal?sumFactor/withReal:null;
+  kp.innerHTML='<div class="kpi"><div class="n">'+withReal+'</div><div class="l">Con datos reales</div></div>'+
+   '<div class="kpi"><div class="n">'+(avgF?fmt(avgF)+'×':'—')+'</div><div class="l">Factor real/estimado promedio</div></div>'+
+   '<div class="kpi"><div class="n">'+(avgF?(avgF>1.1?'Subestima':avgF<0.9?'Sobreestima':'Ajustado'):'—')+'</div><div class="l">Tendencia</div></div>';
+  const tb=document.getElementById('calTable');
+  if(!items.length){tb.innerHTML='<div class="empty">Guarda iniciativas en el portafolio para calibrar.</div>';return;}
+  let rows=items.map(p=>{const R=compute(p.ans,p.plazo);const est=R.fMed;const real=(p.real&&p.real.fte)||'';const dur=(p.real&&p.real.dur)||'';
+    const dev=(real!==''&&est>0)?((real-est)/est*100):null;
+    return '<tr><td>'+esc(p.nombre)+'</td><td class="c"><span class="badge-t" style="background:'+TALLA_COL[R.t.n]+'">'+R.t.n+'</span></td>'+
+      '<td class="c">'+fmt(est)+'</td>'+
+      '<td class="c"><input class="mini" type="number" min="0" step="0.1" value="'+real+'" onchange="setReal('+p.id+',\'fte\',this.value)"></td>'+
+      '<td class="c"><input class="mini" type="number" min="0" step="0.1" value="'+dur+'" placeholder="meses" onchange="setReal('+p.id+',\'dur\',this.value)"></td>'+
+      '<td class="c">'+(dev===null?'—':'<span class="pill '+(Math.abs(dev)<=15?'ok':Math.abs(dev)<=35?'warn':'bad')+'">'+(dev>=0?'+':'')+Math.round(dev)+'%</span>')+'</td></tr>';
+  }).join('');
+  tb.innerHTML='<table><thead><tr><th>Iniciativa</th><th class="c">Talla</th><th class="c">FTE estimado</th><th class="c">FTE real</th><th class="c">Duración real</th><th class="c">Desviación</th></tr></thead><tbody>'+rows+'</tbody></table>';
+}
+function setReal(id,k,v){const p=portfolio.find(x=>x.id===id);if(!p)return;p.real=p.real||{fte:null,dur:null};p.real[k]=v===''?null:parseFloat(v);savePf();renderCalibracion();}
+
+/* =================== PARÁMETROS =================== */
+function renderParams(){
+  const b=document.getElementById('paramsBody');
+  // Pesos
+  let pesos='<div class="card" style="margin-bottom:16px"><div class="hd">Pesos por pregunta (1–3 típico) · máximo de puntaje: '+maxPts()+'</div><div class="bd"><div class="grid g2">';
+  cfg.questions.forEach((q,i)=>{pesos+='<div style="display:flex;justify-content:space-between;align-items:center;gap:8px;padding:4px 0;border-bottom:1px solid var(--line)"><span class="small"><b>'+q[0]+'</b> '+q[2].slice(0,52)+(q[2].length>52?'…':'')+'</span><input class="mini" type="number" min="0" max="5" value="'+q[3]+'" onchange="setPeso('+i+',this.value)"></div>';});
+  pesos+='</div></div></div>';
+  // Tallas
+  let tallas='<div class="card" style="margin-bottom:16px"><div class="hd">Tallas: bandas de complejidad y esfuerzo (PM)</div><div class="bd"><table><thead><tr><th>Talla</th><th class="c">% mín</th><th class="c">% máx</th><th class="c">PM mín</th><th class="c">PM máx</th><th>Lectura</th></tr></thead><tbody>';
+  cfg.tallas.forEach((t,i)=>{tallas+='<tr><td><b>'+t.n+'</b></td>'+
+    '<td class="c"><input class="mini" type="number" value="'+t.min+'" onchange="setTalla('+i+',\'min\',this.value)"></td>'+
+    '<td class="c"><input class="mini" type="number" value="'+t.max+'" onchange="setTalla('+i+',\'max\',this.value)"></td>'+
+    '<td class="c"><input class="mini" type="number" value="'+t.pmMin+'" onchange="setTalla('+i+',\'pmMin\',this.value)"></td>'+
+    '<td class="c"><input class="mini" type="number" value="'+t.pmMax+'" onchange="setTalla('+i+',\'pmMax\',this.value)"></td>'+
+    '<td><input value="'+esc(t.lec)+'" onchange="setTalla('+i+',\'lec\',this.value)"></td></tr>';});
+  tallas+='</tbody></table></div></div>';
+  // Mix + SFIA
+  const sums=cfg.tallas.map((_,ti)=>cfg.caps.reduce((a,c)=>a+c.mix[ti],0));
+  let mix='<div class="card" style="margin-bottom:16px"><div class="hd">Mix de capacidades (%) y nivel SFIA por talla</div><div class="bd" style="overflow:auto"><table><thead><tr><th>Capacidad</th>'+cfg.tallas.map(t=>'<th class="c">'+t.n+' %</th><th class="c">SFIA</th>').join('')+'</tr></thead><tbody>';
+  cfg.caps.forEach((c,ci)=>{mix+='<tr><td>'+c.n+'</td>'+c.mix.map((m,ti)=>'<td class="c"><input class="mini" type="number" value="'+m+'" onchange="setMix('+ci+','+ti+',this.value)"></td><td class="c"><input class="mini" type="number" min="0" max="7" value="'+c.sfia[ti]+'" onchange="setSfia('+ci+','+ti+',this.value)"></td>').join('')+'</tr>';});
+  mix+='<tr style="font-weight:700;background:var(--soft)"><td>Suma %</td>'+sums.map(s=>'<td class="c" colspan="2"><span class="sumtag '+(s===100?'pill ok':'pill bad')+'">'+s+'%</span></td>').join('')+'</tr>';
+  mix+='</tbody></table><div class="small muted" style="margin-top:8px">Cada columna de mix debe sumar 100%. SFIA 0 = no se asigna de forma dedicada en esa talla.</div></div></div>';
+  // Escala cualitativa + rangos cuantitativos
+  let escalas='<div class="card"><div class="hd">Escala cualitativa y rangos cuantitativos</div><div class="bd"><div class="small muted" style="margin-bottom:6px">Escala cualitativa (0–4):</div><div class="grid g3" style="margin-bottom:14px">';
+  cfg.qualLabels.forEach((l,i)=>{escalas+='<div class="field"><label>'+i+'</label><input value="'+esc(l)+'" onchange="setQual('+i+',this.value)"></div>';});
+  escalas+='</div>';
+  Object.keys(cfg.quantRanges).forEach(key=>{escalas+='<div class="small muted" style="margin:8px 0 4px">Rango cuantitativo: <b>'+key+'</b></div><div class="grid g3" style="margin-bottom:8px">'+cfg.quantRanges[key].map((o,i)=>'<div class="field"><label>'+i+'</label><input value="'+esc(o)+'" onchange="setQuant(\''+key+'\','+i+',this.value)"></div>').join('')+'</div>';});
+  escalas+='</div></div>';
+  b.innerHTML=pesos+tallas+mix+escalas;
+}
+function setPeso(i,v){cfg.questions[i][3]=parseInt(v)||0;persistAndRefresh();}
+function setTalla(i,k,v){cfg.tallas[i][k]=(k==='lec'||k==='acc')?v:(parseFloat(v)||0);persistAndRefresh();}
+function setMix(ci,ti,v){cfg.caps[ci].mix[ti]=parseFloat(v)||0;persistAndRefresh();}
+function setSfia(ci,ti,v){cfg.caps[ci].sfia[ti]=parseInt(v)||0;persistAndRefresh();}
+function setQual(i,v){cfg.qualLabels[i]=v;persistAndRefresh(false);}
+function setQuant(k,i,v){cfg.quantRanges[k][i]=v;persistAndRefresh(false);}
+function persistAndRefresh(reParam=true){saveCfg();renderResults();renderPortfolio();renderCapacidad();renderCalibracion();if(reParam)renderParams();}
+function resetCfg(){if(!confirm('¿Restaurar todos los parámetros a los valores por defecto? No borra tus iniciativas.'))return;cfg=structuredClone(DEFAULTS);saveCfg();buildTriage();buildForm();renderResults();renderTriage();renderParams();renderPortfolio();renderCapacidad();renderCalibracion();}
+
+/* =================== IMPORT / EXPORT =================== */
+function exportAll(){
+  const data={config:cfg,portfolio:portfolio,capacity:capacity,_meta:{app:"plataforma-dimensionamiento",fecha:new Date().toISOString()}};
+  const blob=new Blob([JSON.stringify(data,null,2)],{type:'application/json'});
+  const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download='respaldo_dimensionamiento.json';a.click();
+}
+function importAll(ev){
+  const f=ev.target.files[0];if(!f)return;const r=new FileReader();
+  r.onload=e=>{try{const d=JSON.parse(e.target.result);
+    if(d.config)cfg=d.config;if(d.portfolio)portfolio=d.portfolio;if(d.capacity)capacity=d.capacity;
+    saveCfg();savePf();saveCap();buildTriage();buildForm();clearAll();renderTriage();renderPortfolio();renderCapacidad();renderCalibracion();renderParams();
+    alert('Respaldo importado correctamente.');}catch(err){alert('Archivo no válido.');}};
+  r.readAsText(f);ev.target.value='';
+}
+
+/* =================== NAV =================== */
+function switchView(v){
+  document.querySelectorAll('.view').forEach(s=>s.classList.toggle('on',s.id==='v-'+v));
+  document.querySelectorAll('.side a').forEach(a=>a.classList.toggle('on',a.dataset.v===v));
+  if(v==='portafolio')renderPortfolio();
+  if(v==='capacidad')renderCapacidad();
+  if(v==='calibracion')renderCalibracion();
+  if(v==='parametros')renderParams();
+}
+function esc(s){return (s+'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+
+/* =================== INIT =================== */
+document.querySelectorAll('.side a').forEach(a=>a.addEventListener('click',()=>switchView(a.dataset.v)));
+['nombre','plazo','estado'].forEach(id=>document.getElementById(id).addEventListener('input',renderResults));
+buildTriage();buildForm();renderResults();renderTriage();
+</script>
+</body>
+</html>
