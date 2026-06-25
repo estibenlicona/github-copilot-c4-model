@@ -61,13 +61,13 @@ input,select,button{font-family:inherit}
 .main{padding:28px 34px 70px;max-width:none;width:100%}
 @media(max-width:600px){.main{padding:20px 16px 50px}}
 .head{margin-bottom:22px;padding-right:170px}
-.head .kick{font-size:11.5px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+.head .kick{font-size:17px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;
   background:linear-gradient(90deg,var(--brand),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent}
 .head h1{font-size:27px;font-weight:760;letter-spacing:-.01em;margin-top:6px}
 .head p{color:var(--muted);margin-top:5px;max-width:74ch;font-size:13.5px}
 .fade{animation:fade .4s ease}@keyframes fade{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:none}}
-.card{background:var(--glass);border:1px solid var(--line);border-radius:18px;backdrop-filter:blur(12px);
-  box-shadow:0 1px 0 rgba(255,255,255,.08) inset,0 16px 40px rgba(20,26,48,.30);overflow:hidden}
+.card{background:var(--glass);border:1px solid var(--line);border-radius:14px;
+  box-shadow:0 1px 2px rgba(20,26,48,.04);overflow:hidden}
 .card .hd{padding:14px 18px;font-weight:650;font-size:14px;display:flex;justify-content:space-between;align-items:center;
   border-bottom:1px solid var(--line);background:var(--hd-grad)}
 .card .bd{padding:18px}
@@ -101,14 +101,14 @@ td.c,th.c{text-align:center}tbody tr:hover{background:var(--hover)}
 .evalcol{display:flex;flex-direction:column;gap:16px}
 .resbar{position:sticky;top:0;z-index:35;display:flex;align-items:center;gap:18px;flex-wrap:wrap;
   background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:10px 74px 10px 16px;margin-bottom:16px;
-  backdrop-filter:blur(12px);box-shadow:0 8px 24px rgba(20,26,48,.12)}
+  backdrop-filter:blur(12px);box-shadow:0 2px 8px rgba(20,26,48,.05)}
 .app.collapsed .resbar{padding-left:54px}
 @media(max-width:1000px){.app.collapsed .resbar{padding-left:16px}}
-.resbar .rb-talla{padding:4px 11px;border-radius:9px;font-weight:800;font-size:15px;color:#fff;letter-spacing:.02em;box-shadow:0 4px 12px rgba(0,0,0,.18)}
-.resbar .rb-item{display:flex;flex-direction:column;line-height:1.15}
-.resbar .rb-item .k{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);font-weight:700}
-.resbar .rb-item .v{font-size:16.5px;font-weight:780;color:var(--ink)}
-.resbar .rb-item .v small{font-size:10.5px;color:var(--muted);font-weight:600}
+.rb-talla{padding:4px 11px;border-radius:9px;font-weight:800;font-size:15px;color:#fff;letter-spacing:.02em;box-shadow:0 4px 12px rgba(0,0,0,.18)}
+.rb-item{display:flex;flex-direction:column;line-height:1.15}
+.rb-item .k{font-size:10px;letter-spacing:.09em;text-transform:uppercase;color:var(--faint);font-weight:700}
+.rb-item .v{font-size:16.5px;font-weight:780;color:var(--ink)}
+.rb-item .v small{font-size:10.5px;color:var(--muted);font-weight:600}
 .resbar .rb-spacer{flex:1;min-width:8px}
 .resbar .rb-open{display:flex;align-items:center;gap:7px}
 @media(max-width:560px){.resbar{gap:12px}.resbar .rb-open{width:100%;justify-content:center}}
@@ -167,7 +167,65 @@ td.c,th.c{text-align:center}tbody tr:hover{background:var(--hover)}
 .dbar .track{height:8px;background:var(--track);border-radius:6px;overflow:hidden}
 .dbar .bar{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--cyan),var(--brand2),var(--brand));transition:width .5s cubic-bezier(.2,.8,.2,1)}
 .sfia{display:inline-flex;align-items:center;justify-content:center;min-width:22px;background:linear-gradient(135deg,rgba(145,104,240,.6),rgba(255,77,166,.6));color:#fff;border-radius:7px;font-weight:800;font-size:12px;padding:2px 4px}
-.kpi{background:var(--glass);border:1px solid var(--line);border-radius:16px;padding:16px 18px;backdrop-filter:blur(10px);position:relative;overflow:hidden}
+.sfia.s0{background:#9aa2ad}.sfia.s1{background:#8b9ae6}.sfia.s2{background:#9a8ce2}.sfia.s3{background:#a87fda}.sfia.s4{background:#bd72cf}.sfia.s5{background:#d063b4}
+.sfiaCell{display:inline-flex;flex-direction:column;align-items:center;gap:2px;line-height:1}
+.sfiaLow{font-size:8.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--bad);background:var(--bad-bg);padding:1px 6px;border-radius:20px}
+.ubar{display:inline-flex;align-items:center;gap:8px;min-width:130px}
+.ubar .trk{flex:1;height:8px;border-radius:6px;background:var(--track);overflow:hidden;min-width:64px}
+.ubar .fl{height:100%;border-radius:6px;transition:width .4s}
+.ubar .pc{font-size:12px;font-weight:800;width:38px;text-align:right}
+.atbl{table-layout:fixed}
+.atbl th:nth-child(2),.atbl td:nth-child(2){width:90px}
+.atbl th:nth-child(3),.atbl td:nth-child(3){width:140px}
+.atbl th:nth-child(4),.atbl td:nth-child(4){width:140px}
+.acard{margin-bottom:10px}
+.acard-hd{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 16px;cursor:pointer;background:var(--hd-grad);transition:.16s;flex-wrap:wrap;border-bottom:1px solid transparent}
+.acard-hd:hover{background:var(--seg-hover)}
+.acard.open .acard-hd{border-bottom-color:var(--line)}
+.acard-l{display:flex;align-items:center;gap:10px;min-width:0;flex-wrap:wrap}
+.acard-nm{font-weight:650;font-size:14px}
+.acard-cnt{font-size:10.5px;font-weight:700;color:var(--muted);background:var(--surf);border:1px solid var(--line);border-radius:20px;padding:1px 8px}
+.acard-r{display:flex;align-items:center;gap:14px}
+.acard-sub{font-size:11.5px;color:var(--muted);white-space:nowrap;min-width:92px;text-align:right}
+.chev{display:inline-flex;color:var(--muted);transition:transform .2s;flex-shrink:0}
+.acard.open .chev{transform:rotate(90deg)}
+.mixtbl th.comp,.mixtbl td.comp{text-align:left;width:46%}
+.mixbar{display:flex;align-items:center;gap:12px}
+.mixbar .mtrk{flex:1;height:9px;background:var(--track);border-radius:6px;overflow:hidden;min-width:90px}
+.mixbar .mfl{height:100%;border-radius:6px;background:linear-gradient(90deg,var(--brand2),var(--brand))}
+.mixbar .mpc{font-size:12px;font-weight:700;width:42px;text-align:right;color:var(--muted)}
+.gantt-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px;background:var(--glass)}
+.gantt-hd,.gantt-row{display:flex;align-items:stretch;border-bottom:1px solid var(--line)}
+.gantt-row:last-child{border-bottom:none}
+.gantt-side{width:300px;flex-shrink:0;box-sizing:border-box;padding:8px 12px;border-right:1px solid var(--line)}
+.gantt-hd{background:var(--hd-grad)}
+.gantt-hd .gantt-side{display:flex;align-items:flex-end;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted)}
+.gantt-cols{flex-shrink:0}
+.gantt-qrow{display:grid;border-bottom:1px solid var(--line)}
+.gantt-q{padding:6px 4px;font-weight:700;font-size:12px;border-left:2px solid var(--line2);text-align:center;white-space:nowrap}
+.gantt-q:first-child{border-left:none}
+.gantt-srow{display:grid}
+.gantt-s{padding:4px 0;font-size:10px;color:var(--faint);text-align:center;border-left:1px solid var(--line)}
+.gantt-s.qstart{border-left:2px solid var(--line2)}
+.gantt-nm{font-size:12.5px;font-weight:600;margin-bottom:7px;display:flex;align-items:center;line-height:1.2}
+.gantt-ctrl{display:flex;gap:6px}
+.gantt-ctrl label{display:flex;flex-direction:column;font-size:8px;text-transform:uppercase;letter-spacing:.03em;color:var(--faint);gap:2px;flex:1;min-width:0}
+.gantt-ctrl select{padding:3px 4px;font-size:11px;border-radius:7px;width:100%}
+.gantt-track{position:relative;flex-shrink:0;min-height:46px;background-repeat:repeat-x;background-position:0 0;background-image:linear-gradient(to right,var(--line) 0 1px,transparent 1px),linear-gradient(to right,var(--line2) 0 2px,transparent 2px)}
+.gbar{position:absolute;height:15px;border-radius:5px;font-size:9px;font-weight:700;color:#fff;display:flex;align-items:center;justify-content:center;overflow:hidden;white-space:nowrap;box-shadow:0 2px 6px rgba(0,0,0,.18)}
+.gbar.est{top:7px;background:linear-gradient(90deg,var(--brand2),var(--brand))}
+.gbar.real{top:25px;background:var(--ok)}
+.gantt-today{position:absolute;top:0;bottom:0;width:2px;background:var(--bad);z-index:3;opacity:.85}
+.rm-bar{display:flex;align-items:center;gap:20px;flex-wrap:wrap;background:var(--glass);border:1px solid var(--line);border-radius:12px;padding:9px 16px;margin-bottom:12px;font-size:13px}
+.rm-stat{color:var(--muted)}
+.rm-stat b{color:var(--ink);font-size:17px;font-weight:800;margin-right:4px}
+.statstrip{display:flex;background:var(--glass);border:1px solid var(--line);border-radius:14px;overflow:hidden;margin-bottom:16px}
+.ss-item{flex:1;padding:14px 20px;border-left:1px solid var(--line);min-width:0}
+.ss-item:first-child{border-left:none}
+.ss-n{font-size:25px;font-weight:820;line-height:1;background:linear-gradient(120deg,var(--kpi-a),var(--kpi-b));-webkit-background-clip:text;background-clip:text;color:transparent}
+.ss-l{font-size:11.5px;color:var(--muted);margin-top:5px}
+@media(max-width:700px){.statstrip{flex-wrap:wrap}.ss-item{flex:1 1 45%;border-top:1px solid var(--line)}.ss-item:nth-child(-n+2){border-top:none}}
+.kpi{background:var(--glass);border:1px solid var(--line);border-radius:14px;padding:16px 18px;position:relative;overflow:hidden}
 .kpi::before{content:"";position:absolute;right:-30px;top:-30px;width:90px;height:90px;border-radius:50%;background:radial-gradient(circle,var(--glow),transparent 70%)}
 .kpi .n{font-size:30px;font-weight:820;background:linear-gradient(120deg,var(--kpi-a),var(--kpi-b));-webkit-background-clip:text;background-clip:text;color:transparent}
 .kpi .l{font-size:11.5px;color:var(--muted);margin-top:3px}
@@ -177,6 +235,10 @@ td.c,th.c{text-align:center}tbody tr:hover{background:var(--hover)}
 .barrow .tk .d{position:absolute;left:0;top:0;height:100%;background:linear-gradient(90deg,var(--brand2),var(--brand));border-radius:8px;transition:width .5s}
 .barrow .tk .cap{position:absolute;top:-2px;height:26px;width:0;border-right:2px dashed #fff;opacity:.85}
 .empty{padding:40px;text-align:center;color:var(--muted)}
+.iconbtn{width:30px;height:30px;border-radius:8px;border:1px solid var(--line2);background:var(--glass);color:var(--muted);cursor:pointer;display:inline-flex;align-items:center;justify-content:center;transition:.16s}
+.iconbtn:hover{background:var(--bad-bg);color:var(--bad);border-color:var(--bad)}
+.prow{display:grid;grid-template-columns:2fr 2fr 1fr 1fr auto;gap:10px;align-items:end}
+@media(max-width:760px){.prow{grid-template-columns:1fr 1fr}}
 .toolbar{display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin:4px 0 8px}
 .sumtag{font-size:10.5px;font-weight:800;padding:3px 9px;border-radius:8px}
 .radar-lab{font-size:9.5px;fill:var(--muted)}
@@ -185,6 +247,7 @@ hr.sep{border:none;border-top:1px solid var(--line);margin:18px 0}
 .subtabs button{padding:9px 15px;border-radius:12px;border:1px solid var(--line2);background:var(--glass);color:var(--muted);cursor:pointer;font-size:13px;font-weight:600;transition:.16s}
 .subtabs button:hover{color:var(--ink);background:var(--glass2)}
 .subtabs button.on{color:#fff;background:linear-gradient(120deg,var(--brand),var(--brand2));border-color:transparent;box-shadow:0 4px 14px rgba(0,0,0,.12)}
+.evalbar-info{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
 
 .themebtn{position:fixed;top:16px;right:20px;z-index:60;display:inline-flex;align-items:center;justify-content:center;width:44px;height:44px;border-radius:50%;border:1.5px solid var(--line2);background:var(--glass2);backdrop-filter:blur(10px);color:var(--ink);cursor:pointer;box-shadow:0 6px 18px rgba(0,0,0,.14);transition:.2s}
 .themebtn:hover{transform:translateY(-1px) rotate(20deg)}
@@ -315,6 +378,51 @@ const EXAMPLES={
  mediana:{nombre:"Pago con QR en App",plazo:6,ans:[2,2,2,2,2,2,2,2,2,2,2,1,2,2,2,2,1,2,1,2,2,1,2,2,2,1,2,2,1,1],tri:[true,false,false,true,false,false]},
  grande:{nombre:"Originación digital de crédito con terceros",plazo:9,ans:[3,3,2,2,3,2,2,3,3,3,2,2,4,3,2,3,2,3,2,3,2,2,2,2,4,2,2,3,2,2],tri:[true,true,true,true,true,false]}
 };
+const _mkDemo=(id,nombre,ex,plazo,estado,real)=>({id:id,nombre:nombre,plazo:plazo,estado:estado,ans:EXAMPLES[ex].ans.slice(),tri:EXAMPLES[ex].tri.slice(),real:real||{fte:null,dur:null}});
+const DEMO_PORTFOLIO=[
+  _mkDemo(1001,"Ajuste de mensajes en App","pequena",3,"Cerrada",{fte:1.9,dur:3}),
+  _mkDemo(1002,"Pago con QR en App","mediana",6,"Activa",null),
+  _mkDemo(1003,"Originación de crédito con terceros","grande",9,"Activa",null),
+  _mkDemo(1004,"Nueva pantalla de saldos en App","pequena",4,"Activa",null),
+  _mkDemo(1005,"Motor antifraude de tarjetas","grande",12,"Evaluación",null),
+  _mkDemo(1006,"Reportes regulatorios de cartera","mediana",5,"Cerrada",{fte:2.6,dur:7})
+];
+const DEMO_PEOPLE=[
+  {id:2001,nombre:"Ana Restrepo",rol:"Product Owner / Negocio",sfia:4,fte:1},
+  {id:2002,nombre:"Diego Cardona",rol:"Product Owner / Negocio",sfia:3,fte:1},
+  {id:2003,nombre:"Carlos Méndez",rol:"Analista negocio / funcional",sfia:3,fte:1},
+  {id:2004,nombre:"Paola Henao",rol:"Analista negocio / funcional",sfia:4,fte:1},
+  {id:2005,nombre:"Laura Gómez",rol:"Arquitectura de solución",sfia:5,fte:0.5},
+  {id:2006,nombre:"Mateo Salazar",rol:"Arquitectura de solución",sfia:4,fte:1},
+  {id:2007,nombre:"Julián Ríos",rol:"Desarrollo Backend / API",sfia:4,fte:1},
+  {id:2008,nombre:"Daniela Soto",rol:"Desarrollo Backend / API",sfia:3,fte:1},
+  {id:2009,nombre:"Esteban Quintero",rol:"Desarrollo Backend / API",sfia:3,fte:1},
+  {id:2010,nombre:"Camila Torres",rol:"Desarrollo Backend / API",sfia:2,fte:1},
+  {id:2011,nombre:"Andrés Pérez",rol:"Desarrollo Frontend / Mobile",sfia:3,fte:1},
+  {id:2012,nombre:"Natalia Bedoya",rol:"Desarrollo Frontend / Mobile",sfia:4,fte:1},
+  {id:2013,nombre:"María López",rol:"QA / Automatización",sfia:3,fte:1},
+  {id:2014,nombre:"Sebastián Ortiz",rol:"QA / Automatización",sfia:3,fte:1},
+  {id:2015,nombre:"Felipe Cano",rol:"Seguridad / AppSec",sfia:4,fte:0.5},
+  {id:2016,nombre:"Sara Vélez",rol:"DevOps / Plataforma",sfia:3,fte:1},
+  {id:2017,nombre:"Tomás Arango",rol:"Datos / Integración",sfia:3,fte:0.5},
+  {id:2018,nombre:"Lucía Franco",rol:"Datos / Integración",sfia:4,fte:1},
+  {id:2019,nombre:"Valentina Ruiz",rol:"UX/UI / Experiencia",sfia:3,fte:0.5},
+  {id:2020,nombre:"Jorge Mejía",rol:"Operación / SRE",sfia:3,fte:0.5}
+];
+const DEMO_ASSIGN={
+  1003:{2001:40,2003:50,2005:40,2007:80,2008:60,2009:50,2011:50,2013:60,2015:40,2016:40,2018:50},
+  1002:{2002:40,2004:40,2007:20,2010:50,2012:40,2014:30,2019:40},
+  1004:{2002:30,2004:20,2010:30,2011:30,2013:20}
+};
+const DEMO_ROADMAP={
+  1001:{start:0,finReal:6},
+  1006:{start:6,finReal:17},
+  1003:{start:2},
+  1002:{start:4},
+  1004:{start:8},
+  1005:{start:12}
+};
+const DEMO_CALENDAR={year:2026,spq:6,weeks:2,start:"2026-01-01"};
 const SFIA_LEVELS=[
  {n:0,guia:"No dedicado",implica:"No se asigna como capacidad dedicada; apoyo bajo demanda.",uso:"Solo si la iniciativa dispara una necesidad puntual."},
  {n:1,guia:"Seguir",implica:"Trabaja bajo instrucciones; impacto individual; tareas simples.",uso:"No recomendado para responsabilizarse de una iniciativa."},
@@ -375,7 +483,10 @@ const icons={
  capacidad:"M3 3v18h18M7 16l4-6 4 3 5-8",
  calibracion:"M12 8v4l3 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0z",
  parametros:"M12 15a3 3 0 1 0 0-6 3 3 0 0 0 0 6zM19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09a1.65 1.65 0 0 0-1.08-1.51 1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09a1.65 1.65 0 0 0 1.51-1.08 1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z",
- sfia:"M12 2l9 5-9 5-9-5 9-5zM3 12l9 5 9-5M3 17l9 5 9-5",down:"M12 3v12m0 0l-4-4m4 4l4-4M4 21h16",up:"M12 21V9m0 0l-4 4m4-4l4 4M4 3h16",plus:"M12 5v14M5 12h14"
+ sfia:"M12 2l9 5-9 5-9-5 9-5zM3 12l9 5 9-5M3 17l9 5 9-5",down:"M12 3v12m0 0l-4-4m4 4l4-4M4 21h16",up:"M12 21V9m0 0l-4 4m4-4l4 4M4 3h16",plus:"M12 5v14M5 12h14",
+ personas:"M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2M9 11a4 4 0 1 0 0-8 4 4 0 0 0 0 8M23 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75",
+ trash:"M3 6h18M19 6v14a2 2 0 0 1-2 2H7a2 2 0 0 1-2-2V6m3 0V4a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2",
+ roadmap:"M3 5h18M3 5v14M3 12h12M3 19h8M16 9l3 3-3 3"
 };
 
 /* ================= COMPONENTES VISUALES ================= */
@@ -400,7 +511,7 @@ function Gauge({pct,talla,color}){
   );
 }
 function Radar({dims}){
-  const N=dims.length,R=78,cx=100,cy=95;
+  const N=dims.length,R=72,cx=100,cy=102;
   const pt=(val,i)=>{const a=-Math.PI/2+i*2*Math.PI/N;const rr=R*Math.min(100,val)/100;return [cx+rr*Math.cos(a),cy+rr*Math.sin(a)];};
   const axis=(i)=>{const a=-Math.PI/2+i*2*Math.PI/N;return [cx+R*Math.cos(a),cy+R*Math.sin(a)];};
   const poly=dims.map((d,i)=>pt(d.pct,i).join(",")).join(" ");
@@ -423,7 +534,7 @@ function Evaluar({cfg,cur,setCur,onSave,resetKey,setTip}){
   const tri=triageEval(cfg,cur.tri);
   const col=TALLA_COL[R.t.n]||"#888";
   const [phase,setPhase]=useState(0);
-  const [drawerOpen,setDrawerOpen]=useState(false);
+  const [restab,setRestab]=useState("evaluacion");
   const NPH=DIMS.length+1;
   const phaseQs=phase===0?[]:cfg.questions.map((q,i)=>({q,i})).filter(x=>x.q[1]===phase-1);
   useEffect(()=>{setPhase(0);},[cur.id]);
@@ -442,19 +553,21 @@ function Evaluar({cfg,cur,setCur,onSave,resetKey,setTip}){
   let dimIdx=-1;
   return (
    <div className="fade">
-    <div className="head"><div className="kick">Evaluación</div><h1>Evaluar iniciativa</h1></div>
-    <div className="resbar">
-      <div className="rb-talla" style={{background:col}}>{R.t.n}</div>
-      <div className="rb-item"><span className="k">Complejidad</span><span className="v">{R.pct}%</span></div>
-      <div className="rb-item"><span className="k">FTE esperado</span><span className="v">{fmt(R.fMed)} <small>FTE</small></span></div>
-      <div className="rb-item"><span className="k">Esfuerzo</span><span className="v">{R.t.pmMin}–{R.t.pmMax} <small>PM</small></span></div>
-      <div className="rb-spacer"/>
-      <button className="btn pri rb-open" onClick={()=>setDrawerOpen(true)}><Ico d={icons.capacidad} width="15" height="15"/>Ver resultados</button>
+    <div className="head" style={{marginBottom:14}}><div className="kick">Evaluar Iniciativa</div></div>
+    <div className="subtabs" style={{alignItems:"center"}}>
+      <button className={restab==="evaluacion"?"on":""} onClick={()=>setRestab("evaluacion")}>Evaluación</button>
+      <button className={restab==="resultado"?"on":""} onClick={()=>setRestab("resultado")}><Ico d={icons.capacidad} width="14" height="14"/>Resultado</button>
     </div>
-    <div className="eval">
-      <div className="evalcol">
+    {restab==="evaluacion"&&<div className="evalcol fade">
         <div className="card">
-          <div className="hd">Evaluación</div>
+          <div className="hd"><span>Evaluación</span>
+            <div className="evalbar-info">
+              <div className="rb-talla" style={{background:col}}>{R.t.n}</div>
+              <div className="rb-item"><span className="k">Complejidad</span><span className="v">{R.pct}%</span></div>
+              <div className="rb-item"><span className="k">FTE esperado</span><span className="v">{fmt(R.fMed)} <small>FTE</small></span></div>
+              <div className="rb-item"><span className="k">Esfuerzo</span><span className="v">{R.t.pmMin}–{R.t.pmMax} <small>PM</small></span></div>
+            </div>
+          </div>
           <div className="bd">
             <div className="grid g2" style={{marginBottom:10}}>
               <div><label className="lab">Nombre de la iniciativa</label><input value={cur.nombre} placeholder="Ej. Nuevo flujo de pagos" onChange={e=>set({nombre:e.target.value})}/></div>
@@ -499,26 +612,22 @@ function Evaluar({cfg,cur,setCur,onSave,resetKey,setTip}){
             })}
             <div className="phasenav">
               <button className="btn" disabled={phase===0} onClick={()=>setPhase(Math.max(0,phase-1))}>‹ Anterior</button>
+              <div style={{display:"flex",gap:8,flexWrap:"wrap",justifyContent:"flex-end"}}>
               {phase===0
-                ? <button className="btn pri" onClick={()=>setPhase(1)}>Comenzar evaluación ›</button>
+                ? <React.Fragment>
+                    {tri.cls==="via"&&<button className="btn pri" onClick={()=>onSave(cur,R)}><Ico d={icons.plus} width="14" height="14"/>Guardar (vía rápida)</button>}
+                    <button className={tri.cls==="via"?"btn":"btn pri"} onClick={()=>setPhase(1)}>Comenzar evaluación ›</button>
+                  </React.Fragment>
                 : phase<NPH-1
                 ? <button className="btn pri" onClick={()=>setPhase(phase+1)}>Siguiente ›</button>
-                : <button className="btn pri" onClick={()=>onSave(cur,R)}>Guardar resultado</button>}
+                : <button className="btn pri" onClick={()=>onSave(cur,R)}><Ico d={icons.plus} width="14" height="14"/>Guardar resultado</button>}
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-      <div className={"drawer-ovl"+(drawerOpen?" show":"")} onClick={()=>setDrawerOpen(false)}/>
-      <div className={"resdrawer"+(drawerOpen?" open":"")}>
-        <div className="resdrawer-hd">
-          <span className="ttl">Resultados</span>
-          <div className="acts">
-            <button className="btn sm pri" onClick={()=>onSave(cur,R)}><Ico d={icons.plus} width="14" height="14"/>Guardar</button>
-            <button className="drawer-close" onClick={()=>setDrawerOpen(false)} title="Cerrar">✕</button>
-          </div>
-        </div>
-        <div className="resdrawer-bd">
+      </div>}
+    {restab==="resultado"&&<div className="fade">
+        <div className="card"><div className="bd">
             <div className="resgrid">
             <div>
             <div className="gauge-wrap">
@@ -546,19 +655,18 @@ function Evaluar({cfg,cur,setCur,onSave,resetKey,setTip}){
               {R.dims.map((d,k)=>(<div className="dbar" key={k}><div className="lab"><span>{d.d}</span><span className="muted">{d.pct}%</span></div><div className="track"><div className="bar" style={{width:d.pct+"%"}}/></div></div>))}
             </div>
             </div>
-            <div>
-            <div className="sec-t" style={{marginTop:0}}>Mix de capacidades</div>
-            <table><thead><tr><th>Capacidad</th><th className="c">SFIA</th><th className="c">%</th><th className="c">FTE</th></tr></thead>
+            </div>
+            <div className="sec-t" style={{marginTop:18}}>Mix de capacidades</div>
+            <table className="mixtbl"><thead><tr><th>Capacidad</th><th className="c">SFIA</th><th className="comp">Composición del equipo</th><th className="c">FTE</th><th className="c">Personas</th></tr></thead>
               <tbody>
-                {R.mix.map((m,k)=>(<tr key={k}><td>{m.n}</td><td className="c"><span className="sfia">{m.sfia}</span></td><td className="c">{m.mixPct}%</td><td className="c">{fmt(m.fte)}</td></tr>))}
-                <tr style={{fontWeight:700}}><td>Total</td><td className="c">—</td><td className="c">{R.mix.reduce((a,m)=>a+m.mixPct,0)}%</td><td className="c">{fmt(R.mix.reduce((a,m)=>a+m.fte,0))}</td></tr>
+                {R.mix.map((m,k)=>{const hc=m.fte>0?Math.ceil(m.fte-1e-9):0;return (<tr key={k}><td>{m.n}</td><td className="c"><span className={"sfia s"+m.sfia}>{m.sfia}</span></td><td className="comp"><div className="mixbar"><div className="mtrk"><div className="mfl" style={{width:Math.min(100,m.mixPct)+"%"}}/></div><span className="mpc">{m.mixPct}%</span></div></td><td className="c">{fmt(m.fte)}</td><td className="c">{hc}</td></tr>);})}
+                <tr style={{fontWeight:700}}><td>Total</td><td className="c">—</td><td className="comp" style={{color:"var(--muted)"}}>{R.mix.reduce((a,m)=>a+m.mixPct,0)}% del equipo</td><td className="c">{fmt(R.mix.reduce((a,m)=>a+m.fte,0))}</td><td className="c">{R.mix.reduce((a,m)=>a+(m.fte>0?Math.ceil(m.fte-1e-9):0),0)}</td></tr>
               </tbody>
             </table>
-            </div>
-            </div>
+            <div className="small muted" style={{marginTop:8}}><b>Composición del equipo</b> = qué proporción del equipo es cada capacidad (suma 100%); no es el % de dedicación de cada persona. <b>FTE</b> = esfuerzo (dedicación equivalente a tiempo completo). <b>Personas</b> = cabezas mínimas para cubrirlo (redondeo hacia arriba; un FTE pequeño igual requiere 1 persona, normalmente compartida).</div>
           </div>
         </div>
-    </div>
+    </div>}
    </div>
   );
 }
@@ -575,22 +683,17 @@ function Portafolio({cfg,portfolio,setPortfolio,onEdit}){
   const del=id=>{if(confirm("¿Eliminar esta iniciativa?"))setPortfolio(portfolio.filter(p=>p.id!==id));};
   return (
    <div className="fade">
-    <div className="head"><div className="kick">Portafolio</div><h1>Portafolio de iniciativas</h1><p>Iniciativas evaluadas y guardadas. Cambia el estado a <b>Activa</b> para incluirlas en la demanda de capacidad.</p></div>
-    <div className="grid g4" style={{marginBottom:16}}>
-      <div className="kpi"><div className="n">{portfolio.length}</div><div className="l">Iniciativas</div></div>
-      <div className="kpi"><div className="n">{activas.length}</div><div className="l">Activas</div></div>
-      <div className="kpi"><div className="n">{fmt(totFte)}</div><div className="l">FTE demandado (activas)</div></div>
-      <div className="kpi"><div className="n">{Object.keys(byTalla).length}</div><div className="l">Tallas presentes</div></div>
+    <div className="head"><div className="kick">Portafolio de iniciativas</div><p>Iniciativas evaluadas y guardadas. Cambia el estado a <b>Activa</b> para incluirlas en la demanda de capacidad.</p></div>
+    <div className="statstrip">
+      <div className="ss-item"><div className="ss-n">{portfolio.length}</div><div className="ss-l">Iniciativas</div></div>
+      <div className="ss-item"><div className="ss-n">{activas.length}</div><div className="ss-l">Activas</div></div>
+      <div className="ss-item"><div className="ss-n">{fmt(totFte)}</div><div className="ss-l">FTE demandado (activas)</div></div>
+      <div className="ss-item"><div className="ss-n">{Object.keys(byTalla).length}</div><div className="ss-l">Tallas presentes</div></div>
     </div>
-    <div className="grid g2">
-      <div className="card"><div className="hd">Distribución por talla</div><div className="bd">
-        {tallaOrder.map(t=>(<div className="barrow" key={t}><div className="nm" style={{width:40}}><span className="badgeT" style={{background:TALLA_COL[t]}}>{t}</span></div>
-          <div className="tk"><div className="d" style={{width:((byTalla[t]||0)/maxC*100)+"%"}}/></div><div style={{width:30,textAlign:"right"}}>{byTalla[t]||0}</div></div>))}
-      </div></div>
-      <div className="card"><div className="hd">Resumen</div><div className="bd small muted" style={{lineHeight:1.7}}>
-        El portafolio agrega {portfolio.length} iniciativa(s). La demanda de capacidad (módulo siguiente) suma solo las <b style={{color:"var(--ink)"}}>activas</b>: {activas.length}, equivalentes a <b style={{color:"var(--ink)"}}>{fmt(totFte)} FTE</b> de esfuerzo medio simultáneo. Recuerda que el FTE depende del plazo de cada iniciativa.
-      </div></div>
-    </div>
+    <div className="card"><div className="hd">Distribución por talla</div><div className="bd">
+      {tallaOrder.map(t=>(<div className="barrow" key={t}><div className="nm" style={{width:40}}><span className="badgeT" style={{background:TALLA_COL[t]}}>{t}</span></div>
+        <div className="tk"><div className="d" style={{width:((byTalla[t]||0)/maxC*100)+"%"}}/></div><div style={{width:30,textAlign:"right"}}>{byTalla[t]||0}</div></div>))}
+    </div></div>
     <div className="card" style={{marginTop:16}}>
       <div className="hd">Iniciativas</div>
       <div className="bd" style={{padding:0}}>
@@ -610,31 +713,245 @@ function Portafolio({cfg,portfolio,setPortfolio,onEdit}){
   );
 }
 
+/* ================= PERSONAS Y ASIGNACIÓN ================= */
+function personLoadPct(assign,pid){let s=0;for(const k in assign){const a=assign[k];if(a&&a[pid])s+=a[pid];}return s;}
+function fteOf(person,pct){return (pct||0)/100*((person&&person.fte)||0);}
+
+function AsignIniciativa({cfg,ini,R,people,assign,setPct,loadPct}){
+  const cur=assign[ini.id]||{};
+  const rows=R.mix.map(m=>{const ppl=people.filter(p=>p.rol===m.n);const asgFte=ppl.reduce((a,p)=>a+fteOf(p,cur[p.id]||0),0);return {m,ppl,asgFte};});
+  const totDem=R.mix.reduce((a,m)=>a+m.fte,0);
+  const totAsg=rows.reduce((a,r)=>a+r.asgFte,0);
+  const [open,setOpen]=useState({});
+  const toggle=k=>setOpen(o=>({...o,[k]:!o[k]}));
+  const allOpen=rows.length>0&&rows.every(r=>open[r.m.n]);
+  const setAll=v=>{const o={};rows.forEach(r=>{o[r.m.n]=v;});setOpen(o);};
+  return (
+   <div className="fade">
+    <div className="statstrip">
+      <div className="ss-item"><div className="ss-n">{fmt(totDem)}</div><div className="ss-l">FTE demandado</div></div>
+      <div className="ss-item"><div className="ss-n">{fmt(totAsg)}</div><div className="ss-l">FTE asignado</div></div>
+      <div className="ss-item"><div className="ss-n" style={{WebkitTextFillColor:(totAsg-totDem>=-0.001?"var(--ok)":"var(--bad)")}}>{totAsg-totDem>=0?"+":""}{fmt(totAsg-totDem)}</div><div className="ss-l">Balance de cobertura</div></div>
+    </div>
+    <div style={{display:"flex",justifyContent:"flex-end",marginBottom:10}}>
+      <button className="btn sm gh" onClick={()=>setAll(!allOpen)}>{allOpen?"Contraer todo":"Desplegar todo"}</button>
+    </div>
+    {rows.map(({m,ppl,asgFte})=>{const cov=m.fte>0?asgFte/m.fte:1;const st=cov>=0.999?"ok":cov>=0.5?"warn":"bad";const col=st==="bad"?"var(--bad)":st==="warn"?"var(--warn)":"var(--ok)";const op=!!open[m.n];const low=ppl.some(p=>(cur[p.id]||0)>0&&p.sfia<m.sfia);
+      return (<div className={"card acard"+(op?" open":"")} key={m.n}>
+        <div className="acard-hd" onClick={()=>toggle(m.n)}>
+          <div className="acard-l">
+            <span className="chev"><svg viewBox="0 0 24 24" width="15" height="15" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round"><path d="M9 18l6-6-6-6"/></svg></span>
+            <span className="acard-nm">{m.n}</span>
+            <span className="chip">SFIA {m.sfia}+</span>
+            <span className="acard-cnt">{ppl.length} pers.</span>
+            {low&&<span className="sfiaLow">nivel bajo</span>}
+          </div>
+          <div className="acard-r">
+            <div className="ubar"><div className="trk"><div className="fl" style={{width:Math.min(100,cov*100)+"%",background:col}}/></div><span className="pc" style={{color:col}}>{Math.round(cov*100)}%</span></div>
+            <span className="acard-sub">{fmt(asgFte)} / {fmt(m.fte)} FTE</span>
+          </div>
+        </div>
+        {op&&<div className="bd" style={{padding:0}}>
+          {!ppl.length? <div className="empty" style={{padding:18}}>No hay personas con esta capacidad. Agrégalas en <b>Equipo</b>.</div> :
+          <table className="atbl"><thead><tr><th>Persona</th><th className="c">SFIA</th><th className="c">% dedic.</th><th className="c">FTE aporta</th></tr></thead>
+            <tbody>{ppl.map(p=>{const pct=cur[p.id]||0;const aporta=fteOf(p,pct);const lw=p.sfia<m.sfia;
+              return (<tr key={p.id}>
+                <td>{p.nombre}</td>
+                <td className="c"><span className="sfiaCell"><span className={"sfia s"+p.sfia}>{p.sfia}</span>{lw&&<span className="sfiaLow">bajo</span>}</span></td>
+                <td className="c"><input className="mini" type="number" min="0" max="100" step="5" value={pct} onChange={e=>setPct(ini.id,p.id,e.target.value)}/></td>
+                <td className="c">{fmt(aporta)}</td>
+              </tr>);})}</tbody>
+          </table>}
+        </div>}
+      </div>);})}
+    <div className="note cyan" style={{marginTop:8}}><b>Cómo leer</b>Cada tarjeta es una capacidad que pide la iniciativa. La barra muestra la cobertura (asignado ÷ demanda); despliégala para asignar el % de dedicación de cada persona. El aporte en FTE = % × FTE disponible de la persona. "bajo" señala que el nivel SFIA de la persona es menor al requerido.</div>
+   </div>
+  );
+}
+
+function Personas({cfg,portfolio,people,setPeople,assign,setAssign}){
+  const roles=cfg.caps.map(c=>c.n);
+  const [tab,setTab]=useState("equipo");
+  const [form,setForm]=useState({nombre:"",rol:roles[0],sfia:3,fte:1});
+  const [iniSel,setIniSel]=useState(portfolio[0]?portfolio[0].id:null);
+  const loadPct=pid=>personLoadPct(assign,pid);
+  const addP=()=>{if(!form.nombre.trim()){alert("Escribe el nombre de la persona.");return;}
+    setPeople([...people,{id:Date.now(),nombre:form.nombre.trim(),rol:form.rol,sfia:Number(form.sfia)||1,fte:parseFloat(form.fte)||0}]);
+    setForm({nombre:"",rol:form.rol,sfia:form.sfia,fte:1});};
+  const updP=(id,patch)=>setPeople(people.map(p=>p.id===id?{...p,...patch}:p));
+  const delP=id=>{if(!confirm("¿Eliminar esta persona? Se quitarán sus asignaciones."))return;
+    setPeople(people.filter(p=>p.id!==id));
+    const na={};for(const k in assign){const a={...assign[k]};delete a[id];na[k]=a;}setAssign(na);};
+  const setPct=(iniId,pid,v)=>{const pct=Math.max(0,Math.min(100,parseFloat(v)||0));const a={...(assign[iniId]||{})};if(pct<=0)delete a[pid];else a[pid]=pct;setAssign({...assign,[iniId]:a});};
+  const totFte=people.reduce((a,p)=>a+(p.fte||0),0);
+  const totAsg=people.reduce((a,p)=>a+fteOf(p,loadPct(p.id)),0);
+  const ini=portfolio.find(p=>p.id===iniSel)||portfolio[0]||null;
+  const R=ini?compute(cfg,ini.ans,ini.plazo):null;
+  return (
+   <div className="fade">
+    <div className="head"><div className="kick">Personas y asignación</div><p>Registra a las personas con su capacidad y nivel, y asígnalas a las iniciativas según su % de dedicación.</p></div>
+    <div className="subtabs">
+      <button className={tab==="equipo"?"on":""} onClick={()=>setTab("equipo")}>Equipo</button>
+      <button className={tab==="asignacion"?"on":""} onClick={()=>setTab("asignacion")}>Asignación</button>
+    </div>
+
+    {tab==="equipo"&&<div className="fade">
+      <div className="statstrip">
+        <div className="ss-item"><div className="ss-n">{people.length}</div><div className="ss-l">Personas</div></div>
+        <div className="ss-item"><div className="ss-n">{fmt(totFte)}</div><div className="ss-l">FTE total</div></div>
+        <div className="ss-item"><div className="ss-n">{fmt(totAsg)}</div><div className="ss-l">FTE asignado</div></div>
+        <div className="ss-item"><div className="ss-n" style={{WebkitTextFillColor:(totFte-totAsg>=-0.001?"var(--ok)":"var(--bad)")}}>{fmt(totFte-totAsg)}</div><div className="ss-l">FTE libre</div></div>
+      </div>
+      <div className="card" style={{marginBottom:16}}><div className="hd">Agregar persona</div><div className="bd">
+        <div className="prow">
+          <div><label className="lab">Nombre</label><input value={form.nombre} placeholder="Ej. Ana Gómez" onChange={e=>setForm({...form,nombre:e.target.value})}/></div>
+          <div><label className="lab">Capacidad / rol</label><select value={form.rol} onChange={e=>setForm({...form,rol:e.target.value})}>{roles.map(r=>(<option key={r}>{r}</option>))}</select></div>
+          <div><label className="lab">SFIA</label><select value={form.sfia} onChange={e=>setForm({...form,sfia:Number(e.target.value)})}>{[1,2,3,4,5].map(n=>(<option key={n} value={n}>{n}</option>))}</select></div>
+          <div><label className="lab">FTE disp.</label><input type="number" min="0" step="0.1" value={form.fte} onChange={e=>setForm({...form,fte:e.target.value})}/></div>
+          <button className="btn pri" onClick={addP}><Ico d={icons.plus} width="14" height="14"/>Agregar</button>
+        </div>
+      </div></div>
+      <div className="card"><div className="hd">Equipo ({people.length})</div><div className="bd" style={{padding:0,overflowX:"auto"}}>
+        {!people.length? <div className="empty">Aún no hay personas. Agrega la primera arriba.</div> :
+        <table><thead><tr><th>Persona</th><th>Capacidad</th><th className="c">SFIA</th><th className="c">FTE disp.</th><th className="c">Utilización</th><th></th></tr></thead>
+          <tbody>{people.map(p=>{const lp=loadPct(p.id);const st=lp>100?"bad":lp>=85?"warn":"ok";const col=st==="bad"?"var(--bad)":st==="warn"?"var(--warn)":"var(--ok)";
+            return (<tr key={p.id}>
+              <td><input value={p.nombre} onChange={e=>updP(p.id,{nombre:e.target.value})} style={{padding:"6px 8px",minWidth:140}}/></td>
+              <td><select value={p.rol} onChange={e=>updP(p.id,{rol:e.target.value})} style={{padding:"6px 8px",minWidth:180}}>{roles.map(r=>(<option key={r}>{r}</option>))}</select></td>
+              <td className="c"><input className="mini" type="number" min="1" max="5" value={p.sfia} onChange={e=>updP(p.id,{sfia:Number(e.target.value)||1})}/></td>
+              <td className="c"><input className="mini" type="number" min="0" step="0.1" value={p.fte} onChange={e=>updP(p.id,{fte:parseFloat(e.target.value)||0})}/></td>
+              <td className="c"><div className="ubar" title={fmt(fteOf(p,lp))+" de "+fmt(p.fte||0)+" FTE · libre "+fmt((p.fte||0)-fteOf(p,lp))}><div className="trk"><div className="fl" style={{width:Math.min(100,lp)+"%",background:col}}/></div><span className="pc" style={{color:col}}>{Math.round(lp)}%</span></div></td>
+              <td className="c"><button className="iconbtn" title="Eliminar" onClick={()=>delP(p.id)}><Ico d={icons.trash} width="15" height="15"/></button></td>
+            </tr>);})}</tbody>
+        </table>}
+      </div></div>
+    </div>}
+
+    {tab==="asignacion"&&<div className="fade">
+      {!portfolio.length? <div className="card"><div className="bd"><div className="empty">No hay iniciativas. Crea y guarda iniciativas en <b>Evaluar</b> / <b>Portafolio</b> primero.</div></div></div> :
+      !people.length? <div className="card"><div className="bd"><div className="empty">No hay personas. Agrégalas en la pestaña <b>Equipo</b> primero.</div></div></div> :
+      <div>
+        <div className="card" style={{marginBottom:16}}><div className="bd">
+          <label className="lab">Iniciativa</label>
+          <select value={ini?ini.id:""} onChange={e=>setIniSel(Number(e.target.value))}>
+            {portfolio.map(p=>{const rr=compute(cfg,p.ans,p.plazo);return <option key={p.id} value={p.id}>{p.nombre} · {rr.t.n} · {fmt(rr.fMed)} FTE</option>;})}
+          </select>
+        </div></div>
+        {ini&&R&&<AsignIniciativa cfg={cfg} ini={ini} R={R} people={people} assign={assign} setPct={setPct} loadPct={loadPct}/>}
+      </div>}
+    </div>}
+   </div>
+  );
+}
+
+/* ================= ROADMAP ================= */
+function plazoToSprints(plazo,weeks){return Math.max(1,Math.ceil((plazo||1)*4.345/Math.max(1,weeks)));}
+function Roadmap({cfg,portfolio,roadmap,setRoadmap,calendar,setCalendar}){
+  const spq=Math.max(1,parseInt(calendar.spq)||6);
+  const weeks=Math.max(1,parseFloat(calendar.weeks)||2);
+  const total=4*spq;const colW=36;const sideW=300;
+  const cal=(k,v)=>setCalendar({...calendar,[k]:v});
+  const setRM=(id,patch)=>{const next={...(roadmap[id]||{}),...patch};Object.keys(next).forEach(k=>{if(next[k]===null||next[k]===undefined||next[k]==="")delete next[k];});setRoadmap({...roadmap,[id]:next});};
+  const lbl=i=>"Q"+(Math.floor(i/spq)+1)+"·S"+(i%spq+1);
+  const start0=new Date((calendar.start||"2026-01-01")+"T00:00:00");
+  const curIdx=Math.floor((Date.now()-start0.getTime())/(weeks*7*86400000));
+  const showToday=curIdx>=0&&curIdx<total;
+  const opts=Array.from({length:total},(_,i)=>i);
+  const rows=portfolio.map(p=>{const R=compute(cfg,p.ans,p.plazo);const rm=roadmap[p.id]||{};
+    const start=(rm.start!=null)?rm.start:null;const dur=plazoToSprints(p.plazo,weeks);
+    const finEstDef=start!=null?Math.min(total-1,start+dur-1):null;
+    const finEst=(rm.finEst!=null)?Math.max(start||0,Math.min(total-1,rm.finEst)):finEstDef;
+    const finReal=(rm.finReal!=null)?Math.min(total-1,rm.finReal):null;
+    return {p,R,start,dur,finEst,finReal};});
+  const placed=rows.filter(r=>r.start!=null).length;
+  const [showCal,setShowCal]=useState(false);
+  return (
+   <div className="fade">
+    <div className="head" style={{marginBottom:10}}><div className="kick">Roadmap de iniciativas</div></div>
+    <div style={{display:"flex",gap:12,alignItems:"stretch",marginBottom:16,flexWrap:"wrap"}}>
+      <div className="statstrip" style={{flex:1,marginBottom:0,minWidth:280}}>
+        <div className="ss-item"><div className="ss-n">{portfolio.length}</div><div className="ss-l">Iniciativas</div></div>
+        <div className="ss-item"><div className="ss-n">{placed}</div><div className="ss-l">Ubicadas</div></div>
+        <div className="ss-item"><div className="ss-n">{spq*4}</div><div className="ss-l">Sprints/año</div></div>
+        <div className="ss-item"><div className="ss-n">{showToday?lbl(curIdx):"—"}</div><div className="ss-l">Sprint actual</div></div>
+      </div>
+      <button className="btn gh" style={{flexShrink:0}} onClick={()=>setShowCal(s=>!s)}><Ico d={icons.parametros} width="14" height="14"/>{showCal?"Ocultar calendario":"Calendario"}</button>
+    </div>
+    {showCal&&<div className="card fade" style={{marginBottom:12}}><div className="bd">
+      <div className="grid g4">
+        <div><label className="lab">Año</label><input type="number" value={calendar.year} onChange={e=>cal("year",parseInt(e.target.value)||2026)}/></div>
+        <div><label className="lab">Inicio (Q1)</label><input type="date" value={calendar.start} onChange={e=>cal("start",e.target.value)}/></div>
+        <div><label className="lab">Sprints por trimestre</label><input type="number" min="1" max="12" value={calendar.spq} onChange={e=>cal("spq",parseInt(e.target.value)||1)}/></div>
+        <div><label className="lab">Semanas por sprint</label><input type="number" min="1" max="6" step="0.5" value={calendar.weeks} onChange={e=>cal("weeks",parseFloat(e.target.value)||1)}/></div>
+      </div>
+    </div></div>}
+    {!portfolio.length? <div className="card"><div className="bd"><div className="empty">No hay iniciativas. Crea y guarda iniciativas en <b>Evaluar</b> / <b>Portafolio</b> primero.</div></div></div> :
+    <div className="gantt-wrap">
+      <div className="gantt" style={{minWidth:sideW+total*colW}}>
+        <div className="gantt-hd">
+          <div className="gantt-side">Iniciativa</div>
+          <div className="gantt-cols" style={{width:total*colW}}>
+            <div className="gantt-qrow" style={{gridTemplateColumns:"repeat(4,"+(spq*colW)+"px)"}}>
+              {[0,1,2,3].map(q=>(<div className="gantt-q" key={q}>Q{q+1} {calendar.year}</div>))}
+            </div>
+            <div className="gantt-srow" style={{gridTemplateColumns:"repeat("+total+","+colW+"px)"}}>
+              {opts.map(i=>(<div className={"gantt-s"+(i%spq===0?" qstart":"")} key={i}>{i%spq+1}</div>))}
+            </div>
+          </div>
+        </div>
+        {rows.map(({p,R,start,dur,finEst,finReal})=>(
+          <div className="gantt-row" key={p.id}>
+            <div className="gantt-side">
+              <div className="gantt-nm"><span className="badgeT" style={{background:TALLA_COL[R.t.n],marginRight:6}}>{R.t.n}</span>{p.nombre}</div>
+              <div className="gantt-ctrl">
+                <label>Inicio<select value={start==null?"":start} onChange={e=>setRM(p.id,{start:e.target.value===""?null:parseInt(e.target.value)})}><option value="">—</option>{opts.map(i=>(<option key={i} value={i}>{lbl(i)}</option>))}</select></label>
+                <label>Fin est.<select value={finEst==null?"":finEst} disabled={start==null} onChange={e=>setRM(p.id,{finEst:e.target.value===""?null:parseInt(e.target.value)})}><option value="">auto</option>{opts.map(i=>(<option key={i} value={i}>{lbl(i)}</option>))}</select></label>
+                <label>Fin real<select value={finReal==null?"":finReal} disabled={start==null} onChange={e=>setRM(p.id,{finReal:e.target.value===""?null:parseInt(e.target.value)})}><option value="">—</option>{opts.map(i=>(<option key={i} value={i}>{lbl(i)}</option>))}</select></label>
+              </div>
+            </div>
+            <div className="gantt-track" style={{width:total*colW,backgroundSize:colW+"px 100%,"+(spq*colW)+"px 100%"}}>
+              {showToday&&<div className="gantt-today" style={{left:(curIdx+0.5)*colW}}/>}
+              {start!=null&&<div className="gbar est" style={{left:start*colW+3,width:Math.max(colW-6,(finEst-start+1)*colW-6)}} title={"Estimado: "+lbl(start)+" → "+lbl(finEst)}>{dur} spr</div>}
+              {start!=null&&finReal!=null&&<div className="gbar real" style={{left:start*colW+3,width:Math.max(colW-6,(finReal-start+1)*colW-6)}} title={"Real: "+lbl(start)+" → "+lbl(finReal)}/>}
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>}
+    <div className="note cyan" style={{marginTop:12}}><b>Cómo leer</b>La barra superior (color marca) es el rango <b>estimado</b> (inicio + duración derivada del plazo, ajustable en "Fin est."). La barra verde inferior es el <b>fin real</b> cuando lo registras. La línea roja vertical marca el <b>sprint actual</b> ({showToday?lbl(curIdx):"fuera del año configurado"}).</div>
+   </div>
+  );
+}
+
 /* ================= CAPACIDAD ================= */
-function Capacidad({cfg,portfolio,capacity,setCapacity}){
+function Capacidad({cfg,portfolio,people,assign}){
   const demand={};
   portfolio.filter(p=>p.estado==="Activa").forEach(p=>{compute(cfg,p.ans,p.plazo).mix.forEach(m=>{demand[m.n]=(demand[m.n]||0)+m.fte;});});
   const names=cfg.caps.map(c=>c.n);
-  const maxV=Math.max(1,...names.map(n=>Math.max(demand[n]||0,capacity[n]||0)));
+  const cap={};people.forEach(p=>{cap[p.rol]=(cap[p.rol]||0)+(p.fte||0);});
+  const assigned={};for(const k in assign){const a=assign[k];if(!a)continue;for(const pid in a){const per=people.find(x=>String(x.id)===String(pid));if(!per)continue;assigned[per.rol]=(assigned[per.rol]||0)+fteOf(per,a[pid]);}}
+  const maxV=Math.max(1,...names.map(n=>Math.max(demand[n]||0,cap[n]||0)));
   const totD=Object.values(demand).reduce((a,b)=>a+b,0);
-  const totC=names.reduce((a,n)=>a+(capacity[n]||0),0);
-  const setCap=(n,v)=>setCapacity({...capacity,[n]:parseFloat(v)||0});
+  const totC=names.reduce((a,n)=>a+(cap[n]||0),0);
+  const totA=names.reduce((a,n)=>a+(assigned[n]||0),0);
   return (
    <div className="fade">
-    <div className="head"><div className="kick">Capacidad</div><h1>Capacidad y demanda</h1><p>Captura el FTE disponible por capacidad y compáralo con la demanda agregada de las iniciativas <b>activas</b>.</p></div>
-    <div className="grid g3" style={{marginBottom:16}}>
-      <div className="kpi"><div className="n">{fmt(totD)}</div><div className="l">FTE demandado</div></div>
-      <div className="kpi"><div className="n">{fmt(totC)}</div><div className="l">FTE disponible</div></div>
-      <div className="kpi"><div className="n" style={{WebkitTextFillColor:(totC-totD>=0?"var(--ok)":"var(--bad)")}}>{totC-totD>=0?"+":""}{fmt(totC-totD)}</div><div className="l">Balance</div></div>
+    <div className="head"><div className="kick">Capacidad y demanda</div><p>El FTE disponible por capacidad se calcula automáticamente desde las <b>personas</b> registradas, y se compara con la demanda de las iniciativas <b>activas</b>.</p></div>
+    {!people.length&&<div className="note amber" style={{marginBottom:16}}><b>Sin personas</b>Aún no has registrado personas. Ve al módulo <b>Personas y asignación → Equipo</b> para construir tu capacidad.</div>}
+    <div className="statstrip">
+      <div className="ss-item"><div className="ss-n">{fmt(totD)}</div><div className="ss-l">FTE demandado</div></div>
+      <div className="ss-item"><div className="ss-n">{fmt(totC)}</div><div className="ss-l">FTE disponible (personas)</div></div>
+      <div className="ss-item"><div className="ss-n">{fmt(totA)}</div><div className="ss-l">FTE asignado</div></div>
+      <div className="ss-item"><div className="ss-n" style={{WebkitTextFillColor:(totC-totD>=0?"var(--ok)":"var(--bad)")}}>{totC-totD>=0?"+":""}{fmt(totC-totD)}</div><div className="ss-l">Balance</div></div>
     </div>
     <div className="card"><div className="hd">Demanda vs. capacidad por capacidad</div><div className="bd">
-      {names.map(n=>{const d=demand[n]||0,c=capacity[n]||0,gap=c-d;const st=gap>=0?"ok":(d-c<=0.5?"warn":"bad");
+      {names.map(n=>{const d=demand[n]||0,c=cap[n]||0,asg=assigned[n]||0,libre=c-asg,gap=c-d;const st=gap>=0?"ok":(d-c<=0.5?"warn":"bad");
         return (<div className="barrow" key={n}>
           <div className="nm">{n}</div>
           <div className="tk"><div className="d" style={{width:(d/maxV*100)+"%"}}/><div className="cap" style={{left:Math.min(99.5,c/maxV*100)+"%"}}/></div>
-          <div style={{width:185,textAlign:"right",fontSize:12}}>dem {fmt(d)} · cap <input className="mini" type="number" min="0" step="0.1" value={c} onChange={e=>setCap(n,e.target.value)}/> <span className={"pill "+st}>{gap>=0?"+":""}{fmt(gap)}</span></div>
+          <div style={{width:230,textAlign:"right",fontSize:12}}>dem {fmt(d)} · cap {fmt(c)} · libre {fmt(libre)} <span className={"pill "+st}>{gap>=0?"+":""}{fmt(gap)}</span></div>
         </div>);})}
-      <div className="small muted" style={{marginTop:10}}>La barra muestra la demanda; la línea punteada blanca, tu capacidad disponible.</div>
+      <div className="small muted" style={{marginTop:10}}>La barra muestra la demanda; la línea punteada blanca, la capacidad disponible (suma del FTE de las personas de ese rol). <b>Libre</b> = capacidad − lo ya asignado a iniciativas.</div>
     </div></div>
    </div>
   );
@@ -649,11 +966,11 @@ function Calibracion({cfg,portfolio,setPortfolio}){
   const setReal=(id,k,v)=>setPortfolio(portfolio.map(p=>p.id===id?{...p,real:{...(p.real||{fte:null,dur:null}),[k]:v===""?null:parseFloat(v)}}:p));
   return (
    <div className="fade">
-    <div className="head"><div className="kick">Calibración</div><h1>Calibración con datos reales</h1><p>Registra el FTE y la duración reales al cerrar cada iniciativa. La plataforma calcula la desviación y el factor de ajuste.</p></div>
-    <div className="grid g3" style={{marginBottom:16}}>
-      <div className="kpi"><div className="n">{withReal}</div><div className="l">Con datos reales</div></div>
-      <div className="kpi"><div className="n">{avgF?fmt(avgF)+"×":"—"}</div><div className="l">Factor real/estimado</div></div>
-      <div className="kpi"><div className="n" style={{fontSize:20}}>{avgF?(avgF>1.1?"Subestima":avgF<0.9?"Sobreestima":"Ajustado"):"—"}</div><div className="l">Tendencia</div></div>
+    <div className="head"><div className="kick">Calibración con datos reales</div><p>Registra el FTE y la duración reales al cerrar cada iniciativa. La plataforma calcula la desviación y el factor de ajuste.</p></div>
+    <div className="statstrip">
+      <div className="ss-item"><div className="ss-n">{withReal}</div><div className="ss-l">Con datos reales</div></div>
+      <div className="ss-item"><div className="ss-n">{avgF?fmt(avgF)+"×":"—"}</div><div className="ss-l">Factor real/estimado</div></div>
+      <div className="ss-item"><div className="ss-n" style={{fontSize:18}}>{avgF?(avgF>1.1?"Subestima":avgF<0.9?"Sobreestima":"Ajustado"):"—"}</div><div className="ss-l">Tendencia</div></div>
     </div>
     <div className="card"><div className="hd">Estimado vs. real</div><div className="bd" style={{padding:0}}>
       {!portfolio.length? <div className="empty">Guarda iniciativas en el portafolio para calibrar.</div> :
@@ -682,7 +999,7 @@ function Parametros({cfg,setCfg,onReset}){
   return (
    <div className="fade">
     <div className="head" style={{display:"flex",justifyContent:"space-between",alignItems:"flex-end",flexWrap:"wrap",gap:12}}>
-      <div><div className="kick">Recalibración</div><h1>Parámetros del modelo</h1><p>Recalibra cada grupo de parámetros desde su pestaña. Los cambios se guardan y recalculan al instante.</p></div>
+      <div><div className="kick">Parámetros del modelo</div><p>Recalibra cada grupo de parámetros desde su pestaña. Los cambios se guardan y recalculan al instante.</p></div>
       <button className="btn" onClick={onReset}>↺ Restaurar por defecto</button>
     </div>
     <div className="subtabs">{tabs.map(([k,l])=>(<button key={k} className={tab===k?"on":""} onClick={()=>setTab(k)}>{l}</button>))}</div>
@@ -737,17 +1054,17 @@ function Parametros({cfg,setCfg,onReset}){
 function Sfia(){
   return (
    <div className="fade">
-    <div className="head"><div className="kick">Referencia</div><h1>Niveles SFIA</h1></div>
+    <div className="head"><div className="kick">Niveles SFIA</div></div>
     <div className="card" style={{marginBottom:16}}><div className="hd">Escala de niveles de responsabilidad</div><div className="bd" style={{overflowX:"auto"}}>
       <table><thead><tr><th>Nivel</th><th>Guía</th><th>Qué implica</th><th>Uso en staffing</th></tr></thead>
-        <tbody>{SFIA_LEVELS.map(l=>(<tr key={l.n}><td className="c"><span className="sfia">{l.n}</span></td><td><b>{l.guia}</b></td><td>{l.implica}</td><td className="muted">{l.uso}</td></tr>))}</tbody>
+        <tbody>{SFIA_LEVELS.map(l=>(<tr key={l.n}><td className="c"><span className={"sfia s"+l.n}>{l.n}</span></td><td><b>{l.guia}</b></td><td>{l.implica}</td><td className="muted">{l.uso}</td></tr>))}</tbody>
       </table>
     </div></div>
     <div className="card"><div className="hd">Qué cubre cada rol según su nivel</div><div className="bd">
       <div className="grid g2">
         {Object.keys(ROLE_LEVELS).map(role=>(<div className="rolecard" key={role}>
           <div className="rolehd">{role}</div>
-          {Object.keys(ROLE_LEVELS[role]).map(lv=>(<div className="rolelv" key={lv}><span className="sfia">{lv}</span><span>{ROLE_LEVELS[role][lv]}</span></div>))}
+          {Object.keys(ROLE_LEVELS[role]).map(lv=>(<div className="rolelv" key={lv}><span className={"sfia s"+lv}>{lv}</span><span>{ROLE_LEVELS[role][lv]}</span></div>))}
         </div>))}
       </div>
     </div></div>
@@ -756,8 +1073,12 @@ function Sfia(){
 }
 function App(){
   const [cfg,setCfg]=useLS("mdtR_config",DEFAULTS);
-  const [portfolio,setPortfolio]=useLS("mdtR_portfolio",[]);
+  const [portfolio,setPortfolio]=useLS("mdtR_portfolio",DEMO_PORTFOLIO);
   const [capacity,setCapacity]=useLS("mdtR_capacity",{});
+  const [people,setPeople]=useLS("mdtR_people",DEMO_PEOPLE);
+  const [assign,setAssign]=useLS("mdtR_assign",DEMO_ASSIGN);
+  const [roadmap,setRoadmap]=useLS("mdtR_roadmap",DEMO_ROADMAP);
+  const [calendar,setCalendar]=useLS("mdtR_calendar",DEMO_CALENDAR);
   const [view,setView]=useState("evaluar");
   const [collapsed,setCollapsed]=useLS("mdtR_collapsed",false);
   const [tip,setTip]=useState(null);
@@ -777,33 +1098,14 @@ function App(){
   };
   const editPf=p=>{setCur({id:p.id,nombre:p.nombre,plazo:p.plazo,estado:p.estado,ans:p.ans.slice(),tri:p.tri.slice(),real:p.real||{fte:null,dur:null}});setView("evaluar");};
   const reset=()=>{if(confirm("¿Restaurar todos los parámetros a los valores por defecto? No borra iniciativas."))setCfg(clone(DEFAULTS));};
-  const exportAll=()=>{const data={config:cfg,portfolio,capacity,_meta:{app:"plataforma-dimensionamiento",fecha:new Date().toISOString()}};
+  const exportAll=()=>{const data={config:cfg,portfolio,capacity,people,assign,roadmap,calendar,_meta:{app:"plataforma-dimensionamiento",fecha:new Date().toISOString()}};
     const b=new Blob([JSON.stringify(data,null,2)],{type:"application/json"});const a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="respaldo_dimensionamiento.json";a.click();};
   const importAll=e=>{const f=e.target.files[0];if(!f)return;const r=new FileReader();
-    r.onload=ev=>{try{const d=JSON.parse(ev.target.result);if(d.config)setCfg(d.config);if(d.portfolio)setPortfolio(d.portfolio);if(d.capacity)setCapacity(d.capacity);alert("Respaldo importado.");}catch(err){alert("Archivo no válido.");}};
+    r.onload=ev=>{try{const d=JSON.parse(ev.target.result);if(d.config)setCfg(d.config);if(d.portfolio)setPortfolio(d.portfolio);if(d.capacity)setCapacity(d.capacity);if(d.people)setPeople(d.people);if(d.assign)setAssign(d.assign);if(d.roadmap)setRoadmap(d.roadmap);if(d.calendar)setCalendar(d.calendar);alert("Respaldo importado.");}catch(err){alert("Archivo no válido.");}};
     r.readAsText(f);e.target.value="";};
-  const loadDemo=()=>{
-    if(!confirm("Esto cargará un portafolio de ejemplo y reemplazará las iniciativas y la capacidad actuales. ¿Continuar?"))return;
-    const E=EXAMPLES;
-    const mk=(id,nombre,ex,plazo,estado,real)=>({id:id,nombre:nombre,plazo:plazo,estado:estado,ans:E[ex].ans.slice(),tri:E[ex].tri.slice(),real:real||{fte:null,dur:null}});
-    const demo=[
-      mk(1001,"Ajuste de mensajes en App","pequena",3,"Cerrada",{fte:1.9,dur:3}),
-      mk(1002,"Pago con QR en App","mediana",6,"Activa",null),
-      mk(1003,"Originación de crédito con terceros","grande",9,"Activa",null),
-      mk(1004,"Nueva pantalla de saldos en App","pequena",4,"Activa",null),
-      mk(1005,"Motor antifraude de tarjetas","grande",12,"Evaluación",null),
-      mk(1006,"Reportes regulatorios de cartera","mediana",5,"Cerrada",{fte:2.6,dur:7})
-    ];
-    setPortfolio(demo);
-    setCapacity({"Product Owner / Negocio":1.5,"Analista negocio / funcional":1.5,"Arquitectura de solución":1,"Desarrollo Backend / API":2.5,"Desarrollo Frontend / Mobile":1.5,"QA / Automatización":1.5,"Seguridad / AppSec":1,"DevOps / Plataforma":1,"Datos / Integración":0.5,"UX/UI / Experiencia":0.5,"Operación / SRE":0.5});
-    setCur({id:null,nombre:E.grande.nombre,plazo:9,estado:"Evaluación",ans:E.grande.ans.slice(),tri:E.grande.tri.slice(),real:{fte:null,dur:null}});
-    setView("portafolio");
-    alert("Datos de ejemplo cargados. Recorre Portafolio, Capacidad y demanda, y Calibración.");
-  };
-
   const cycleTheme=()=>{const ks=Object.keys(THEMES);setTheme(ks[(ks.indexOf(theme)+1)%ks.length]);};
   const _tk=Object.keys(THEMES);const nextKey=_tk[(_tk.indexOf(theme)+1)%_tk.length];const nextColor=THEMES[nextKey].vars["--brand"];
-  const navItems=[["evaluar","Evaluar"],["portafolio","Portafolio"],["capacidad","Capacidad y demanda"],["calibracion","Calibración"],["sfia","Niveles SFIA"],["parametros","Parámetros"]];
+  const navItems=[["evaluar","Evaluar"],["portafolio","Portafolio"],["personas","Personas y asignación"],["capacidad","Capacidad y demanda"],["roadmap","Roadmap"],["calibracion","Calibración"],["sfia","Niveles SFIA"],["parametros","Parámetros"]];
   return (
    <div className={"app"+(collapsed?" collapsed":"")}>
     {collapsed&&<button className="menuopen" onClick={()=>setCollapsed(false)} title="Mostrar menú"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><line x1="3" y1="6" x2="21" y2="6"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="3" y1="18" x2="21" y2="18"/></svg></button>}
@@ -814,7 +1116,6 @@ function App(){
         {navItems.map(([k,l])=>(<button key={k} className={view===k?"on":""} onClick={()=>setView(k)}><Ico d={icons[k]}/>{l}</button>))}
       </div>
       <div className="io">
-        <button className="btn" style={{background:"linear-gradient(120deg,var(--brand),var(--brand2))",color:"#fff",border:"none",fontWeight:650,boxShadow:"0 6px 16px rgba(0,0,0,.16)"}} onClick={loadDemo}>★ Cargar datos demo</button>
         <div className="demo-ex"><span className="small muted">Cargar ejemplo</span>
           <button className="btn sm" onClick={()=>loadExample("pequena")}>Pequeña</button>
           <button className="btn sm" onClick={()=>loadExample("mediana")}>Mediana</button>
@@ -829,7 +1130,9 @@ function App(){
     <main className="main">
       {view==="evaluar"&&<Evaluar cfg={cfg} cur={cur} setCur={setCur} onSave={(c)=>saveToPf(c)} resetKey={resetKey} setTip={setTip}/>}
       {view==="portafolio"&&<Portafolio cfg={cfg} portfolio={portfolio} setPortfolio={setPortfolio} onEdit={editPf}/>}
-      {view==="capacidad"&&<Capacidad cfg={cfg} portfolio={portfolio} capacity={capacity} setCapacity={setCapacity}/>}
+      {view==="personas"&&<Personas cfg={cfg} portfolio={portfolio} people={people} setPeople={setPeople} assign={assign} setAssign={setAssign}/>}
+      {view==="capacidad"&&<Capacidad cfg={cfg} portfolio={portfolio} people={people} assign={assign}/>}
+      {view==="roadmap"&&<Roadmap cfg={cfg} portfolio={portfolio} roadmap={roadmap} setRoadmap={setRoadmap} calendar={calendar} setCalendar={setCalendar}/>}
       {view==="calibracion"&&<Calibracion cfg={cfg} portfolio={portfolio} setPortfolio={setPortfolio}/>}
       {view==="sfia"&&<Sfia/>}
       {view==="parametros"&&<Parametros cfg={cfg} setCfg={setCfg} onReset={reset}/>}
